@@ -2308,6 +2308,67 @@ button {
 }
 
 /* --------------------------------------------------------------------------
+   Reel-motion pass (2026-11-04): white theme unchanged, Manrope/navy/blue
+   unchanged. Motion is interaction-only, no loops. Principles taken from
+   the reel reference, not its content: things slide, never pop-swap;
+   numbers stay fixed-width while they change; only the changed digit
+   pops; one accent (blue) only; fast 200ms pops, 400ms slides, spring
+   easing from the existing tokens.
+   -------------------------------------------------------------------------- */
+@keyframes questCardIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes valuePop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes heroPop {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Each question slides in on mount. QuestPage keys QuestionCard by
+   question id, so changing question remounts it and re-runs this. */
+.question-card {
+  animation: questCardIn var(--dur-normal) var(--ease-spring) both;
+}
+
+.hero-emoji-icon {
+  animation: heroPop var(--dur-slow) var(--ease-spring) both;
+}
+
+/* Fixed-width digits: the number changes, the layout does not shift. */
+.slider-value,
+.score-number-big,
+.quest-xp-badge,
+.step-counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Slider number pops only when its value changes (keyed in QuestionCard). */
+.slider-value {
+  animation: valuePop var(--dur-fast) var(--ease-spring);
+}
+
+/* A picked option pops once, in blue only — no colour change. */
+.option-card.selected,
+.chip-button.selected,
+.scale-num-btn.selected {
+  animation: pickPop var(--dur-fast) var(--ease-spring);
+}
+
+/* --------------------------------------------------------------------------
    Reduced Motion (Section 10: Everything becomes instant)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
