@@ -50,6 +50,13 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             })}
           </ul>
         </nav>
+        <button
+          type="button"
+          className="nav-cta"
+          onClick={() => onNavigate('quest')}
+        >
+          Start Quest →
+        </button>
       </div>
     </header>
   );

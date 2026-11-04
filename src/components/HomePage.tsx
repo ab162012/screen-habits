@@ -24,15 +24,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </div>
         <div className="home-hero-slogan-chip" style={{ marginBottom: '12px' }}>
           <span className="chip-badge chip-slogan home-hero-slogan hero-slogan" style={{ fontSize: '13px' }}>
-            Know your screen. Own your time.
+            10 questions · No sign-up · 7-day challenge
           </span>
         </div>
         <h1 id="hero-title" className="home-hero-headline" style={{ fontSize: 'clamp(32px, 4.5vw, 48px)', fontWeight: 500, color: 'var(--navy)', lineHeight: 1.15, marginBottom: '16px' }}>
           Know your screen. Own your time.
         </h1>
         <p className="home-hero-subline" style={{ fontSize: '17px', color: 'var(--text-slate-600)', maxWidth: '560px', margin: '0 auto 28px', lineHeight: 1.6 }}>
-          A gamified, honest check designed for students to measure daily screen balance,
-          protect evening sleep, and build real-world routines that stick.
+          A 10-question check for students. Know your habit, pick one 7-day challenge.
         </p>
         <div className="home-hero-buttons">
           <button

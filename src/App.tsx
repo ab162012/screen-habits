@@ -209,8 +209,8 @@ export const App: React.FC = () => {
       {/* Top Navigation Bar */}
       <Navbar currentRoute={currentRoute} onNavigate={navigateTo} />
 
-      {/* Main Content Area */}
-      <main className="site-main" id="main-content">
+      {/* Main Content Area — keyed by route for the 200ms page fade */}
+      <main key={currentRoute} className="site-main" id="main-content">
         {currentRoute === 'home' && (
           <HomePage
             onNavigate={navigateTo}
