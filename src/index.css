@@ -2369,6 +2369,149 @@ button {
 }
 
 /* --------------------------------------------------------------------------
+   Design pass v2 (2026-11-04): 21st.dev patterns, in our own system only.
+   No copied code/text/images. White, navy, blue, Manrope unchanged.
+   No gradients, no new colours, no looping/shimmer. One medallion system:
+   every emoji/icon sits in a white circle with a blue-100 border, so
+   screens stop looking like loose text and start looking like one product.
+   -------------------------------------------------------------------------- */
+.emoji-medallion,
+.hero-emoji-icon,
+.section-hero-icon,
+.part-emoji-badge,
+.brand-emoji,
+.part-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  border-radius: 50%;
+  box-shadow: var(--shadow-soft);
+  flex-shrink: 0;
+}
+
+.hero-emoji-icon {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 16px;
+  box-shadow: var(--shadow-pop);
+}
+
+.section-hero-icon {
+  width: 64px;
+  height: 64px;
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.part-emoji-badge {
+  width: 48px;
+  height: 48px;
+}
+
+.brand-emoji {
+  width: 36px;
+  height: 36px;
+  background-color: var(--bg-subtle);
+}
+
+.part-emoji {
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+}
+
+/* Option / chip leading icons become small medallions, not inline text. */
+.card-emoji,
+.chip-emoji,
+.rec-icon-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-blue-100);
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-size: 1.125rem;
+  line-height: 1;
+}
+
+.chip-emoji {
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+}
+
+/* How-it-works steps: bigger, readable circular numbers, connected feel. */
+.step-num-badge {
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+  background-color: var(--navy);
+  border-color: var(--navy);
+  color: #FFFFFF;
+}
+
+/* World-class button hierarchy: both actions fully rounded, primary navy,
+   secondary white ghost. Primary already navy; this only rounds them. */
+.btn-primary,
+.btn-secondary {
+  border-radius: var(--radius-full);
+}
+
+.home-hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Cards: strict icon → title → short description, with a hover lift. */
+.step-card,
+.article-preview-card,
+.article-list-card {
+  transition: transform var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.step-card:hover,
+.article-preview-card:hover,
+.article-list-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-pop);
+}
+
+/* Quest step dots: done = blue, current = navy with ring, upcoming = dimmed. */
+.quest-step-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.quest-step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--border-blue-100);
+  border: 1px solid var(--border-blue-100);
+}
+
+.quest-step-dot.done {
+  background-color: var(--blue);
+  border-color: var(--blue);
+}
+
+.quest-step-dot.current {
+  background-color: var(--navy);
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px var(--bg-subtle);
+}
+
+/* --------------------------------------------------------------------------
    Reduced Motion (Section 10: Everything becomes instant)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {

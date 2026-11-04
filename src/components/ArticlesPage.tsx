@@ -10,7 +10,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({ onNavigate }) => {
     <div className="articles-page-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header: headline and one line explaining the articles */}
       <section className="articles-header" style={{ textAlign: 'center', padding: '16px 0 8px' }}>
-        <div style={{ fontSize: '64px', lineHeight: 1, marginBottom: '14px' }} aria-hidden="true">
+        <div className="emoji-medallion articles-header-emoji" style={{ width: '88px', height: '88px', fontSize: '48px', margin: '0 auto 14px' }} aria-hidden="true">
           📚
         </div>
         <h1 className="section-headline" style={{ marginBottom: '8px' }}>

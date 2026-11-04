@@ -38,6 +38,14 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
           style={{ width: `${progressPercent}%` }}
         />
       </div>
+      <div className="quest-step-dots" aria-hidden="true">
+        {Array.from({ length: totalQuestions }, (_, i) => (
+          <span
+            key={i}
+            className={`quest-step-dot ${i < currentQuestionIndex ? 'done' : i === currentQuestionIndex ? 'current' : ''}`}
+          />
+        ))}
+      </div>
     </header>
   );
 };
