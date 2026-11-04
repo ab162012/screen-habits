@@ -2512,6 +2512,140 @@ button {
 }
 
 /* --------------------------------------------------------------------------
+   Design pass v3 (2026-11-04): less cliche, more product.
+   - Hero becomes a banner: white card, blue border, dot-grid background
+     (dots in blue-100, not a colour gradient), plus a row of the four
+     part-emoji medallions — the emojis carry the colour, the brand stays
+     navy/blue. Same banner idea as our own ecomwebs hero: one card, one
+     headline, one action row, no extra sections.
+   - Grids get hierarchy: step/article cards keep icon → title → one line,
+     with a clear top row and hover lift, instead of flat text blocks.
+   - Hours becomes a rolling dial, like the reel picker: numbers roll,
+     snap to the centre band, only the centred number counts, fixed width,
+     one blue accent on the band.
+   -------------------------------------------------------------------------- */
+.home-hero {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  border-radius: 24px;
+  box-shadow: var(--shadow-card);
+  padding: 32px 24px;
+  background-image: radial-gradient(var(--border-blue-100) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+.home-hero-banner-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.home-hero-banner-row .emoji-medallion {
+  width: 44px;
+  height: 44px;
+  font-size: 1.25rem;
+}
+
+/* Grids: breathing room + a visible top row, so cards read as a grid. */
+.how-steps-grid,
+.articles-preview-grid,
+.articles-list-grid {
+  gap: 20px;
+}
+
+.step-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Hours dial */
+.hours-dial-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.hours-dial-btn {
+  width: 44px;
+  min-height: 44px;
+  align-self: center;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  color: var(--navy);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--dur-fast) var(--ease-standard), background-color var(--dur-fast);
+}
+
+.hours-dial-btn:hover {
+  background-color: var(--bg-subtle);
+  transform: scale(1.05);
+}
+
+.hours-dial-box {
+  position: relative;
+  flex: 1;
+}
+
+.hours-dial {
+  height: 180px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  padding: 62px 0;
+  background-color: var(--bg-page);
+  border: 1px solid var(--border-blue-100);
+  border-radius: var(--radius-2xl);
+}
+
+.hours-dial::-webkit-scrollbar {
+  display: none;
+}
+
+.hours-dial-band {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  right: 8px;
+  transform: translateY(-50%);
+  height: 56px;
+  border-top: 2px solid var(--blue);
+  border-bottom: 2px solid var(--blue);
+  background-color: rgba(37, 99, 235, 0.06);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hours-dial-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  scroll-snap-align: center;
+  background: none;
+  border: none;
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text-slate-400);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: font-size var(--dur-fast), color var(--dur-fast), transform var(--dur-fast);
+}
+
+.hours-dial-item.active {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--navy);
+  transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
    Reduced Motion (Section 10: Everything becomes instant)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
