@@ -2646,6 +2646,171 @@ button {
 }
 
 /* --------------------------------------------------------------------------
+   Design pass v4 (2026-11-04): proper UI/UX — liquid, morph, capsule.
+   Brand unchanged: white, navy #0A1F44, blue #2563EB, Manrope only.
+   No new colours, no dark sections, no copied work. Liquid = two soft
+   blue-tint blobs that slowly morph shape (border-radius + drift), never
+   flash or spin. Morph buttons = pill shape visibly changes on hover and
+   springs back on press. Capsule = every section and the brand/footer
+   sit in a rounded capsule/card, so the page reads as one formatted
+   product, not loose text. Reduced-motion still makes everything instant.
+   -------------------------------------------------------------------------- */
+@keyframes liquidMorph {
+  0% {
+    border-radius: 58% 42% 55% 45% / 52% 58% 42% 48%;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    border-radius: 45% 55% 48% 52% / 58% 45% 55% 42%;
+    transform: translate(14px, -10px) rotate(6deg) scale(1.06);
+  }
+  100% {
+    border-radius: 52% 48% 60% 40% / 45% 52% 48% 55%;
+    transform: translate(-10px, 8px) rotate(-4deg) scale(0.98);
+  }
+}
+
+.site-wrapper {
+  position: relative;
+}
+
+.site-wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 420px at 12% 8%, rgba(219, 234, 254, 0.85), transparent 70%),
+    radial-gradient(520px 400px at 88% 28%, rgba(239, 246, 255, 0.9), transparent 70%),
+    radial-gradient(720px 520px at 50% 108%, rgba(219, 234, 254, 0.55), transparent 70%);
+}
+
+.top-navbar,
+.site-main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Liquid inside the two hero surfaces: hero banner + question card. */
+.home-hero,
+.question-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero::after,
+.question-card::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  background-color: rgba(219, 234, 254, 0.55);
+  animation: liquidMorph 14s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home-hero::after {
+  top: -90px;
+  right: -70px;
+}
+
+.question-card::after {
+  width: 220px;
+  height: 220px;
+  bottom: -90px;
+  left: -70px;
+  background-color: rgba(239, 246, 255, 0.9);
+}
+
+.home-hero > *,
+.question-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Morph buttons: pill → softer square on hover, spring back on press. */
+.btn-primary,
+.btn-secondary,
+.btn-next,
+.btn-back,
+.skip-button {
+  transition: transform var(--dur-fast) var(--ease-spring),
+    border-radius var(--dur-fast) var(--ease-spring),
+    background-color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-next:hover,
+.btn-back:hover {
+  border-radius: 20px;
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: var(--shadow-pop);
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-next:active,
+.btn-back:active,
+.skip-button:active {
+  border-radius: var(--radius-full);
+  transform: scale(0.96);
+}
+
+.option-card,
+.chip-button,
+.scale-num-btn {
+  transition: transform var(--dur-fast) var(--ease-spring),
+    border-radius var(--dur-fast) var(--ease-spring),
+    border-color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard);
+}
+
+.option-card:hover,
+.chip-button:hover,
+.scale-num-btn:hover {
+  border-radius: 20px;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-pop);
+}
+
+/* Capsuling + formatting: sections, brand and footer as capsules. */
+.home-page {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.home-page .how-it-works-section {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+}
+
+.nav-brand {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-blue-100);
+  border-radius: var(--radius-full);
+  padding: 6px 12px 6px 6px;
+}
+
+.site-footer {
+  width: calc(100% - 32px);
+  max-width: 1152px;
+  margin: 0 auto 16px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* --------------------------------------------------------------------------
    Reduced Motion (Section 10: Everything becomes instant)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
