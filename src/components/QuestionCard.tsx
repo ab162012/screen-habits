@@ -32,7 +32,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
           <div className="slider-display">
             {typeof value === 'number' ? (
               <>
-                <span className="slider-value">{value.toFixed(1)}</span>
+                {/* key = only the changed number pops; layout stays fixed-width */}
+                <span key={value.toFixed(1)} className="slider-value">{value.toFixed(1)}</span>
                 <span className="slider-unit">{question.unit || 'hours / day'}</span>
               </>
             ) : (

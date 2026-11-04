@@ -157,7 +157,9 @@ export const QuestPage: React.FC<QuestPageProps> = ({
       />
 
       {/* Question Card (User's original component) */}
+      {/* key = remount per question, so the card slides in instead of pop-swapping */}
       <QuestionCard
+        key={currentQuestion.id}
         question={currentQuestion}
         value={currentValue}
         onChange={(val) => onUpdateAnswer(currentQuestion.id, val)}
