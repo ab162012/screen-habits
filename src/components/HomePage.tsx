@@ -43,6 +43,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           >
             {hasExistingAnswers ? 'Continue the Quest' : 'Start the Quest'}
           </button>
+          <button
+            type="button"
+            className="btn-secondary"
+            style={{ minHeight: '52px', padding: '14px 32px', fontSize: '16px' }}
+            onClick={() => onNavigate('articles')}
+          >
+            Read Articles
+          </button>
         </div>
       </section>
 
