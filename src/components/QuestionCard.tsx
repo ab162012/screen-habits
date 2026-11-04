@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import type { Question } from '../types';
 
 interface QuestionCardProps {
@@ -16,6 +16,71 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   onSkip,
   isSkipped
 }) => {
+  // Hours dial (reel-style rolling picker, Q1 only): values roll vertically,
+  // snap to the centre, and only the centred value is the answer.
+  const dialRef = useRef<HTMLDivElement>(null);
+  const programmaticRef = useRef(false);
+  const scrollTimerRef = useRef<number | undefined>(undefined);
+  const dialValues = useMemo(() => {
+    const min = question.min || 1;
+    const max = question.max || 16;
+    const step = question.step || 0.5;
+    const out: number[] = [];
+    for (let v = min; v <= max + 0.0001; v += step) out.push(Math.round(v * 10) / 10);
+    return out;
+  }, [question.min, question.max, question.step]);
+  const dialItemHeight = 56;
+
+  // Scroll the dial to the saved answer (or 6h as a neutral centre) on
+  // question change, without calling onChange — scrolling alone must
+  // never create an answer.
+  useEffect(() => {
+    const el = dialRef.current;
+    if (!el || question.type !== 'slider') return;
+    const target = typeof value === 'number' ? value : 6;
+    const idx = dialValues.findIndex((v) => Math.abs(v - target) < 0.001);
+    if (idx < 0) return;
+    programmaticRef.current = true;
+    el.scrollTop = idx * dialItemHeight;
+    window.setTimeout(() => {
+      programmaticRef.current = false;
+    }, 150);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [question.id]);
+
+  const handleDialScroll = () => {
+    const el = dialRef.current;
+    if (!el || programmaticRef.current) return;
+    window.clearTimeout(scrollTimerRef.current);
+    scrollTimerRef.current = window.setTimeout(() => {
+      const idx = Math.round(el.scrollTop / dialItemHeight);
+      const next = dialValues[Math.min(Math.max(idx, 0), dialValues.length - 1)];
+      if (next !== undefined && next !== value) onChange(next);
+    }, 120);
+  };
+
+  const selectDial = (v: number) => {
+    const el = dialRef.current;
+    const idx = dialValues.findIndex((x) => Math.abs(x - v) < 0.001);
+    if (el && idx >= 0) {
+      programmaticRef.current = true;
+      el.scrollTo({ top: idx * dialItemHeight, behavior: 'smooth' });
+      window.setTimeout(() => {
+        programmaticRef.current = false;
+      }, 300);
+    }
+    onChange(v);
+  };
+
+  const stepDial = (dir: 1 | -1) => {
+    if (typeof value !== 'number') {
+      selectDial(6);
+      return;
+    }
+    const idx = dialValues.findIndex((v) => Math.abs(v - value) < 0.001);
+    const next = dialValues[Math.min(Math.max(idx + dir, 0), dialValues.length - 1)];
+    if (next !== undefined) selectDial(next);
+  };
   return (
     <article className="question-card" key={question.id}>
       <div className="section-hero-icon" aria-hidden="true">
@@ -26,7 +91,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
         <h1 className="question-title">{question.title}</h1>
       </div>
 
-      {/* Answer Type 1: Hours Slider */}
+      {/* Answer Type 1: Hours Dial — scroll it like the reel's rolling picker.
+          Flick/scroll, it glides and snaps to the centre value. The centre
+          band is the one blue accent. +/- and arrow keys work too. */}
       {question.type === 'slider' && (
         <div className="slider-container">
           <div className="slider-display">
@@ -37,21 +104,38 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 <span className="slider-unit">{question.unit || 'hours / day'}</span>
               </>
             ) : (
-              <span className="slider-unset-prompt">Drag slider to set your hours</span>
+              <span className="slider-unset-prompt">Scroll the dial to set your hours</span>
             )}
           </div>
 
-          <input
-            type="range"
-            min={question.min || 1}
-            max={question.max || 16}
-            step={question.step || 0.5}
-            value={typeof value === 'number' ? value : 6}
-            onChange={(e) => onChange(parseFloat(e.target.value))}
-            onInput={(e) => onChange(parseFloat((e.target as HTMLInputElement).value))}
-            className={`hours-slider ${typeof value !== 'number' ? 'slider-unselected' : ''}`}
-            aria-label={question.title}
-          />
+          <div className="hours-dial-wrap">
+            <button type="button" className="hours-dial-btn" onClick={() => stepDial(-1)} aria-label="Decrease hours">
+              −
+            </button>
+            <div className="hours-dial-box">
+              <div className="hours-dial-band" aria-hidden="true" />
+              <div className="hours-dial" ref={dialRef} onScroll={handleDialScroll} role="listbox" aria-label={question.title}>
+              {dialValues.map((v) => {
+                const isActive = value === v;
+                return (
+                  <button
+                    key={v}
+                    type="button"
+                    role="option"
+                    aria-selected={isActive}
+                    className={`hours-dial-item ${isActive ? 'active' : ''}`}
+                    onClick={() => selectDial(v)}
+                  >
+                    {v.toFixed(1)}
+                  </button>
+                );
+              })}
+              </div>
+            </div>
+            <button type="button" className="hours-dial-btn" onClick={() => stepDial(1)} aria-label="Increase hours">
+              +
+            </button>
+          </div>
 
           <div className="slider-ticks">
             <span>{question.min || 1}h</span>

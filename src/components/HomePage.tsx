@@ -52,6 +52,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
             Read Articles
           </button>
         </div>
+        <div className="home-hero-banner-row" aria-hidden="true">
+          <span className="emoji-medallion">📱</span>
+          <span className="emoji-medallion">📲</span>
+          <span className="emoji-medallion">🌙</span>
+          <span className="emoji-medallion">🎯</span>
+        </div>
       </section>
 
       {/* 2. How it works, in 3 steps only: 1. Answer 10 questions. 2. Get your result. 3. Pick one 7-day challenge. */}
@@ -61,21 +67,30 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </h2>
         <div className="how-steps-grid">
           <div className="step-card">
-            <div className="step-num-badge">1</div>
+            <div className="step-card-top">
+              <div className="step-num-badge">1</div>
+              <span className="emoji-medallion" style={{ width: '44px', height: '44px', fontSize: '1.25rem' }} aria-hidden="true">📱</span>
+            </div>
             <h3 className="step-card-title">1. Answer 10 questions</h3>
             <p className="step-card-desc">
               Move through Devices & Time, Apps & Scrolling, Night & Sleep, and Body & Focus in 10 quick screens.
             </p>
           </div>
           <div className="step-card">
-            <div className="step-num-badge">2</div>
+            <div className="step-card-top">
+              <div className="step-num-badge">2</div>
+              <span className="emoji-medallion" style={{ width: '44px', height: '44px', fontSize: '1.25rem' }} aria-hidden="true">🏆</span>
+            </div>
             <h3 className="step-card-title">2. Get your result</h3>
             <p className="step-card-desc">
               Receive your personal balance score, honest habit band in words, and top 3 practical actions.
             </p>
           </div>
           <div className="step-card">
-            <div className="step-num-badge">3</div>
+            <div className="step-card-top">
+              <div className="step-num-badge">3</div>
+              <span className="emoji-medallion" style={{ width: '44px', height: '44px', fontSize: '1.25rem' }} aria-hidden="true">✅</span>
+            </div>
             <h3 className="step-card-title">3. Pick one 7-day challenge</h3>
             <p className="step-card-desc">
               Choose between phone-free breaks or a 9pm cut-off to test and film with your student team.
