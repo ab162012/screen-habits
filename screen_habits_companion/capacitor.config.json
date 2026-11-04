@@ -1,0 +1,14 @@
+{
+  "appId": "com.screenhabits.companion",
+  "appName": "Screen Habits Companion",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "iconColor": "#7C3AED"
+    }
+  }
+}

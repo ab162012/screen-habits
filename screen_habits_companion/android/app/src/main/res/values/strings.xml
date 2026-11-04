@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Screen Habits Companion</string>
+    <string name="title_activity_main">Screen Habits Companion</string>
+    <string name="package_name">com.screenhabits.companion</string>
+    <string name="custom_url_scheme">com.screenhabits.companion</string>
+</resources>
