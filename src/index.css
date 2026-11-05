@@ -1,17 +1,18 @@
 /* ==========================================================================
    Screen Habits — Know your screen. Own your time.
    Full Design System (Section 3) & Animation System (Section 10)
-   Colours (exact two26 tokens, whole site):
-     Cream #FFF6E8 (page background)
-     Orange #FF4D00 (headlines, primary accent)
-     Peach #FFD9C2 (subtle backgrounds, borders)
-     Pale pink #FFE8E0 (preloader only, unused here)
-     Black #141414 (ink, headlines, hard shadows)
+   Colours (restored 2026-11-05, declutter pass — white/navy/blue):
+     Navy #0A1F44 (headlines, dark text)
+     Blue #2563EB (primary buttons, active borders, links)
+     Hover Blue #1D4ED8
+     Light backgrounds #F8FAFC and #EFF6FF
+     Blue-100 borders #DBEAFE
+     Slate-600 #475569 (body text)
+     Slate border #CBD5E1 (option cards unselected)
      White cards #FFFFFF
      Disabled #E2E8F0 / #94A3B8
-   Type (exact two26 fonts):
-     Anton (headlines, condensed, uppercase)
-     Archivo (body, 400/500/600/700/800).
+   Type:
+     Manrope ONLY (400 regular, 500 medium, 600 semibold).
    Animation:
      Fast: 200ms | Normal: 400ms | Slow: 700ms
      Easing: ease-out | Soft spring: cubic-bezier(0.34, 1.3, 0.64, 1)
@@ -21,45 +22,45 @@
 
 :root {
   /* Exact Section 3 Colour Palette */
-  --navy: #141414;
-  --blue: #FF4D00;
-  --blue-hover: #E04400;
-  --blue-dark: #141414;
-  --bg-page: #FFF6E8;
-  --bg-subtle: #FFD9C2;
-  --border-blue-100: #FFD9C2;
-  --border-slate: #141414;
-  --text-slate-800: #141414;
-  --text-slate-600: #4A4440;
-  --text-slate-400: #8A8178;
+  --navy: #0A1F44;
+  --blue: #2563EB;
+  --blue-hover: #1D4ED8;
+  --blue-dark: #1E40AF;
+  --bg-page: #F8FAFC;
+  --bg-subtle: #EFF6FF;
+  --border-blue-100: #DBEAFE;
+  --border-slate: #CBD5E1;
+  --text-slate-800: #0A1F44;
+  --text-slate-600: #475569;
+  --text-slate-400: #94A3B8;
   --card-bg: #FFFFFF;
   --bg-card: #FFFFFF;
-  --bg-paper: #FFF6E8;
-  --bg-result-paper: #FFF6E8;
-  --border-subtle: #FFD9C2;
-  --border-card: #FFD9C2;
+  --bg-paper: #F8FAFC;
+  --bg-result-paper: #F8FAFC;
+  --border-subtle: #DBEAFE;
+  --border-card: #DBEAFE;
   --disabled-bg: #E2E8F0;
   --disabled-text: #94A3B8;
 
   /* Aliasing legacy/user tokens strictly to the Section 3 Blue/Navy palette */
-  --terracotta-primary: #FF4D00;
-  --terracotta-shade-1: #E04400;
-  --terracotta-shade-2: #141414;
-  --terracotta-tint-1: #FFD9C2;
-  --terracotta-tint-2: #FFD9C2;
-  --terracotta-border: #FFD9C2;
+  --terracotta-primary: #2563EB;
+  --terracotta-shade-1: #1D4ED8;
+  --terracotta-shade-2: #0A1F44;
+  --terracotta-tint-1: #EFF6FF;
+  --terracotta-tint-2: #DBEAFE;
+  --terracotta-border: #DBEAFE;
 
-  --teal-primary: #FF4D00;
-  --teal-shade-1: #E04400;
-  --teal-shade-2: #141414;
-  --teal-tint-1: #FFD9C2;
-  --teal-tint-2: #FFD9C2;
-  --teal-border: #FFD9C2;
+  --teal-primary: #2563EB;
+  --teal-shade-1: #1D4ED8;
+  --teal-shade-2: #0A1F44;
+  --teal-tint-1: #EFF6FF;
+  --teal-tint-2: #DBEAFE;
+  --teal-border: #DBEAFE;
 
-  --amber-primary: #FF4D00;
-  --amber-shade: #E04400;
-  --amber-tint: #FFD9C2;
-  --amber-border: #FFD9C2;
+  --amber-primary: #2563EB;
+  --amber-shade: #1D4ED8;
+  --amber-tint: #EFF6FF;
+  --amber-border: #DBEAFE;
 
   /* Corners (Section 3: Cards rounded 2xl, buttons/inputs/options rounded xl, chips fully rounded) */
   --radius-sm: 8px;
@@ -70,11 +71,11 @@
   --radius-full: 9999px;
 
   /* Shadows (Section 3: Soft only) */
-  --shadow-sm: 2px 2px 0 #141414;
-  --shadow-soft: 3px 3px 0 #141414;
-  --shadow-card: 4px 4px 0 #141414;
-  --shadow-pop: 6px 6px 0 #141414;
-  --shadow-btn: 4px 4px 0 #141414;
+  --shadow-sm: 0 1px 3px rgba(10, 31, 68, 0.05);
+  --shadow-soft: 0 2px 8px rgba(10, 31, 68, 0.05);
+  --shadow-card: 0 4px 14px rgba(10, 31, 68, 0.06);
+  --shadow-pop: 0 8px 24px rgba(37, 99, 235, 0.12);
+  --shadow-btn: 0 4px 12px rgba(37, 99, 235, 0.22);
 
   /* Animation Tokens (Section 10) */
   --dur-fast: 200ms;
@@ -84,12 +85,12 @@
   --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
 }
 
-/* Base Reset & Archivo Typography (two26 fonts) */
+/* Base Reset & Manrope Typography */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Archivo', Arial, sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 400;
   -webkit-tap-highlight-color: transparent;
 }
@@ -104,11 +105,8 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Anton', 'Archivo', sans-serif;
   color: var(--navy);
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 0.95;
+  font-weight: 500;
 }
 
 b, strong {
@@ -193,10 +191,10 @@ button {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(255, 246, 232, 0.95);
+  background-color: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--navy);
+  border-bottom: 1px solid var(--border-blue-100);
   padding: 0 16px;
 }
 
@@ -762,7 +760,7 @@ button {
   width: 100%;
   max-width: 440px;
   padding: 24px 20px;
-  box-shadow: 0 16px 40px rgba(20, 20, 20, 0.12);
+  box-shadow: 0 16px 40px rgba(10, 31, 68, 0.12);
   display: flex;
 }
 
@@ -1444,9 +1442,9 @@ button {
   z-index: 40;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  border-top: 2px solid var(--navy);
+  border-top: 1px solid var(--border-blue-100);
   padding: 12px 16px max(14px, env(safe-area-inset-bottom)) 16px;
-  background-color: rgba(255, 246, 232, 0.96);
+  background-color: rgba(255, 255, 255, 0.96);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -2615,7 +2613,7 @@ button {
   height: 56px;
   border-top: 2px solid var(--blue);
   border-bottom: 2px solid var(--blue);
-  background-color: rgba(255, 77, 0, 0.06);
+  background-color: rgba(37, 99, 235, 0.06);
   border-radius: 12px;
   pointer-events: none;
   z-index: 1;
@@ -2728,28 +2726,10 @@ button {
   width: calc(100% - 32px);
   max-width: 1152px;
   margin: 0 auto 16px;
-  background-color: var(--blue);
-  color: #FFF6E8;
-  border: 2px solid var(--navy);
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
   border-radius: 24px;
-  box-shadow: 6px 6px 0 var(--navy);
-}
-
-.site-footer .footer-nav-links a,
-.site-footer .footer-nav-row a {
-  color: #FFF6E8;
-}
-
-.site-footer .footer-slogan-text {
-  font-family: 'Anton', 'Archivo', sans-serif;
-  font-size: 28px;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: #FFF6E8;
-}
-
-.site-footer .footer-credits-text {
-  color: rgba(255, 246, 232, 0.8);
+  box-shadow: var(--shadow-soft);
 }
 
 /* --------------------------------------------------------------------------
@@ -2836,7 +2816,7 @@ button {
 .article-preview-card:hover,
 .article-list-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(20, 20, 20, 0.12);
+  box-shadow: 0 12px 28px rgba(10, 31, 68, 0.12);
 }
 
 .step-card:hover .emoji-medallion,
@@ -2900,9 +2880,9 @@ button {
      Locked = grey, not clickable. No gradients, no new colours.
    -------------------------------------------------------------------------- */
 @keyframes pathPulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 77, 0, 0.35), 4px 4px 0 var(--navy); }
-  70% { box-shadow: 0 0 0 12px rgba(255, 77, 0, 0), 4px 4px 0 var(--navy); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 77, 0, 0), 4px 4px 0 var(--navy); }
+  0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.35), 4px 4px 0 var(--navy); }
+  70% { box-shadow: 0 0 0 12px rgba(37, 99, 235, 0), 4px 4px 0 var(--navy); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0), 4px 4px 0 var(--navy); }
 }
 
 .path-map {
@@ -3102,8 +3082,9 @@ button {
    tiny caps micro-labels, giant split headlines, sticker badges, one
    sentence per section, hard shadows, 72px section spacing, 1200px max.
    Colours are now the exact two26 tokens, whole site (user's call,
-   2026-11-05): cream #FFF6E8, orange #FF4D00, peach #FFD9C2,
-   black #141414, white cards. Anton + Archivo replace Manrope.
+   2026-11-05, declutter pass): restored to white/navy/blue/Manrope.
+   The cream/orange/Anton swap is superseded — see the exact-two26
+   commit f56c2399 for the tokens that were used, then reverted.
    -------------------------------------------------------------------------- */
 .home-page,
 .result-composed-page,
@@ -3113,7 +3094,7 @@ button {
 }
 
 .home-page > section {
-  margin-bottom: 72px;
+  margin-bottom: 48px;
 }
 
 .home-page > section:last-child {
@@ -3131,30 +3112,23 @@ button {
 }
 
 .home-hero-headline {
-  font-family: 'Anton', 'Archivo', sans-serif;
-  font-size: clamp(56px, 10vw, 120px);
-  font-weight: 400;
-  line-height: 0.88;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 20px;
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 16px;
 }
 
 .section-headline {
-  font-family: 'Anton', 'Archivo', sans-serif;
-  font-size: clamp(44px, 6vw, 76px);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 500;
   color: var(--navy);
 }
 
 .t26-sticker {
   display: inline-block;
   transform: rotate(-2deg);
-  background-color: var(--navy);
+  background-color: var(--blue);
   color: #FFFFFF;
   font-size: 13px;
   font-weight: 600;
@@ -3162,52 +3136,45 @@ button {
   text-transform: uppercase;
   padding: 8px 14px;
   border-radius: var(--radius-full);
-  box-shadow: 3px 3px 0 var(--blue);
+  box-shadow: 3px 3px 0 var(--navy);
   margin-top: 20px;
 }
 
 /* Hard shadows, navy — two26's hard-shadow rhythm, our colour. */
 .home-hero {
-  border: 2px solid var(--navy);
-  box-shadow: 6px 6px 0 var(--blue);
+  border: 1px solid var(--border-blue-100);
+  box-shadow: var(--shadow-card);
 }
 
 .step-card,
 .article-preview-card,
 .article-list-card {
-  border: 2px solid var(--navy);
-  box-shadow: 4px 4px 0 var(--navy);
+  border: 1px solid var(--border-blue-100);
+  box-shadow: var(--shadow-soft);
 }
 
 .step-card:hover,
 .article-preview-card:hover,
 .article-list-card:hover {
-  box-shadow: 6px 6px 0 var(--blue);
+  box-shadow: var(--shadow-pop);
 }
 
 /* Question + Result headlines, same giant split treatment. */
 .question-title {
-  font-family: 'Anton', 'Archivo', sans-serif;
-  font-size: clamp(36px, 5vw, 56px);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  color: var(--navy);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .result-band-title {
-  font-size: clamp(24px, 3.5vw, 36px);
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
+  font-size: 1.25rem;
 }
 
 .article-card-title {
-  font-family: 'Anton', 'Archivo', sans-serif;
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
   color: var(--navy);
 }
 
@@ -3223,20 +3190,20 @@ button {
    Improvements pass (2026-11-05): from the reverse-engineering map.
    - Honest-rules strip: the scoring rules, on Home, in two26 black pills.
    - Skip link: keyboard users jump straight to content.
-   - Score number: Anton, like every other big number on the site.
+   - Score number: Manrope, like every other big number on the site.
    -------------------------------------------------------------------------- */
 .honest-rules-strip {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 72px;
+  margin-bottom: 48px;
 }
 
 .honest-rule {
   display: inline-block;
   background-color: var(--navy);
-  color: #FFF6E8;
+  color: #FFFFFF;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -3252,7 +3219,7 @@ button {
   top: -60px;
   z-index: 200;
   background-color: var(--navy);
-  color: #FFF6E8;
+  color: #FFFFFF;
   font-size: 14px;
   font-weight: 600;
   padding: 10px 16px;
@@ -3266,10 +3233,8 @@ button {
 }
 
 .score-number-big {
-  font-family: 'Anton', 'Archivo', sans-serif;
-  font-size: 3rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-size: 2.375rem;
+  font-weight: 500;
 }
 
 /* --------------------------------------------------------------------------
@@ -3290,13 +3255,10 @@ img, svg {
   max-width: 100%;
 }
 
-/* Navbar: brand in Anton, two rows on phones, links scroll, never overflow. */
+/* Navbar: two rows on phones, links scroll, never overflow. */
 .nav-brand {
-  font-family: 'Anton', 'Archivo', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 @media (max-width: 639px) {
@@ -3328,7 +3290,7 @@ img, svg {
   }
 }
 
-/* Headlines: same Anton split, sized down so they never clip on phones. */
+/* Headlines: sized down so they never clip on phones. */
 @media (max-width: 639px) {
   .home-hero-headline {
     font-size: clamp(40px, 11vw, 56px);

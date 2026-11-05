@@ -10,12 +10,6 @@ interface HomePageProps {
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswers }) => {
   const previewArticles = ARTICLES.slice(0, 3);
 
-  // SVG Sample Ring calculations
-  const sampleRadius = 48;
-  const sampleCircumference = 2 * Math.PI * sampleRadius;
-  const sampleScore = 84;
-  const sampleOffset = sampleCircumference - (sampleScore / 100) * sampleCircumference;
-
   return (
     <div className="home-page">
       {/* 1. Hero: slogan in large navy Manrope, 📱 hero visual (64-80px), one clear button: Start the Quest */}
@@ -52,12 +46,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           >
             Read Articles
           </button>
-        </div>
-        <div className="home-hero-banner-row" aria-hidden="true">
-          <span className="emoji-medallion">📱</span>
-          <span className="emoji-medallion">📲</span>
-          <span className="emoji-medallion">🌙</span>
-          <span className="emoji-medallion">🎯</span>
         </div>
         <span className="t26-sticker">Honest check · No fake scores</span>
       </section>
@@ -128,68 +116,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </div>
       </section>
 
-      {/* 3. Result preview: sample score ring & sample band in words, clearly labelled as a preview, not a real result */}
-      <section className="how-it-works-section" aria-labelledby="preview-title">
-        <span className="t26-kicker">04 — Result Preview</span>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-          <h2 id="preview-title" className="section-headline">
-            Result Preview
-          </h2>
-          <span className="chip-badge" style={{ backgroundColor: 'var(--bg-subtle)', borderColor: 'var(--border-blue-100)', color: 'var(--blue)', fontSize: '12px' }}>
-            Preview Only • Not a Real Result
-          </span>
-        </div>
-        <div className="result-card" style={{ padding: '28px 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {/* Sample Ring */}
-            <div style={{ position: 'relative', width: '120px', height: '120px' }}>
-              <svg viewBox="0 0 120 120" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }} aria-label="Sample Score Ring: 84 of 100">
-                <circle
-                  cx="60"
-                  cy="60"
-                  r={sampleRadius}
-                  style={{ fill: 'none', stroke: 'var(--bg-subtle)', strokeWidth: '8px' }}
-                />
-                <circle
-                  cx="60"
-                  cy="60"
-                  r={sampleRadius}
-                  style={{
-                    fill: 'none',
-                    stroke: 'var(--blue)',
-                    strokeWidth: '8px',
-                    strokeLinecap: 'round',
-                    strokeDasharray: sampleCircumference,
-                    strokeDashoffset: sampleOffset
-                  }}
-                />
-              </svg>
-              <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '2rem', fontWeight: 500, color: 'var(--navy)', lineHeight: 1 }}>{sampleScore}</span>
-                <span style={{ fontSize: '0.6875rem', color: 'var(--text-slate-400)', marginTop: '2px' }}>out of 100</span>
-              </div>
-            </div>
-
-            {/* Sample Band Details */}
-            <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '6px', maxWidth: '380px' }}>
-              <span className="band-pill" style={{ alignSelf: 'flex-start' }}>
-                <span className="band-pill-emoji" aria-hidden="true">🏆</span>
-                Thriving Band (Sample)
-              </span>
-              <p style={{ fontSize: '15px', color: 'var(--navy)', fontWeight: 500, lineHeight: 1.45, marginTop: '4px' }}>
-                Sample diagnostic preview showing clear placement into Thriving, Balanced, Strained, or Overloaded.
-              </p>
-              <p style={{ fontSize: '13px', color: 'var(--text-slate-600)' }}>
-                Your actual score is calculated only from your answered questions when you take the Quest.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Articles teaser: 3 article cards, each linking to a real article page */}
+      {/* 3. Articles teaser: 3 article cards, each linking to a real article page */}
       <section className="how-it-works-section" aria-labelledby="articles-preview-title">
-        <span className="t26-kicker">05 — Guides</span>
+        <span className="t26-kicker">04 — Guides</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span style={{ fontSize: '40px', lineHeight: 1 }} aria-hidden="true">📚</span>
           <h2 id="articles-preview-title" className="section-headline">

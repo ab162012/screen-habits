@@ -36,7 +36,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           particleCount: 14,
           spread: 55,
           origin: { y: 0.65 },
-          colors: ['#FF4D00', '#141414', '#FFD9C2', '#FFF6E8']
+          colors: ['#2563EB', '#1D4ED8', '#60A5FA', '#DBEAFE']
         });
       } catch {
         // Fallback
