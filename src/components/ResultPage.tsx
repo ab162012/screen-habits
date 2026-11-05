@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { calculateReport, QUESTIONS, APP_SLOGAN } from '../questions';
 import type { AnswersState, UserProfile, ChallengeType } from '../types';
+import { PathMap } from './PathMap';
 
 interface ResultPageProps {
   answers: AnswersState;
@@ -214,6 +215,12 @@ FILMING & COMPETITION NOTES
 
   return (
     <div className="result-composed-page">
+      {/* Path walked: every node you actually answered, in navy — finish screen */}
+      <PathMap
+        variant="strip"
+        currentStep={QUESTIONS.length}
+        answers={answers}
+      />
       {/* 1. HERO CARD (User's authentic design) */}
       <section className="result-card result-hero-card">
         {/* Name and class chips at the top */}

@@ -6,6 +6,7 @@ import {
 } from '../questions';
 import type { AnswersState, UserProfile } from '../types';
 import { ProgressBar } from './ProgressBar';
+import { PathMap } from './PathMap';
 import { QuestionCard } from './QuestionCard';
 import { NameClassDialog } from './NameClassDialog';
 
@@ -125,6 +126,27 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         onSkip={onCloseDialog}
       />
 
+      {/* Lesson top bar: X, segmented progress, XP — always visible */}
+      <div className="lesson-top" aria-label="Lesson progress">
+        <button
+          type="button"
+          className="lesson-close"
+          onClick={() => { window.location.hash = '#home'; }}
+          aria-label="Leave quest and go home"
+        >
+          ✕
+        </button>
+        <div className="lesson-segments" aria-hidden="true">
+          {QUESTIONS.map((q, i) => (
+            <span
+              key={q.id}
+              className={`lesson-segment ${isQuestionAnswered(q, answers[q.id]) ? 'done' : i === safeStep ? 'current' : ''}`}
+            />
+          ))}
+        </div>
+        <span className={`lesson-xp ${xpPopping ? 'xp-pop' : ''}`}>{currentXP} XP</span>
+      </div>
+
       {/* Gamification Bar */}
       <section className="quest-gamification-bar" aria-label="Quest Progress & Gamification">
         <div className="quest-gamification-header">
@@ -146,6 +168,14 @@ export const QuestPage: React.FC<QuestPageProps> = ({
           </div>
         )}
       </section>
+
+      {/* Path strip: the whole 10-node path at a glance, tap a done node to go back */}
+      <PathMap
+        variant="strip"
+        currentStep={safeStep}
+        answers={answers}
+        onSelect={onStepChange}
+      />
 
       {/* Progress Bar (User's original component) */}
       <ProgressBar

@@ -2530,8 +2530,6 @@ button {
   border-radius: 24px;
   box-shadow: var(--shadow-card);
   padding: 32px 24px;
-  background-image: radial-gradient(var(--border-blue-100) 1.2px, transparent 1.2px);
-  background-size: 24px 24px;
 }
 
 .home-hero-banner-row {
@@ -2655,82 +2653,6 @@ button {
    sit in a rounded capsule/card, so the page reads as one formatted
    product, not loose text. Reduced-motion still makes everything instant.
    -------------------------------------------------------------------------- */
-@keyframes liquidMorph {
-  0% {
-    border-radius: 58% 42% 55% 45% / 52% 58% 42% 48%;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-  }
-  50% {
-    border-radius: 45% 55% 48% 52% / 58% 45% 55% 42%;
-    transform: translate(14px, -10px) rotate(6deg) scale(1.06);
-  }
-  100% {
-    border-radius: 52% 48% 60% 40% / 45% 52% 48% 55%;
-    transform: translate(-10px, 8px) rotate(-4deg) scale(0.98);
-  }
-}
-
-.site-wrapper {
-  position: relative;
-}
-
-.site-wrapper::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(600px 420px at 12% 8%, rgba(219, 234, 254, 0.85), transparent 70%),
-    radial-gradient(520px 400px at 88% 28%, rgba(239, 246, 255, 0.9), transparent 70%),
-    radial-gradient(720px 520px at 50% 108%, rgba(219, 234, 254, 0.55), transparent 70%);
-}
-
-.top-navbar,
-.site-main,
-.site-footer {
-  position: relative;
-  z-index: 1;
-}
-
-/* Liquid inside the two hero surfaces: hero banner + question card. */
-.home-hero,
-.question-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.home-hero::after,
-.question-card::after {
-  content: "";
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  background-color: rgba(219, 234, 254, 0.55);
-  animation: liquidMorph 14s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.home-hero::after {
-  top: -90px;
-  right: -70px;
-}
-
-.question-card::after {
-  width: 220px;
-  height: 220px;
-  bottom: -90px;
-  left: -70px;
-  background-color: rgba(239, 246, 255, 0.9);
-}
-
-.home-hero > *,
-.question-card > * {
-  position: relative;
-  z-index: 1;
-}
-
 /* Morph buttons: pill → softer square on hover, spring back on press. */
 .btn-primary,
 .btn-secondary,
@@ -2944,6 +2866,214 @@ button {
   .nav-cta {
     display: none;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Path Template (2026-11-05): one system, replacing patch layers v1–v5.
+   v4 liquid blobs + v3 dot-grid removed above — they fought the PopButton
+   system. What stays: page fade, 80ms stagger, PopButton hard blue shadow,
+   medallions, rolling dial. What this adds: one winding Path.
+   - Full path: vertical snake, nodes alternate left / centre / right,
+     connected by one navy line down the middle.
+   - Strip: 10 small nodes in a row, Quest + Result.
+   - Done = navy + ✓. Current = bigger blue node + soft pulse ring.
+     Locked = grey, not clickable. No gradients, no new colours.
+   -------------------------------------------------------------------------- */
+@keyframes pathPulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.35), 4px 4px 0 var(--navy); }
+  70% { box-shadow: 0 0 0 12px rgba(37, 99, 235, 0), 4px 4px 0 var(--navy); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0), 4px 4px 0 var(--navy); }
+}
+
+.path-map {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0 16px;
+}
+
+.path-map::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background-color: var(--border-blue-100);
+  border-radius: 4px;
+}
+
+.path-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.path-part-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  border-radius: var(--radius-full);
+  padding: 6px 14px 6px 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  box-shadow: var(--shadow-soft);
+}
+
+.path-part-emoji {
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+}
+
+.path-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  background-color: #FFFFFF;
+  color: var(--navy);
+  transition: transform 200ms cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 200ms ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.path-node:nth-child(odd) { transform: translateX(-48px); }
+.path-node:nth-child(even) { transform: translateX(48px); }
+
+.path-node-face { font-size: 1.5rem; line-height: 1; }
+.path-node-num { font-size: 11px; font-weight: 600; color: var(--text-slate-400); margin-top: 2px; }
+
+.path-node-done {
+  background-color: var(--navy);
+  color: #FFFFFF;
+  box-shadow: 3px 3px 0 var(--blue);
+}
+
+.path-node-done .path-node-num { color: rgba(255, 255, 255, 0.7); }
+
+.path-node-current {
+  width: 76px;
+  height: 76px;
+  background-color: var(--blue);
+  color: #FFFFFF;
+  animation: pathPulse 2s ease-out infinite;
+}
+
+.path-node-current .path-node-num { color: rgba(255, 255, 255, 0.8); }
+
+.path-node-locked {
+  background-color: #FFFFFF;
+  border: 2px solid var(--border-blue-100);
+  color: var(--text-slate-400);
+  cursor: not-allowed;
+  box-shadow: var(--shadow-soft);
+}
+
+.path-node:not(:disabled):hover { transform: translateX(0) scale(1.06); }
+.path-node:nth-child(odd):not(:disabled):hover { transform: translateX(-48px) scale(1.06); }
+.path-node:nth-child(even):not(:disabled):hover { transform: translateX(48px) scale(1.06); }
+
+.path-home-section .path-map { padding-top: 0; }
+
+/* Strip: 10 nodes in a row, Quest lesson + Result finish. */
+.path-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 8px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+
+.path-node-strip {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  transform: none !important;
+}
+
+.path-node-strip .path-node-face { font-size: 1.1rem; }
+.path-node-strip .path-node-num { display: none; }
+
+.path-node-strip.path-node-current {
+  width: 48px;
+  height: 48px;
+}
+
+.path-node-strip.path-node-locked { border-width: 1px; }
+
+/* Lesson top bar: X, 10 segments, XP — always visible in the quest. */
+.lesson-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.lesson-close {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 1px solid var(--border-blue-100);
+  background-color: #FFFFFF;
+  color: var(--navy);
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+
+.lesson-segments {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+.lesson-segment {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background-color: var(--border-blue-100);
+}
+
+.lesson-segment.done { background-color: var(--navy); }
+.lesson-segment.current { background-color: var(--blue); }
+
+.lesson-xp {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .path-node:nth-child(odd) { transform: translateX(-32px); }
+  .path-node:nth-child(even) { transform: translateX(32px); }
+  .path-node:nth-child(odd):not(:disabled):hover { transform: translateX(-32px) scale(1.06); }
+  .path-node:nth-child(even):not(:disabled):hover { transform: translateX(32px) scale(1.06); }
 }
 
 /* --------------------------------------------------------------------------

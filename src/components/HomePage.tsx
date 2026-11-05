@@ -1,5 +1,6 @@
 import React from 'react';
 import { ARTICLES } from '../data/articles';
+import { PathMap } from './PathMap';
 
 interface HomePageProps {
   onNavigate: (route: string) => void;
@@ -57,6 +58,23 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           <span className="emoji-medallion">🌙</span>
           <span className="emoji-medallion">🎯</span>
         </div>
+      </section>
+
+      {/* Your path: the 10-node winding path, 4 parts. Tap any node to start the quest. */}
+      <section className="how-it-works-section path-home-section" aria-labelledby="path-title">
+        <h2 id="path-title" className="section-headline">
+          Your Path
+        </h2>
+        <p style={{ fontSize: '15px', color: 'var(--text-slate-600)', margin: '0 0 20px', textAlign: 'center' }}>
+          10 questions, 4 parts — walk the path, earn 10 XP per answered question.
+        </p>
+        <PathMap
+          variant="full"
+          currentStep={0}
+          answers={{}}
+          preview
+          onSelect={() => onNavigate('quest')}
+        />
       </section>
 
       {/* 2. How it works, in 3 steps only: 1. Answer 10 questions. 2. Get your result. 3. Pick one 7-day challenge. */}
