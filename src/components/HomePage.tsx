@@ -23,13 +23,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         <div className="hero-emoji-icon" aria-hidden="true" style={{ fontSize: '72px', lineHeight: 1, marginBottom: '16px' }}>
           📱
         </div>
+        <span className="t26-kicker">01 — Student Quest · Screen Habits</span>
         <div className="home-hero-slogan-chip" style={{ marginBottom: '12px' }}>
           <span className="chip-badge chip-slogan home-hero-slogan hero-slogan" style={{ fontSize: '13px' }}>
             10 questions · No sign-up · 7-day challenge
           </span>
         </div>
-        <h1 id="hero-title" className="home-hero-headline" style={{ fontSize: 'clamp(32px, 4.5vw, 48px)', fontWeight: 500, color: 'var(--navy)', lineHeight: 1.15, marginBottom: '16px' }}>
-          Know your screen. Own your time.
+        <h1 id="hero-title" className="home-hero-headline">
+          Know your screen.<br />Own your time.
         </h1>
         <p className="home-hero-subline" style={{ fontSize: '17px', color: 'var(--text-slate-600)', maxWidth: '560px', margin: '0 auto 28px', lineHeight: 1.6 }}>
           A 10-question check for students. Know your habit, pick one 7-day challenge.
@@ -58,10 +59,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           <span className="emoji-medallion">🌙</span>
           <span className="emoji-medallion">🎯</span>
         </div>
+        <span className="t26-sticker">Honest check · No fake scores</span>
       </section>
 
       {/* Your path: the 10-node winding path, 4 parts. Tap any node to start the quest. */}
       <section className="how-it-works-section path-home-section" aria-labelledby="path-title">
+        <span className="t26-kicker">02 — Your Path</span>
         <h2 id="path-title" className="section-headline">
           Your Path
         </h2>
@@ -79,6 +82,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
 
       {/* 2. How it works, in 3 steps only: 1. Answer 10 questions. 2. Get your result. 3. Pick one 7-day challenge. */}
       <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
+        <span className="t26-kicker">03 — How It Works</span>
         <h2 id="how-it-works-title" className="section-headline">
           How It Works
         </h2>
@@ -118,6 +122,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
 
       {/* 3. Result preview: sample score ring & sample band in words, clearly labelled as a preview, not a real result */}
       <section className="how-it-works-section" aria-labelledby="preview-title">
+        <span className="t26-kicker">04 — Result Preview</span>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
           <h2 id="preview-title" className="section-headline">
             Result Preview
@@ -176,6 +181,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
 
       {/* 4. Articles teaser: 3 article cards, each linking to a real article page */}
       <section className="how-it-works-section" aria-labelledby="articles-preview-title">
+        <span className="t26-kicker">05 — Guides</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span style={{ fontSize: '40px', lineHeight: 1 }} aria-hidden="true">📚</span>
           <h2 id="articles-preview-title" className="section-headline">

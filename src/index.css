@@ -3077,6 +3077,122 @@ button {
 }
 
 /* --------------------------------------------------------------------------
+   two26 presentation system (2026-11-05): patterns only, in our own brand.
+   Taken from two26.studio's presentation, NOT its copy, palette, or assets:
+   tiny caps micro-labels, giant split headlines, sticker badges, one
+   sentence per section, hard shadows, 72px section spacing, 1200px max.
+   Colours stay Screen Habits: white, navy #0A1F44, blue #2563EB, Manrope.
+   No cream/orange — that is two26's palette, not ours.
+   -------------------------------------------------------------------------- */
+.home-page,
+.result-composed-page,
+.articles-page-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-page > section {
+  margin-bottom: 72px;
+}
+
+.home-page > section:last-child {
+  margin-bottom: 0;
+}
+
+.t26-kicker {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+
+.home-hero-headline {
+  font-size: clamp(44px, 7vw, 72px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.section-headline {
+  font-size: clamp(32px, 4.5vw, 48px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.t26-sticker {
+  display: inline-block;
+  transform: rotate(-2deg);
+  background-color: var(--blue);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  box-shadow: 3px 3px 0 var(--navy);
+  margin-top: 20px;
+}
+
+/* Hard shadows, navy — two26's hard-shadow rhythm, our colour. */
+.home-hero {
+  border: 2px solid var(--navy);
+  box-shadow: 6px 6px 0 var(--blue);
+}
+
+.step-card,
+.article-preview-card,
+.article-list-card {
+  border: 2px solid var(--navy);
+  box-shadow: 4px 4px 0 var(--navy);
+}
+
+.step-card:hover,
+.article-preview-card:hover,
+.article-list-card:hover {
+  box-shadow: 6px 6px 0 var(--blue);
+}
+
+/* Question + Result headlines, same giant split treatment. */
+.question-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.result-band-title {
+  font-size: clamp(24px, 3.5vw, 36px);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.article-card-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.article-card-topic {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+/* --------------------------------------------------------------------------
    Reduced Motion (Section 10: Everything becomes instant)
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
