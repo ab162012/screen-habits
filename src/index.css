@@ -3220,6 +3220,59 @@ button {
 }
 
 /* --------------------------------------------------------------------------
+   Improvements pass (2026-11-05): from the reverse-engineering map.
+   - Honest-rules strip: the scoring rules, on Home, in two26 black pills.
+   - Skip link: keyboard users jump straight to content.
+   - Score number: Anton, like every other big number on the site.
+   -------------------------------------------------------------------------- */
+.honest-rules-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 72px;
+}
+
+.honest-rule {
+  display: inline-block;
+  background-color: var(--navy);
+  color: #FFF6E8;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  box-shadow: 3px 3px 0 var(--blue);
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  background-color: var(--navy);
+  color: #FFF6E8;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: top 200ms ease-out;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.score-number-big {
+  font-family: 'Anton', 'Archivo', sans-serif;
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
    All-device compatibility pass (2026-11-05): format + headline + nav + footer.
    Audit found, from the code (not a guess): navbar overflowed at 360px
    (brand + 4 links in a fixed 58px bar), hero headline min 56px was too

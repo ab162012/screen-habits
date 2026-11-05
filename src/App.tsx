@@ -206,6 +206,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="site-wrapper">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       {/* Top Navigation Bar */}
       <Navbar currentRoute={currentRoute} onNavigate={navigateTo} />
 

@@ -62,6 +62,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         <span className="t26-sticker">Honest check · No fake scores</span>
       </section>
 
+      {/* Honest rules: the scoring rules, stated on the Home page, not buried in the Result. */}
+      <section className="honest-rules-strip" aria-label="How the score works">
+        <span className="honest-rule">10 XP per answered question</span>
+        <span className="honest-rule">Skip = 0 XP</span>
+        <span className="honest-rule">Score over answered only</span>
+        <span className="honest-rule">Under 5 = Partial result</span>
+      </section>
+
       {/* Your path: the 10-node winding path, 4 parts. Tap any node to start the quest. */}
       <section className="how-it-works-section path-home-section" aria-labelledby="path-title">
         <span className="t26-kicker">02 — Your Path</span>
