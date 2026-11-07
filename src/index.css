@@ -3655,3 +3655,174 @@ img, svg {
     gap: 32px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Quest-flow redesign (2026-11-07): the 6 onboarding/quiz screenshots —
+   patterns only, nothing copied. Segmented "N of 10" bar, big option cards
+   (emoji on top, label below, blue tint + border + corner check badge when
+   selected), face cards for the 1–5 scale, Previous/Continue corners.
+   Brand kept: navy / blue / cream paper, Playfair titles. Drum, XP, streak,
+   skip law and scoring untouched.
+   -------------------------------------------------------------------------- */
+
+/* Segmented progress (screenshot 1). */
+.quest-segments {
+  margin: 0 0 16px;
+}
+
+.quest-segments-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.quest-segments-track {
+  display: flex;
+  gap: 6px;
+}
+
+.quest-segment {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background-color: #E2E8F0;
+}
+
+.quest-segment.done {
+  background-color: var(--blue);
+}
+
+.quest-segment.current {
+  background-color: var(--blue);
+  box-shadow: 0 0 0 2px #FFFDF6, 0 0 0 4px var(--blue);
+}
+
+/* "Question N" eyebrow above the title (screenshot 1). */
+.question-eyebrow {
+  color: var(--text-slate-600);
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+/* Corner check badge for a selected option (screenshots 1 and 2). */
+.option-check-badge,
+.chip-check-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--blue);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid #FFFDF6;
+  box-shadow: 0 2px 6px rgba(10, 31, 68, 0.2);
+  z-index: 1;
+}
+
+/* Single-choice cards: a row of big cards, emoji on top, label below. */
+.single-cards-grid {
+  display: flex;
+  gap: 12px;
+}
+
+.option-card {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 12px;
+  gap: 6px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  border-radius: 16px;
+}
+
+.option-card .card-emoji {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.option-card .card-label {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--navy);
+}
+
+.option-card .card-subtext {
+  font-size: 13px;
+  color: var(--text-slate-600);
+}
+
+.option-card.selected {
+  background-color: var(--bg-subtle);
+  border: 2px solid var(--blue);
+  box-shadow: none;
+}
+
+/* Multi-chips: same selected treatment, corner badge instead of inline +/-. */
+.chip-button {
+  position: relative;
+}
+
+.chip-button.selected {
+  background-color: var(--bg-subtle);
+  border: 2px solid var(--blue);
+}
+
+/* 1–5 scale: face cards, worst to best (screenshot 1). */
+.scale-face-card {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 16px 8px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-blue-100);
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.scale-face {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.scale-face-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.scale-face-card.selected {
+  background-color: var(--bg-subtle);
+  border: 2px solid var(--blue);
+}
+
+@media (max-width: 640px) {
+  .single-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .option-card .card-emoji {
+    font-size: 32px;
+  }
+
+  .scale-face {
+    font-size: 28px;
+  }
+}

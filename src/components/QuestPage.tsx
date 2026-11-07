@@ -156,6 +156,21 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         onSelect={onStepChange}
       />
 
+      {/* Segmented progress: "N of 10" + 10 segments (screenshot 1). The Path
+          strip above stays — it is the tap-to-go-back control, this is the
+          position display. */}
+      <div className="quest-segments" aria-label={`Question ${safeStep + 1} of ${QUESTIONS.length}`}>
+        <span className="quest-segments-label">{safeStep + 1} of {QUESTIONS.length}</span>
+        <div className="quest-segments-track" role="progressbar" aria-valuenow={safeStep + 1} aria-valuemin={1} aria-valuemax={QUESTIONS.length}>
+          {QUESTIONS.map((q, i) => (
+            <span
+              key={q.id}
+              className={`quest-segment ${i < safeStep ? 'done' : ''} ${i === safeStep ? 'current' : ''}`}
+            />
+          ))}
+        </div>
+      </div>
+
       {/* Question Card (User's original component) */}
       {/* key = remount per question, so the card slides in instead of pop-swapping */}
       <QuestionCard
@@ -165,6 +180,7 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         onChange={(val) => onUpdateAnswer(currentQuestion.id, val)}
         onSkip={handleSkip}
         isSkipped={!isCurrentAnswered && currentValue === undefined}
+        questionNumber={safeStep + 1}
       />
 
       {/* Sticky Bottom Navigation Bar (User's original UI/UX) */}

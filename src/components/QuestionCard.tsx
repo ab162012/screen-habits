@@ -7,6 +7,7 @@ interface QuestionCardProps {
   onChange: (val: string | number | string[]) => void;
   onSkip: () => void;
   isSkipped: boolean;
+  questionNumber: number;
 }
 
 export const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -14,7 +15,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   value,
   onChange,
   onSkip,
-  isSkipped
+  isSkipped,
+  questionNumber
 }) => {
   // Hours drum (reel's final form, Q1 only): a horizontal cylindrical drum.
   // Ticks slide sideways under a fixed centre pointer; the huge value
@@ -96,6 +98,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       </div>
 
       <div className="question-header">
+        <p className="question-eyebrow">Question {questionNumber}</p>
         <h1 className="question-title">{question.title}</h1>
       </div>
 
@@ -179,11 +182,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 onClick={toggleChip}
                 aria-pressed={isSelected}
               >
+                {isSelected && <span className="chip-check-badge" aria-hidden="true">✓</span>}
                 {opt.emoji && <span className="chip-emoji">{opt.emoji}</span>}
                 <span className="chip-label">{opt.label}</span>
-                <span className={`chip-check-icon ${isSelected ? 'active' : ''}`}>
-                  {isSelected ? '✓' : '+'}
-                </span>
               </button>
             );
           })}
@@ -205,30 +206,25 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 className={`option-card ${isSelected ? 'selected' : ''}`}
                 onClick={() => onChange(opt.id)}
               >
-                <div className="card-leading">
-                  {opt.emoji && <span className="card-emoji">{opt.emoji}</span>}
-                  <div className="card-text-block">
-                    <span className="card-label">{opt.label}</span>
-                    {opt.subtext && <span className="card-subtext">{opt.subtext}</span>}
-                  </div>
-                </div>
-
-                <div className={`radio-circle ${isSelected ? 'checked' : ''}`}>
-                  {isSelected && <span className="radio-dot" />}
-                </div>
+                {isSelected && <span className="option-check-badge" aria-hidden="true">✓</span>}
+                {opt.emoji && <span className="card-emoji">{opt.emoji}</span>}
+                <span className="card-label">{opt.label}</span>
+                {opt.subtext && <span className="card-subtext">{opt.subtext}</span>}
               </button>
             );
           })}
         </div>
       )}
 
-      {/* Answer Type 4: 1 to 5 Scale */}
+      {/* Answer Type 4: 1 to 5 Scale — face cards, screenshot 1 style */}
       {question.type === 'scale-1-to-5' && question.options && (
         <div className="scale-container" role="radiogroup" aria-label={question.title}>
           <div className="scale-buttons-row">
             {question.options.map((opt) => {
               const numVal = parseInt(opt.id, 10);
               const isSelected = value === numVal || value === opt.id;
+              const face = ['😩', '😕', '😐', '🙂', '😄'][numVal - 1] || '😐';
+              const shortLabel = opt.label.includes('— ') ? opt.label.split('— ')[1] : opt.label;
 
               return (
                 <button
@@ -236,10 +232,12 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                   type="button"
                   role="radio"
                   aria-checked={isSelected}
-                  className={`scale-num-btn ${isSelected ? 'selected' : ''}`}
+                  className={`scale-face-card ${isSelected ? 'selected' : ''}`}
                   onClick={() => onChange(numVal)}
                 >
-                  <span className="scale-number">{opt.id}</span>
+                  {isSelected && <span className="option-check-badge" aria-hidden="true">✓</span>}
+                  <span className="scale-face" aria-hidden="true">{face}</span>
+                  <span className="scale-face-label">{shortLabel}</span>
                 </button>
               );
             })}
