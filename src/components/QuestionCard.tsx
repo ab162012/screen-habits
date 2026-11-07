@@ -16,8 +16,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   onSkip,
   isSkipped
 }) => {
-  // Hours dial (reel-style rolling picker, Q1 only): values roll vertically,
-  // snap to the centre, and only the centred value is the answer.
+  // Hours drum (reel's final form, Q1 only): a horizontal cylindrical drum.
+  // Ticks slide sideways under a fixed centre pointer; the huge value
+  // above it rolls vertically. Only the centred value is the answer.
   const dialRef = useRef<HTMLDivElement>(null);
   const programmaticRef = useRef(false);
   const scrollTimerRef = useRef<number | undefined>(undefined);
@@ -33,9 +34,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     for (let v = min; v <= max + 0.0001; v += step) out.push(Math.round(v * 10) / 10);
     return out;
   }, [question.min, question.max, question.step]);
-  const dialItemHeight = 56;
+  const dialItemWidth = 64;
 
-  // Scroll the dial to the saved answer (or 6h as a neutral centre) on
+  // Scroll the drum to the saved answer (or 6h as a neutral centre) on
   // question change, without calling onChange — scrolling alone must
   // never create an answer.
   useEffect(() => {
@@ -45,7 +46,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     const idx = dialValues.findIndex((v) => Math.abs(v - target) < 0.001);
     if (idx < 0) return;
     programmaticRef.current = true;
-    el.scrollTop = idx * dialItemHeight;
+    el.scrollLeft = idx * dialItemWidth;
     window.setTimeout(() => {
       programmaticRef.current = false;
     }, 150);
@@ -60,7 +61,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     rollingTimerRef.current = window.setTimeout(() => setIsRolling(false), 150);
     window.clearTimeout(scrollTimerRef.current);
     scrollTimerRef.current = window.setTimeout(() => {
-      const idx = Math.round(el.scrollTop / dialItemHeight);
+      const idx = Math.round(el.scrollLeft / dialItemWidth);
       const next = dialValues[Math.min(Math.max(idx, 0), dialValues.length - 1)];
       if (next !== undefined && next !== value) onChange(next);
     }, 120);
@@ -71,7 +72,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     const idx = dialValues.findIndex((x) => Math.abs(x - v) < 0.001);
     if (el && idx >= 0) {
       programmaticRef.current = true;
-      el.scrollTo({ top: idx * dialItemHeight, behavior: 'smooth' });
+      el.scrollTo({ left: idx * dialItemWidth, behavior: 'smooth' });
       window.setTimeout(() => {
         programmaticRef.current = false;
       }, 300);
@@ -98,9 +99,10 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
         <h1 className="question-title">{question.title}</h1>
       </div>
 
-      {/* Answer Type 1: Hours Dial — scroll it like the reel's rolling picker.
-          Flick/scroll, it glides and snaps to the centre value. The centre
-          band is the one blue accent. +/- and arrow keys work too. */}
+      {/* Answer Type 1: Hours Drum — the reel's cylindrical drum. Flick or
+          drag it sideways; the ticks slide under the fixed blue pointer and
+          snap to the centred value. The huge number above rolls vertically.
+          +/- and arrow keys work too. */}
       {question.type === 'slider' && (
         <div className="slider-container">
           <div className="slider-display">
@@ -119,9 +121,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             <button type="button" className="hours-dial-btn" onClick={() => stepDial(-1)} aria-label="Decrease hours">
               −
             </button>
-            <div className="hours-dial-box">
-              <div className="hours-dial-band" aria-hidden="true" />
-              <div className={`hours-dial ${isRolling ? 'rolling' : ''}`} ref={dialRef} onScroll={handleDialScroll} role="listbox" aria-label={question.title}>
+            <div className="hours-drum-box">
+              <div className="hours-drum-pointer" aria-hidden="true" />
+              <div className={`hours-drum ${isRolling ? 'rolling' : ''}`} ref={dialRef} onScroll={handleDialScroll} role="listbox" aria-label={question.title}>
               {dialValues.map((v) => {
                 const isActive = value === v;
                 return (
@@ -130,7 +132,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                     type="button"
                     role="option"
                     aria-selected={isActive}
-                    className={`hours-dial-item ${isActive ? 'active' : ''}`}
+                    className={`hours-drum-item ${isActive ? 'active' : ''}`}
                     onClick={() => selectDial(v)}
                   >
                     {v.toFixed(1)}
