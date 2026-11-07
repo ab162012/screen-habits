@@ -12,14 +12,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
 
   return (
     <div className="home-page">
-      {/* 1. Hero: cobalt panel + cream arch (cobalt-toile reference) */}
+      {/* 1. Hero: clean white centred stack (onboarding-screenshot language) */}
       <section className="home-hero" aria-labelledby="hero-title">
-        <span className="hero-corner-caption hero-corner-left" aria-hidden="true">EST. MMXXVI</span>
-        <span className="hero-corner-caption hero-corner-right" aria-hidden="true">VOL. I · NO. 10</span>
-        <div className="home-hero-arch">
-        <div className="hero-emoji-icon" aria-hidden="true" style={{ fontSize: '72px', lineHeight: 1, marginBottom: '16px' }}>
-          📱
-        </div>
         <span className="t26-kicker">01 — Student Quest · Screen Habits</span>
         <div className="home-hero-slogan-chip" style={{ marginBottom: '12px' }}>
           <span className="chip-badge chip-slogan home-hero-slogan hero-slogan" style={{ fontSize: '13px' }}>
@@ -27,7 +21,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           </span>
         </div>
         <h1 id="hero-title" className="home-hero-headline">
-          Know your screen.<br />Own your time.
+          Know your screen.<br /><span className="hero-accent">Own your time.</span>
         </h1>
         <p className="home-hero-subline" style={{ fontSize: '17px', color: 'var(--text-slate-600)', maxWidth: '560px', margin: '0 auto 28px', lineHeight: 1.6 }}>
           A 10-question check for students. Know your habit, pick one 7-day challenge.
@@ -51,10 +45,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           </button>
         </div>
         <span className="t26-sticker">Honest check · No fake scores</span>
-        </div>
       </section>
 
-      {/* Statistics: large serif numerals, no boxes (cobalt-toile reference) */}
+      {/* Statistics: big bold numerals, no boxes */}
       <section className="home-stats" aria-label="The quest in numbers">
         <div className="home-stat">
           <span className="home-stat-num">10</span>
@@ -70,18 +63,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </div>
       </section>
 
-      {/* Honest rules: the scoring rules, as a slow marquee strip. */}
+      {/* Honest rules: the scoring rules, as a static row of pills. */}
       <section className="honest-rules-strip" aria-label="How the score works">
-        <div className="honest-rules-track">
-          <span className="honest-rule">10 XP per answered question</span>
-          <span className="honest-rule">Skip = 0 XP</span>
-          <span className="honest-rule">Score over answered only</span>
-          <span className="honest-rule">Under 5 = Partial result</span>
-          <span className="honest-rule" aria-hidden="true">10 XP per answered question</span>
-          <span className="honest-rule" aria-hidden="true">Skip = 0 XP</span>
-          <span className="honest-rule" aria-hidden="true">Score over answered only</span>
-          <span className="honest-rule" aria-hidden="true">Under 5 = Partial result</span>
-        </div>
+        <span className="honest-rule">10 XP per answered question</span>
+        <span className="honest-rule">Skip = 0 XP</span>
+        <span className="honest-rule">Score over answered only</span>
+        <span className="honest-rule">Under 5 = Partial result</span>
       </section>
 
       {/* Your path: the 10-node winding path, 4 parts. Tap any node to start the quest. */}
@@ -103,7 +90,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
       </section>
 
       {/* 2. How it works, in 3 steps only: 1. Answer 10 questions. 2. Get your result. 3. Pick one 7-day challenge. */}
-      <section id="how-it-works" className="how-it-works-section how-it-works-dark" aria-labelledby="how-it-works-title">
+      <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
         <span className="t26-kicker">03 — How It Works</span>
         <h2 id="how-it-works-title" className="section-headline">
           How It Works

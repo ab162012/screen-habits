@@ -3826,3 +3826,174 @@ img, svg {
     font-size: 28px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Clean screenshot redesign (2026-11-07): the 6 onboarding/quiz screenshots
+   are the design now — NOT the questions, only the look. Full change, as the
+   user authorised: cobalt-toile almanac is gone (cream paper, serif, cobalt
+   hero panel, arch, corner captions, marquee, dark blocks). In its place:
+   white page, big bold near-black Manrope headlines, light grey rounded
+   cards, blue selected states with corner check badge, pill buttons, navy
+   primary CTA. Quest flow (segmented bar, option cards, face cards),
+   drum, XP, streak, skip law and scoring untouched.
+   -------------------------------------------------------------------------- */
+
+/* White page again. */
+body {
+  background-color: #FFFFFF;
+}
+
+/* Headlines: bold near-black Manrope, tight, like the screenshots. */
+.home-hero-headline {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #111827;
+}
+
+.section-headline {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #111827;
+}
+
+.question-title {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.3;
+  color: #111827;
+}
+
+.article-card-title {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-weight: 800;
+  color: #111827;
+}
+
+.result-band-title {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-weight: 800;
+}
+
+.slider-value,
+.score-number-big {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-weight: 800;
+}
+
+.home-stat-num {
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-weight: 800;
+}
+
+/* Hero: plain white, centred, no panel, no arch, no pattern. */
+.home-hero {
+  background-color: #FFFFFF;
+  background-image: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 64px 24px 48px;
+  text-align: center;
+}
+
+/* Buttons: pills again. Primary is navy (reads black, like the screenshots). */
+.btn-primary,
+.btn-secondary,
+.btn-next,
+.btn-back {
+  border-radius: 999px;
+}
+
+.btn-primary {
+  background-color: var(--navy);
+  color: #FFFFFF;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: var(--navy);
+  box-shadow: none;
+}
+
+/* Navbar: white, sticky again. */
+.top-navbar {
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.96);
+}
+
+/* Cards: white, light grey border, big radius, no hard shadow. */
+.question-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: none;
+  border-radius: 24px;
+}
+
+.step-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: none;
+}
+
+.article-preview-card,
+.article-list-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+}
+
+/* Honest rules: static light-grey pills, centred. */
+.honest-rules-strip {
+  overflow: visible;
+  justify-content: center;
+}
+
+.honest-rule {
+  background-color: #F7F7F8;
+  border: 1px solid #E5E7EB;
+  color: var(--navy);
+}
+
+/* Gamification bar: clean white card. */
+.quest-gamification-bar {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: none;
+}
+
+/* Footer: white again, navy links. */
+.site-footer {
+  background-color: #FFFFFF;
+  color: var(--navy);
+  border: 1px solid var(--border-blue-100);
+  box-shadow: none;
+}
+
+.site-footer .footer-nav-links a,
+.site-footer .footer-nav-row a {
+  color: var(--navy);
+}
+
+.site-footer .footer-slogan-text {
+  color: var(--navy);
+}
+
+.site-footer .footer-credits-text {
+  color: var(--text-slate-600);
+}
+
+@media (max-width: 640px) {
+  .home-hero {
+    padding: 48px 20px 40px;
+  }
+}
