@@ -44,10 +44,15 @@ export const ResultPage: React.FC<ResultPageProps> = ({
     }
   }, [report.isPartial, report.answeredCount]);
 
-  // Score count-up animation
+  // Score count-up animation — rolls up like the reel's dial; instant
+  // when the user prefers reduced motion.
   useEffect(() => {
     if (report.isPartial) {
       setAnimatedScore(0);
+      return;
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setAnimatedScore(report.totalScore);
       return;
     }
     let start = 0;

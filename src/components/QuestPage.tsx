@@ -129,12 +129,13 @@ export const QuestPage: React.FC<QuestPageProps> = ({
       <section className="quest-gamification-bar" aria-label="Quest Progress & Gamification">
         <div className="quest-gamification-header">
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span className={`quest-xp-badge ${xpPopping ? 'xp-pop' : ''}`}>{currentXP} XP</span>
+            {/* key = only the changed number pops, like the reel's dial */}
+            <span key={currentXP} className={`quest-xp-badge ${xpPopping ? 'xp-pop' : ''}`}>{currentXP} XP</span>
             <span className="quest-level-tag">Level: {level}</span>
           </div>
           <div className={`quest-streak-pill ${currentStreak > 0 ? 'active' : ''} ${showSkipAlert ? 'reset-shake' : ''}`}>
             <span>🔥 Streak:</span>
-            <strong>{currentStreak}</strong>
+            <strong key={currentStreak}>{currentStreak}</strong>
           </div>
         </div>
         <div className="quest-xp-track" role="progressbar" aria-valuenow={currentXP} aria-valuemin={0} aria-valuemax={100}>

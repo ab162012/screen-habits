@@ -21,6 +21,10 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   const dialRef = useRef<HTMLDivElement>(null);
   const programmaticRef = useRef(false);
   const scrollTimerRef = useRef<number | undefined>(undefined);
+  // Reel direction: while the dial rolls, numbers blur like a mechanical
+  // dial; the blur clears the moment it snaps to a value.
+  const [isRolling, setIsRolling] = React.useState(false);
+  const rollingTimerRef = useRef<number | undefined>(undefined);
   const dialValues = useMemo(() => {
     const min = question.min || 1;
     const max = question.max || 16;
@@ -51,6 +55,9 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   const handleDialScroll = () => {
     const el = dialRef.current;
     if (!el || programmaticRef.current) return;
+    setIsRolling(true);
+    window.clearTimeout(rollingTimerRef.current);
+    rollingTimerRef.current = window.setTimeout(() => setIsRolling(false), 150);
     window.clearTimeout(scrollTimerRef.current);
     scrollTimerRef.current = window.setTimeout(() => {
       const idx = Math.round(el.scrollTop / dialItemHeight);
@@ -114,7 +121,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             </button>
             <div className="hours-dial-box">
               <div className="hours-dial-band" aria-hidden="true" />
-              <div className="hours-dial" ref={dialRef} onScroll={handleDialScroll} role="listbox" aria-label={question.title}>
+              <div className={`hours-dial ${isRolling ? 'rolling' : ''}`} ref={dialRef} onScroll={handleDialScroll} role="listbox" aria-label={question.title}>
               {dialValues.map((v) => {
                 const isActive = value === v;
                 return (
