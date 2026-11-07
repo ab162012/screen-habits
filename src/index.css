@@ -26,7 +26,7 @@
   --blue: #2563EB;
   --blue-hover: #1D4ED8;
   --blue-dark: #1E40AF;
-  --bg-page: #F8FAFC;
+  --bg-page: #FAF6EC; /* cobalt-toile paper: warm pale cream */
   --bg-subtle: #EFF6FF;
   --border-blue-100: #DBEAFE;
   --border-slate: #CBD5E1;
@@ -3425,4 +3425,233 @@ img, svg {
 
 .home-hero {
   background-color: var(--bg-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   Cobalt-toile revamp (2026-11-07): reference = 21st.dev
+   "cobalt-toile-landing" (21stdev-my-components-one.vercel.app) — patterns
+   only, nothing copied. Printed almanac feel: warm cream paper, one vivid
+   cobalt hero panel with a thin white toile line pattern and a cream arch,
+   classical serif display (Playfair Display) + clean Manrope body, large
+   serif statistics, one dark navy block as counterpoint, slow marquee,
+   quiet motion. Brand kept: navy #0A1F44 / blue #2563EB, no new colours.
+   -------------------------------------------------------------------------- */
+
+/* Serif display: hero, sections, questions, results, articles, big numbers. */
+.home-hero-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.75rem, 5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.section-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.question-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.article-card-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.result-band-title {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.slider-value,
+.score-number-big {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 500;
+}
+
+.t26-kicker {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+}
+
+/* Buttons: solid cobalt rectangles, slightly rounded — not pills. */
+.btn-primary,
+.btn-secondary,
+.btn-next,
+.btn-back {
+  border-radius: 6px;
+}
+
+/* Header: slim, cream, static — it scrolls away like the reference. */
+.top-navbar {
+  position: static;
+  background-color: var(--bg-page);
+}
+
+/* Hero: one vivid cobalt panel, inset, thin pale inner frame, white
+   toile line pattern (stars, sprigs, dots) drawn as a tiled SVG. */
+.home-hero {
+  position: relative;
+  background-color: var(--blue);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-opacity='0.28' stroke-width='1'%3E%3Cpath d='M48 18 L50 46 L78 48 L50 50 L48 78 L46 50 L18 48 L46 46 Z'/%3E%3Cpath d='M10 10 q7 7 0 14 q-7 -7 0 -14'/%3E%3Ccircle cx='86' cy='86' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  outline: 1px solid rgba(255, 255, 255, 0.25);
+  outline-offset: -10px;
+  box-shadow: none;
+  padding: 56px 24px;
+}
+
+/* Corner captions: small caps, widely tracked, like the reference. */
+.hero-corner-caption {
+  position: absolute;
+  top: 20px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  z-index: 1;
+}
+
+.hero-corner-left { left: 24px; }
+.hero-corner-right { right: 24px; }
+
+/* The cream arch: round-arched niche holding the headline. */
+.home-hero-arch {
+  background-color: #FFFDF6;
+  border-radius: 220px 220px 12px 12px;
+  padding: 56px 40px 40px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-hero-arch .home-hero-headline {
+  color: var(--navy);
+}
+
+/* Statistics: large serif numerals above small-caps labels. */
+.home-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.home-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.home-stat-num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3.5rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--navy);
+}
+
+.home-stat-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-slate-600);
+}
+
+/* Honest rules as a slow marquee strip under the hero. */
+.honest-rules-strip {
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.honest-rules-track {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  animation: rulesMarquee 32s linear infinite;
+}
+
+@keyframes rulesMarquee {
+  to { transform: translateX(-50%); }
+}
+
+/* How It Works: the one dark navy block, cream step cards inside. */
+.how-it-works-dark {
+  background-color: var(--navy);
+  border-radius: 24px;
+  padding: 48px 32px;
+}
+
+.how-it-works-dark .t26-kicker {
+  color: #DBEAFE;
+}
+
+.how-it-works-dark .section-headline {
+  color: #FFFDF6;
+}
+
+.how-it-works-dark .step-card {
+  background-color: #FFFDF6;
+  border: 1px solid #FFFDF6;
+}
+
+/* Guides: press-style cards, large radius, soft or no shadow. */
+.article-preview-card,
+.article-list-card {
+  box-shadow: none;
+}
+
+/* Footer: dark navy, cream text. */
+.site-footer {
+  background-color: var(--navy);
+  color: #FFFDF6;
+  border: 1px solid var(--navy);
+  box-shadow: none;
+}
+
+.site-footer .footer-nav-links a,
+.site-footer .footer-nav-row a {
+  color: #FFFDF6;
+}
+
+.site-footer .footer-slogan-text {
+  color: #FFFDF6;
+}
+
+.site-footer .footer-credits-text {
+  color: rgba(255, 253, 246, 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .honest-rules-track {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-hero-arch {
+    padding: 40px 20px 32px;
+    border-radius: 120px 120px 12px 12px;
+  }
+
+  .home-hero-headline {
+    font-size: 2rem;
+  }
+
+  .hero-corner-caption {
+    display: none;
+  }
+
+  .home-stats {
+    gap: 32px;
+  }
 }
