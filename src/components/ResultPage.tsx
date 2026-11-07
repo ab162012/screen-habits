@@ -321,7 +321,7 @@ FILMING & COMPETITION NOTES
       {/* 2. WEAKEST PART WITH ONE FIX ONLY */}
       <section className="result-card weakest-part-section" aria-label="Weakest habit area and single fix">
         <div className="part-header" style={{ marginBottom: '8px' }}>
-          <span className="part-emoji-badge" aria-hidden="true" style={{ fontSize: '40px', lineHeight: 1 }}>🎯</span>
+          <span className="icon-tile" aria-hidden="true">🎯</span>
           <span className="part-name-label" style={{ fontSize: '1.125rem' }}>Weakest Area & Single Fix</span>
         </div>
         <div style={{ backgroundColor: 'var(--bg-subtle)', border: '1px solid var(--border-blue-100)', borderRadius: 'var(--radius-xl)', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -344,7 +344,7 @@ FILMING & COMPETITION NOTES
           {report.partScores.map((part) => (
             <div className="part-stat-card part-result-card" key={part.partIndex}>
               <div className="part-header">
-                <span className="part-emoji-badge" aria-hidden="true">{part.emoji}</span>
+                <span className="icon-tile" aria-hidden="true">{part.emoji}</span>
                 <span className="part-name-label">{part.title}</span>
                 <span className="part-score-pill">
                   {part.hasAnswered ? `${part.score} / ${part.maxScore} pts` : 'No answers'}
@@ -394,7 +394,7 @@ FILMING & COMPETITION NOTES
       {/* 5. THE 7-DAY CHALLENGE PICKER (Filmable challenge for video) */}
       <section className="result-card" aria-label="Pick Your 7-Day Team Challenge">
         <div className="part-header" style={{ marginBottom: '8px' }}>
-          <span className="part-emoji-badge" aria-hidden="true" style={{ fontSize: '40px', lineHeight: 1 }}>✅</span>
+          <span className="icon-tile" aria-hidden="true">✅</span>
           <span className="part-name-label" style={{ fontSize: '1.125rem' }}>Pick Your 7-Day Team Challenge</span>
         </div>
         <p style={{ fontSize: '0.875rem', color: 'var(--text-slate-600)', lineHeight: '1.5' }}>
@@ -471,7 +471,7 @@ FILMING & COMPETITION NOTES
       <section className="result-card" aria-label="British Council Your World Summary">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
           <div className="part-header" style={{ marginBottom: 0 }}>
-            <span className="part-emoji-badge" aria-hidden="true" style={{ fontSize: '40px', lineHeight: 1 }}>🏆</span>
+            <span className="icon-tile" aria-hidden="true">🏆</span>
             <span className="part-name-label" style={{ fontSize: '1.125rem' }}>British Council Your World Summary</span>
           </div>
           {copied && (

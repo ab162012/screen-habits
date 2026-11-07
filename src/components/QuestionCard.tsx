@@ -93,7 +93,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   };
   return (
     <article className="question-card" key={question.id}>
-      <div className="section-hero-icon" aria-hidden="true">
+      <div className="icon-tile icon-tile-lg" aria-hidden="true">
         {question.partEmoji}
       </div>
 

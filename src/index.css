@@ -3997,3 +3997,131 @@ body {
     padding: 48px 20px 40px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Simplicity + icon tiles (2026-11-07): the onboarding screenshots' icon
+   language — small emoji in a soft rounded-square tile, not a circular
+   medallion — and a plain 4-step timeline instead of the winding Path snake
+   on Home. The snake stays on Quest/Result as the tap-to-go-back strip.
+   -------------------------------------------------------------------------- */
+
+/* Icon tile: soft blue rounded square, like the reference cards. */
+.icon-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #EFF6FF;
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.icon-tile-lg {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  font-size: 32px;
+}
+
+.icon-tile-xl {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  font-size: 36px;
+}
+
+/* Parts stepper: 4 steps on one line, connected by a hairline. */
+.parts-stepper {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  margin-top: 8px;
+}
+
+.parts-stepper::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background-color: #E2E8F0;
+}
+
+.parts-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 4px;
+  position: relative;
+  z-index: 1;
+  font-family: inherit;
+}
+
+.parts-step-icon-wrap {
+  position: relative;
+}
+
+.parts-step-num {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--navy);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FFFFFF;
+}
+
+.parts-step-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: #111827;
+}
+
+.parts-step-count {
+  font-size: 13px;
+  color: var(--text-slate-600);
+}
+
+.parts-step:hover .icon-tile {
+  background-color: #DBEAFE;
+}
+
+@media (max-width: 640px) {
+  .parts-stepper {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .parts-stepper::before {
+    top: 8px;
+    bottom: 8px;
+    left: 29px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .parts-step {
+    flex-direction: row;
+    text-align: left;
+    gap: 12px;
+    padding: 8px;
+  }
+}

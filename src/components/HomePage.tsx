@@ -1,6 +1,6 @@
 import React from 'react';
 import { ARTICLES } from '../data/articles';
-import { PathMap } from './PathMap';
+import { QUESTIONS, PART_NAMES } from '../questions';
 
 interface HomePageProps {
   onNavigate: (route: string) => void;
@@ -78,15 +78,29 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           Your Path
         </h2>
         <p style={{ fontSize: '15px', color: 'var(--text-slate-600)', margin: '0 0 20px', textAlign: 'center' }}>
-          10 questions, 4 parts — walk the path, earn 10 XP per answered question.
+          10 questions in 4 parts — answer them in order, earn 10 XP per answered question.
         </p>
-        <PathMap
-          variant="full"
-          currentStep={0}
-          answers={{}}
-          preview
-          onSelect={() => onNavigate('quest')}
-        />
+        <div className="parts-stepper" role="list" aria-label="The four parts of the quest">
+          {PART_NAMES.map((part) => {
+            const count = QUESTIONS.filter((q) => q.partIndex === part.index).length;
+            return (
+              <button
+                key={part.index}
+                type="button"
+                className="parts-step"
+                role="listitem"
+                onClick={() => onNavigate('quest')}
+              >
+                <span className="parts-step-icon-wrap">
+                  <span className="icon-tile" aria-hidden="true">{part.emoji}</span>
+                  <span className="parts-step-num" aria-hidden="true">{part.index + 1}</span>
+                </span>
+                <span className="parts-step-title">{part.title}</span>
+                <span className="parts-step-count">{count} questions</span>
+              </button>
+            );
+          })}
+        </div>
       </section>
 
       {/* 2. How it works, in 3 steps only: 1. Answer 10 questions. 2. Get your result. 3. Pick one 7-day challenge. */}
@@ -99,7 +113,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           <div className="step-card">
             <div className="step-card-top">
               <div className="step-num-badge">1</div>
-              <span className="emoji-medallion" style={{ width: '44px', height: '44px', fontSize: '1.25rem' }} aria-hidden="true">📱</span>
+              <span className="icon-tile" aria-hidden="true">📱</span>
             </div>
             <h3 className="step-card-title">1. Answer 10 questions</h3>
             <p className="step-card-desc">
@@ -109,7 +123,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           <div className="step-card">
             <div className="step-card-top">
               <div className="step-num-badge">2</div>
-              <span className="emoji-medallion" style={{ width: '44px', height: '44px', fontSize: '1.25rem' }} aria-hidden="true">🏆</span>
+              <span className="icon-tile" aria-hidden="true">🏆</span>
             </div>
             <h3 className="step-card-title">2. Get your result</h3>
             <p className="step-card-desc">
@@ -119,7 +133,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           <div className="step-card">
             <div className="step-card-top">
               <div className="step-num-badge">3</div>
-              <span className="emoji-medallion" style={{ width: '44px', height: '44px', fontSize: '1.25rem' }} aria-hidden="true">✅</span>
+              <span className="icon-tile" aria-hidden="true">✅</span>
             </div>
             <h3 className="step-card-title">3. Pick one 7-day challenge</h3>
             <p className="step-card-desc">
@@ -133,7 +147,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
       <section className="how-it-works-section" aria-labelledby="articles-preview-title">
         <span className="t26-kicker">04 — Guides</span>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ fontSize: '40px', lineHeight: 1 }} aria-hidden="true">📚</span>
+          <span className="icon-tile icon-tile-lg" aria-hidden="true">📚</span>
           <h2 id="articles-preview-title" className="section-headline">
             Articles & Habit Guides
           </h2>
