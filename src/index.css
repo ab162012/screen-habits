@@ -3413,3 +3413,16 @@ img, svg {
   display: inline-block;
   animation: valuePop var(--dur-fast) var(--ease-spring);
 }
+
+/* --------------------------------------------------------------------------
+   Clean vibrant polish (2026-11-07): pixel style scrapped, back to clean
+   Manrope. One vibrant touch: the second line of the hero headline in
+   blue, and a light blue tint on the hero card. Nothing else changes.
+   -------------------------------------------------------------------------- */
+.hero-accent {
+  color: var(--blue);
+}
+
+.home-hero {
+  background-color: var(--bg-subtle);
+}

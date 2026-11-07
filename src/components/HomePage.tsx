@@ -24,7 +24,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           </span>
         </div>
         <h1 id="hero-title" className="home-hero-headline">
-          Know your screen.<br />Own your time.
+          Know your screen.<br /><span className="hero-accent">Own your time.</span>
         </h1>
         <p className="home-hero-subline" style={{ fontSize: '17px', color: 'var(--text-slate-600)', maxWidth: '560px', margin: '0 auto 28px', lineHeight: 1.6 }}>
           A 10-question check for students. Know your habit, pick one 7-day challenge.
