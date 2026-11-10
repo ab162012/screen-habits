@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@astryxdesign/core/Button';
 import { ARTICLES } from '../data/articles';
 import { QUESTIONS, PART_NAMES } from '../questions';
 
@@ -27,22 +28,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           A 10-question check for students. Know your habit, pick one 7-day challenge.
         </p>
         <div className="home-hero-buttons">
-          <button
-            type="button"
-            className="btn-primary"
-            style={{ minHeight: '52px', padding: '14px 32px', fontSize: '16px' }}
+          <Button
+            label={hasExistingAnswers ? 'Continue the Quest' : 'Start the Quest'}
+            variant="primary"
+            size="lg"
+            className="home-hero-cta"
             onClick={() => onNavigate('quest')}
-          >
-            {hasExistingAnswers ? 'Continue the Quest' : 'Start the Quest'}
-          </button>
-          <button
-            type="button"
-            className="btn-secondary"
-            style={{ minHeight: '52px', padding: '14px 32px', fontSize: '16px' }}
+          />
+          <Button
+            label="Read Articles"
+            variant="secondary"
+            size="lg"
+            className="home-hero-cta"
             onClick={() => onNavigate('articles')}
-          >
-            Read Articles
-          </button>
+          />
         </div>
         <span className="t26-sticker">Honest check · No fake scores</span>
       </section>
@@ -173,16 +172,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           ))}
         </div>
         <div className="articles-preview-footer">
-          <a
-            href="#articles"
-            className="btn-secondary"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('articles');
-            }}
-          >
-            View All 6 Articles →
-          </a>
+          <Button
+            label="View All 6 Articles →"
+            variant="secondary"
+            onClick={() => onNavigate('articles')}
+          />
         </div>
       </section>
 

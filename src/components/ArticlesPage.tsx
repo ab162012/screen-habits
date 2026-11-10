@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@astryxdesign/core/Button';
 import { ARTICLES } from '../data/articles';
 
 interface ArticlesPageProps {
@@ -34,17 +35,11 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({ onNavigate }) => {
               <p className="article-card-summary">{article.summary}</p>
             </div>
             <div>
-              <a
-                href={`#article/${article.id}`}
-                className="btn-secondary"
-                style={{ display: 'inline-flex', padding: '8px 16px', minHeight: '40px', fontSize: '14px' }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onNavigate(`article/${article.id}`);
-                }}
-              >
-                Read Full Article →
-              </a>
+              <Button
+                label="Read Full Article →"
+                variant="secondary"
+                onClick={() => onNavigate(`article/${article.id}`)}
+              />
             </div>
           </article>
         ))}

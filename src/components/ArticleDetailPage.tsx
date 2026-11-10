@@ -1,4 +1,6 @@
 import React from 'react';
+import { Badge } from '@astryxdesign/core/Badge';
+import { Button } from '@astryxdesign/core/Button';
 import type { Article } from '../types';
 
 interface ArticleDetailPageProps {
@@ -14,22 +16,16 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
     <article className="article-detail-container article-reading-view article-detail" aria-labelledby="article-heading">
       {/* Back links: one to the articles list, one to the Quest */}
       <div className="article-back-nav article-top-nav-bar article-nav-back">
-        <button
-          type="button"
-          className="btn-secondary"
-          style={{ minHeight: '40px', padding: '8px 16px', fontSize: '14px' }}
+        <Button
+          label="← Back to Articles"
+          variant="secondary"
           onClick={() => onNavigate('articles')}
-        >
-          ← Back to Articles
-        </button>
-        <button
-          type="button"
-          className="btn-primary"
-          style={{ minHeight: '40px', padding: '8px 16px', fontSize: '14px' }}
+        />
+        <Button
+          label="Take the Quest →"
+          variant="primary"
           onClick={() => onNavigate('quest')}
-        >
-          Take the Quest →
-        </button>
+        />
       </div>
 
       {/* Title, then topic tag */}
@@ -40,9 +36,7 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
         <h1 id="article-heading" className="article-card-title article-main-heading article-title-main" style={{ fontSize: 'clamp(24px, 3.5vw, 32px)', marginBottom: '8px' }}>
           {article.title}
         </h1>
-        <span className="chip-badge" style={{ display: 'inline-block' }}>
-          {article.topicTag}
-        </span>
+        <Badge variant="blue" label={article.topicTag} />
       </div>
 
       {/* Body sections in order: short honest introduction, practical steps, closing line */}

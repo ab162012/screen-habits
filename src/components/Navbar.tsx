@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@astryxdesign/core/Button';
 
 interface NavbarProps {
   currentRoute: string;
@@ -50,13 +51,12 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             })}
           </ul>
         </nav>
-        <button
-          type="button"
-          className="nav-cta"
+        <Button
+          label="Start Quest →"
+          variant="primary"
+          size="lg"
           onClick={() => onNavigate('quest')}
-        >
-          Start Quest →
-        </button>
+        />
       </div>
     </header>
   );

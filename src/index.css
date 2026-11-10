@@ -26,7 +26,7 @@
   --blue: #2563EB;
   --blue-hover: #1D4ED8;
   --blue-dark: #1E40AF;
-  --bg-page: #FAF6EC; /* cobalt-toile paper: warm pale cream */
+  --bg-page: #FFFFFF; /* white page (settled look) */
   --bg-subtle: #EFF6FF;
   --border-blue-100: #DBEAFE;
   --border-slate: #CBD5E1;
@@ -509,6 +509,13 @@ button {
   font-weight: 600;
 }
 
+/* Astryx hero buttons keep the 52px hero height (Astryx lg is 36px). */
+.home-hero-buttons .home-hero-cta {
+  min-height: 52px;
+  padding: 14px 32px;
+  font-size: 16px;
+}
+
 .how-it-works-section {
   display: flex;
   flex-direction: column;
@@ -963,11 +970,8 @@ button {
 }
 
 .quest-xp-track {
-  background-color: var(--bg-subtle);
-  border-radius: var(--radius-full);
+  /* Now hosts the Astryx ProgressBar, which draws its own track. */
   width: 100%;
-  height: 8px;
-  overflow: hidden;
 }
 
 .quest-xp-fill {

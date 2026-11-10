@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
+import { Button } from '@astryxdesign/core/Button';
 import type { Question } from '../types';
 
 interface QuestionCardProps {
@@ -258,13 +259,11 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
       {/* Skip button on every question */}
       <div className="skip-row">
-        <button
-          type="button"
-          className={`skip-button ${isSkipped ? 'active-skip' : ''}`}
+        <Button
+          label={isSkipped ? '✓ Marked as Skipped' : 'Skip this question →'}
+          variant="ghost"
           onClick={onSkip}
-        >
-          {isSkipped ? '✓ Marked as Skipped' : 'Skip this question →'}
-        </button>
+        />
       </div>
     </article>
   );

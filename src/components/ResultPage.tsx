@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import confetti from 'canvas-confetti';
+import { Badge } from '@astryxdesign/core/Badge';
+import { Button } from '@astryxdesign/core/Button';
 import { calculateReport, QUESTIONS, APP_SLOGAN } from '../questions';
 import type { AnswersState, UserProfile, ChallengeType } from '../types';
 import { PathMap } from './PathMap';
@@ -196,13 +198,11 @@ FILMING & COMPETITION NOTES
           <p style={{ fontSize: '0.9375rem', color: 'var(--text-slate-600)', maxWidth: '440px', margin: '0 auto 20px' }}>
             Complete the ten-question Screen Habits Quest to calculate your personal balance score and unlock your video-ready report.
           </p>
-          <button
-            type="button"
-            className="btn-terracotta-primary"
+          <Button
+            label="Start the Quest"
+            variant="primary"
             onClick={() => onNavigate('quest')}
-          >
-            Start the Quest
-          </button>
+          />
         </section>
       </div>
     );
@@ -230,19 +230,15 @@ FILMING & COMPETITION NOTES
       <section className="result-card result-hero-card">
         {/* Name and class chips at the top */}
         <div className="hero-chips-row">
-          <span className="chip-badge chip-name">{profile.name || 'Guest'}</span>
+          <Badge variant="blue" label={profile.name || 'Guest'} />
           {profile.classSection && (
-            <span className="chip-badge chip-class">Class: {profile.classSection}</span>
+            <Badge variant="blue" label={`Class: ${profile.classSection}`} />
           )}
           {hasFinisherBadge && (
-            <span className="chip-badge chip-name">
-              ⭐ Finisher
-            </span>
+            <Badge variant="blue" label="⭐ Finisher" />
           )}
           {hasComebackBadge && (
-            <span className="chip-badge chip-name">
-              🔄 Comeback
-            </span>
+            <Badge variant="blue" label="🔄 Comeback" />
           )}
         </div>
 
@@ -329,7 +325,7 @@ FILMING & COMPETITION NOTES
             <span style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--navy)' }}>
               Focus Area: {report.weakestPartTitle}
             </span>
-            <span className="chip-badge" style={{ fontSize: '11px' }}>Priority Target</span>
+            <Badge variant="blue" label="Priority Target" />
           </div>
           <p style={{ fontSize: '0.9375rem', color: 'var(--text-slate-600)', lineHeight: '1.55' }}>
             <strong>One Fix:</strong> {singleFix}
@@ -507,27 +503,21 @@ FILMING & COMPETITION NOTES
       {/* 6. ACTION BAR (Always visible) */}
       <div className="result-action-bar-container result-action-bar">
         <div className="action-bar-buttons-row">
-          <button
-            type="button"
-            className="action-btn-download-pdf btn-primary"
+          <Button
+            label={copied ? '✓ Summary Copied' : '📋 Copy Summary'}
+            variant="primary"
             onClick={handleCopySummary}
-          >
-            {copied ? '✓ Summary Copied' : '📋 Copy Summary'}
-          </button>
-          <button
-            type="button"
-            className="action-btn-share-pdf btn-secondary"
+          />
+          <Button
+            label="🖨️ Print or Save PDF"
+            variant="secondary"
             onClick={handlePrint}
-          >
-            🖨️ Print or Save PDF
-          </button>
-          <button
-            type="button"
-            className="action-btn-share-pdf btn-secondary"
+          />
+          <Button
+            label="🔄 Retake Quest"
+            variant="secondary"
             onClick={onRetake}
-          >
-            🔄 Retake Quest
-          </button>
+          />
         </div>
       </div>
     </div>

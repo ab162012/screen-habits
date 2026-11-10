@@ -1,4 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { Button } from '@astryxdesign/core/Button';
+import { ProgressBar } from '@astryxdesign/core/ProgressBar';
 import {
   QUESTIONS,
   isQuestionAnswered,
@@ -138,8 +140,13 @@ export const QuestPage: React.FC<QuestPageProps> = ({
             <strong key={currentStreak}>{currentStreak}</strong>
           </div>
         </div>
-        <div className="quest-xp-track" role="progressbar" aria-valuenow={currentXP} aria-valuemin={0} aria-valuemax={100}>
-          <div className="quest-xp-fill" style={{ width: `${currentXP}%` }} />
+        <div className="quest-xp-track">
+          <ProgressBar
+            value={currentXP}
+            max={100}
+            label="Quest XP"
+            isLabelHidden
+          />
         </div>
         {showSkipAlert && (
           <div className="quest-skip-alert" role="status">
@@ -186,36 +193,25 @@ export const QuestPage: React.FC<QuestPageProps> = ({
       {/* Sticky Bottom Navigation Bar (User's original UI/UX) */}
       <nav className="sticky-nav-bar" aria-label="Question Navigation">
         <div className="sticky-nav-inner">
-          <button
-            type="button"
-            className="btn-back"
+          <Button
+            label="← Back"
+            variant="ghost"
+            isDisabled={safeStep === 0}
             onClick={handleBack}
-            disabled={safeStep === 0}
-            style={{ opacity: safeStep === 0 ? 0.45 : 1, cursor: safeStep === 0 ? 'not-allowed' : 'pointer' }}
-            aria-label="Previous question"
-          >
-            ← Back
-          </button>
+          />
 
-          <button
-            type="button"
-            className="skip-button"
+          <Button
+            label="Skip"
+            variant="ghost"
             onClick={handleSkip}
-            aria-label="Skip this question"
-          >
-            Skip
-          </button>
+          />
 
-          <button
-            type="button"
-            className="btn-next"
+          <Button
+            label={safeStep === QUESTIONS.length - 1 ? 'See Result →' : 'Next →'}
+            variant="primary"
+            isDisabled={!isCurrentAnswered}
             onClick={handleNext}
-            disabled={!isCurrentAnswered}
-            style={{ opacity: !isCurrentAnswered ? 0.45 : 1, cursor: !isCurrentAnswered ? 'not-allowed' : 'pointer' }}
-            aria-label={safeStep === QUESTIONS.length - 1 ? 'See Result' : 'Next question'}
-          >
-            {safeStep === QUESTIONS.length - 1 ? 'See Result →' : 'Next →'}
-          </button>
+          />
         </div>
       </nav>
     </div>
