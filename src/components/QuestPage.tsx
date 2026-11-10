@@ -1,6 +1,4 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { Button } from '@astryxdesign/core/Button';
-import { ProgressBar } from '@astryxdesign/core/ProgressBar';
 import {
   QUESTIONS,
   isQuestionAnswered,
@@ -10,6 +8,7 @@ import type { AnswersState, UserProfile } from '../types';
 import { PathMap } from './PathMap';
 import { QuestionCard } from './QuestionCard';
 import { NameClassDialog } from './NameClassDialog';
+import { PillButton } from './PillButton';
 
 interface QuestPageProps {
   answers: AnswersState;
@@ -130,7 +129,7 @@ export const QuestPage: React.FC<QuestPageProps> = ({
       {/* Gamification Bar */}
       <section className="quest-gamification-bar" aria-label="Quest Progress & Gamification">
         <div className="quest-gamification-header">
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div className="quest-xp-group">
             {/* key = only the changed number pops, like the reel's dial */}
             <span key={currentXP} className={`quest-xp-badge ${xpPopping ? 'xp-pop' : ''}`}>{currentXP} XP</span>
             <span className="quest-level-tag">Level: {level}</span>
@@ -140,13 +139,15 @@ export const QuestPage: React.FC<QuestPageProps> = ({
             <strong key={currentStreak}>{currentStreak}</strong>
           </div>
         </div>
-        <div className="quest-xp-track">
-          <ProgressBar
-            value={currentXP}
-            max={100}
-            label="Quest XP"
-            isLabelHidden
-          />
+        <div
+          className="quest-xp-track"
+          role="progressbar"
+          aria-label="Quest XP"
+          aria-valuenow={currentXP}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
+          <span className="quest-xp-fill" style={{ width: `${currentXP}%` }} />
         </div>
         {showSkipAlert && (
           <div className="quest-skip-alert" role="status">
@@ -163,7 +164,7 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         onSelect={onStepChange}
       />
 
-      {/* Segmented progress: "N of 10" + 10 segments (screenshot 1). The Path
+      {/* Segmented progress: "N of 10" + 10 segments. The Path
           strip above stays — it is the tap-to-go-back control, this is the
           position display. */}
       <div className="quest-segments" aria-label={`Question ${safeStep + 1} of ${QUESTIONS.length}`}>
@@ -178,7 +179,7 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         </div>
       </div>
 
-      {/* Question Card (User's original component) */}
+      {/* Question Card */}
       {/* key = remount per question, so the card slides in instead of pop-swapping */}
       <QuestionCard
         key={currentQuestion.id}
@@ -190,26 +191,25 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         questionNumber={safeStep + 1}
       />
 
-      {/* Sticky Bottom Navigation Bar (User's original UI/UX) */}
+      {/* Sticky Bottom Navigation Bar */}
       <nav className="sticky-nav-bar" aria-label="Question Navigation">
         <div className="sticky-nav-inner">
-          <Button
+          <PillButton
             label="← Back"
             variant="ghost"
-            isDisabled={safeStep === 0}
+            disabled={safeStep === 0}
             onClick={handleBack}
           />
-
-          <Button
+          <PillButton
             label="Skip"
             variant="ghost"
             onClick={handleSkip}
           />
-
-          <Button
+          <PillButton
             label={safeStep === QUESTIONS.length - 1 ? 'See Result →' : 'Next →'}
             variant="primary"
-            isDisabled={!isCurrentAnswered}
+            arrow
+            disabled={!isCurrentAnswered}
             onClick={handleNext}
           />
         </div>

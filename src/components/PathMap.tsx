@@ -1,16 +1,16 @@
-import React from 'react';
-import { QUESTIONS, isQuestionAnswered } from '../questions';
+import React, { useEffect, useRef, useState } from 'react';
+import { QUESTIONS, isQuestionAnswered, PART_NAMES } from '../questions';
 import type { AnswersState } from '../types';
 
 /**
  * Path Template — the one path component for the whole site.
- * Duolingo-level feel, our own build, no copied assets:
- * - Full (vertical snake): Home preview + the winding path you walk.
- * - Strip (horizontal): Quest lesson top + Result finish, progress at a glance.
+ * - Full (winding path): Home preview — 10 nodes along a navy SVG path drawn
+ *   over a light-blue track as the user scrolls; part labels as two-word
+ *   display titles + count bubbles. On phones it becomes a vertical snake.
+ * - Strip (horizontal): Quest + Result, progress at a glance.
  * Done = navy filled check. Current = big blue node, pulsing ring.
  * Upcoming = grey, locked, not clickable. Done nodes are clickable to go back.
- * XP / streak are never invented here — a node is done only when its
- * question is actually answered (skip = not answered).
+ * A node is done only when its question is actually answered (skip = not answered).
  */
 interface PathMapProps {
   currentStep: number;
@@ -21,6 +21,25 @@ interface PathMapProps {
   preview?: boolean;
 }
 
+/* Sine-wave winding path geometry (viewBox 1000 x 620). */
+const PATH_W = 1000;
+const PATH_H = 620;
+const pathPoint = (t: number) => ({
+  x: 500 + 340 * Math.sin(t * Math.PI * 2.5),
+  y: 30 + t * 560
+});
+
+const buildPathD = () => {
+  const steps = 60;
+  let d = '';
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const p = pathPoint(t);
+    d += `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)} `;
+  }
+  return d.trim();
+};
+
 export const PathMap: React.FC<PathMapProps> = ({
   currentStep,
   answers,
@@ -28,9 +47,44 @@ export const PathMap: React.FC<PathMapProps> = ({
   onSelect,
   preview = false
 }) => {
-  const parts = [0, 1, 2, 3];
-  const partFirstStep = (partIndex: number) =>
-    QUESTIONS.findIndex((q) => q.partIndex === partIndex);
+  const drawnPathRef = useRef<SVGPathElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [pathLength, setPathLength] = useState(2400);
+  const [drawProgress, setDrawProgress] = useState(0);
+
+  /* Scroll-linked draw of the navy path over the light-blue track. */
+  useEffect(() => {
+    if (variant !== 'full') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDrawProgress(1);
+      return;
+    }
+    const pathEl = drawnPathRef.current;
+    if (pathEl) {
+      try {
+        setPathLength(pathEl.getTotalLength());
+      } catch {
+        // keep the fallback length
+      }
+    }
+    const update = () => {
+      const el = wrapRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const viewportH = window.innerHeight || 800;
+      const total = rect.height + viewportH;
+      const seen = viewportH - rect.top;
+      const p = Math.min(1, Math.max(0, seen / total));
+      setDrawProgress(p);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [variant]);
 
   if (variant === 'strip') {
     return (
@@ -59,45 +113,115 @@ export const PathMap: React.FC<PathMapProps> = ({
     );
   }
 
+  const nodeState = (i: number) => {
+    const q = QUESTIONS[i];
+    const done = isQuestionAnswered(q, answers[q.id]);
+    const isCurrent = i === currentStep && currentStep < QUESTIONS.length;
+    return done ? 'done' : isCurrent ? 'current' : 'locked';
+  };
+  const nodeClickable = (i: number) =>
+    preview ? Boolean(onSelect) : Boolean(isQuestionAnswered(QUESTIONS[i], answers[QUESTIONS[i].id]) && onSelect);
+
+  const renderNode = (i: number) => {
+    const q = QUESTIONS[i];
+    const state = nodeState(i);
+    const clickable = nodeClickable(i);
+    return (
+      <button
+        key={q.id}
+        type="button"
+        className={`path-node path-node-full path-node-${state}`}
+        disabled={!clickable}
+        onClick={clickable && onSelect ? () => onSelect(i) : undefined}
+        aria-label={`Question ${i + 1}, ${q.partTitle}: ${state}`}
+        aria-current={state === 'current' ? 'step' : undefined}
+      >
+        <span className="path-node-face" aria-hidden="true">
+          {state === 'done' ? '✓' : i + 1}
+        </span>
+      </button>
+    );
+  };
+
   return (
     <div className="path-map" aria-label="Quest path">
-      {parts.map((partIndex) => {
-        const first = partFirstStep(partIndex);
-        if (first < 0) return null;
-        const partQuestions = QUESTIONS.filter((q) => q.partIndex === partIndex);
-        const part = QUESTIONS[first];
-        return (
-          <div key={partIndex} className="path-part">
-            <div className="path-part-label">
-              <span className="emoji-medallion path-part-emoji" aria-hidden="true">{part.partEmoji}</span>
-              <span>{part.partTitle}</span>
+      {/* Desktop / tablet: winding SVG path with nodes placed along it. */}
+      <div className="path-winding" ref={wrapRef}>
+        <svg
+          className="path-winding-svg"
+          viewBox={`0 0 ${PATH_W} ${PATH_H}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path d={buildPathD()} className="path-track" fill="none" />
+          <path
+            ref={drawnPathRef}
+            d={buildPathD()}
+            className="path-drawn"
+            fill="none"
+            style={{
+              strokeDasharray: pathLength,
+              strokeDashoffset: pathLength * (1 - drawProgress)
+            }}
+          />
+          {/* Travelling blue dot at the drawn head. */}
+          <circle
+            className="path-traveller"
+            r="7"
+            cx={pathPoint(drawProgress).x}
+            cy={pathPoint(drawProgress).y}
+          />
+        </svg>
+        {QUESTIONS.map((q, i) => {
+          const p = pathPoint((i + 0.5) / QUESTIONS.length);
+          return (
+            <span
+              key={q.id}
+              className="path-node-slot"
+              style={{ left: `${(p.x / PATH_W) * 100}%`, top: `${(p.y / PATH_H) * 100}%` }}
+            >
+              {renderNode(i)}
+            </span>
+          );
+        })}
+        {PART_NAMES.map((part) => {
+          const first = QUESTIONS.findIndex((q) => q.partIndex === part.index);
+          if (first < 0) return null;
+          const count = QUESTIONS.filter((q) => q.partIndex === part.index).length;
+          const p = pathPoint((first + 0.5) / QUESTIONS.length);
+          return (
+            <span
+              key={part.index}
+              className="path-part-label"
+              style={{ left: `${(p.x / PATH_W) * 100}%`, top: `${(p.y / PATH_H) * 100}%` }}
+            >
+              <span className="path-part-emoji" aria-hidden="true">{part.emoji}</span>
+              <span className="path-part-title">{part.title}</span>
+              <span className="path-part-count">{count} questions</span>
+            </span>
+          );
+        })}
+      </div>
+
+      {/* Phones: vertical snake — same nodes and labels, stacked. */}
+      <div className="path-snake">
+        {PART_NAMES.map((part) => {
+          const partQuestions = QUESTIONS.filter((q) => q.partIndex === part.index);
+          const count = partQuestions.length;
+          return (
+            <div key={part.index} className="path-snake-part">
+              <div className="path-snake-label">
+                <span className="path-part-emoji" aria-hidden="true">{part.emoji}</span>
+                <span className="path-part-title">{part.title}</span>
+                <span className="path-part-count">{count} questions</span>
+              </div>
+              <div className="path-snake-nodes">
+                {partQuestions.map((q) => renderNode(QUESTIONS.indexOf(q)))}
+              </div>
             </div>
-            {partQuestions.map((q) => {
-              const i = QUESTIONS.indexOf(q);
-              const done = isQuestionAnswered(q, answers[q.id]);
-              const isCurrent = i === currentStep && currentStep < QUESTIONS.length;
-              const state = done ? 'done' : isCurrent ? 'current' : 'locked';
-              const clickable = preview ? Boolean(onSelect) : Boolean(done && onSelect);
-              return (
-                <button
-                  key={q.id}
-                  type="button"
-                  className={`path-node path-node-${state}`}
-                  disabled={!clickable}
-                  onClick={clickable && onSelect ? () => onSelect(i) : undefined}
-                  aria-label={`Question ${i + 1}, ${q.partTitle}: ${state}`}
-                  aria-current={isCurrent ? 'step' : undefined}
-                >
-                  <span className="path-node-face" aria-hidden="true">
-                    {done ? '✓' : q.partEmoji}
-                  </span>
-                  <span className="path-node-num">{i + 1}</span>
-                </button>
-              );
-            })}
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };

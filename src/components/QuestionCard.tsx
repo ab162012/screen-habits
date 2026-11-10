@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
-import { Button } from '@astryxdesign/core/Button';
+import { PillButton } from './PillButton';
 import type { Question } from '../types';
 
 interface QuestionCardProps {
@@ -94,12 +94,10 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   };
   return (
     <article className="question-card" key={question.id}>
-      <div className="icon-tile icon-tile-lg" aria-hidden="true">
-        {question.partEmoji}
-      </div>
-
       <div className="question-header">
-        <p className="question-eyebrow">Question {questionNumber}</p>
+        <p className="question-eyebrow">
+          Question {questionNumber} · {question.partEmoji} {question.partTitle}
+        </p>
         <h1 className="question-title">{question.title}</h1>
       </div>
 
@@ -246,7 +244,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
           <div className="scale-labels-legend">
             <span>1 — Restless or exhausted</span>
-            <span>5 — Deep & refreshed</span>
+            <span>5 — Deep &amp; refreshed</span>
           </div>
 
           {value && (
@@ -259,7 +257,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
 
       {/* Skip button on every question */}
       <div className="skip-row">
-        <Button
+        <PillButton
           label={isSkipped ? '✓ Marked as Skipped' : 'Skip this question →'}
           variant="ghost"
           onClick={onSkip}

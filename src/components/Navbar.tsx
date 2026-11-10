@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@astryxdesign/core/Button';
+import { PillButton } from './PillButton';
 
 interface NavbarProps {
   currentRoute: string;
@@ -16,19 +16,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
 
   return (
     <header className="top-navbar" role="banner">
-      <div className="nav-container">
-        <a
-          href="#home"
-          className="nav-brand"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('home');
-          }}
-        >
-          <span className="brand-emoji" aria-hidden="true">📱</span>
-          <span>Screen Habits</span>
-        </a>
-        <nav aria-label="Main Navigation">
+      <div className="nav-pill">
+        <nav className="nav-main" aria-label="Main Navigation">
           <ul className="nav-links">
             {navItems.map((item) => {
               const isActive =
@@ -39,6 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   <a
                     href={`#${item.id}`}
                     className={isActive ? 'active' : ''}
+                    aria-current={isActive ? 'page' : undefined}
                     onClick={(e) => {
                       e.preventDefault();
                       onNavigate(item.id);
@@ -51,12 +41,26 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             })}
           </ul>
         </nav>
-        <Button
-          label="Start Quest →"
-          variant="primary"
-          size="lg"
-          onClick={() => onNavigate('quest')}
-        />
+        <a
+          href="#home"
+          className="nav-brand"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate('home');
+          }}
+        >
+          <span className="brand-emoji" aria-hidden="true">📱</span>
+          <span>Screen Habits</span>
+        </a>
+        <span className="nav-cta">
+          <PillButton
+            label="Start Quest →"
+            variant="primary"
+            size="lg"
+            arrow
+            onClick={() => onNavigate('quest')}
+          />
+        </span>
       </div>
     </header>
   );

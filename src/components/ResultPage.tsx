@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import confetti from 'canvas-confetti';
-import { Badge } from '@astryxdesign/core/Badge';
-import { Button } from '@astryxdesign/core/Button';
 import { calculateReport, QUESTIONS, APP_SLOGAN } from '../questions';
 import type { AnswersState, UserProfile, ChallengeType } from '../types';
 import { PathMap } from './PathMap';
+import { PillButton } from './PillButton';
+import { PillBadge } from './PillBadge';
 
 interface ResultPageProps {
   answers: AnswersState;
@@ -190,17 +190,18 @@ FILMING & COMPETITION NOTES
   if (report.answeredCount === 0) {
     return (
       <div className="result-composed-page">
-        <section className="result-card result-hero-card" style={{ textAlign: 'center', padding: '36px 20px' }}>
-          <span style={{ fontSize: '3rem', display: 'inline-block', marginBottom: '12px' }}>📱</span>
-          <h2 style={{ fontSize: '1.5rem', color: 'var(--text-slate-800)', marginBottom: '8px' }}>
+        <section className="result-card result-hero-card result-empty-state">
+          <span className="result-empty-mark" aria-hidden="true">📱</span>
+          <h2 className="result-empty-title">
             No Active Result Yet
           </h2>
-          <p style={{ fontSize: '0.9375rem', color: 'var(--text-slate-600)', maxWidth: '440px', margin: '0 auto 20px' }}>
+          <p className="result-empty-body">
             Complete the ten-question Screen Habits Quest to calculate your personal balance score and unlock your video-ready report.
           </p>
-          <Button
+          <PillButton
             label="Start the Quest"
             variant="primary"
+            arrow
             onClick={() => onNavigate('quest')}
           />
         </section>
@@ -226,19 +227,19 @@ FILMING & COMPETITION NOTES
         currentStep={QUESTIONS.length}
         answers={answers}
       />
-      {/* 1. HERO CARD (User's authentic design) */}
+      {/* 1. HERO CARD */}
       <section className="result-card result-hero-card">
         {/* Name and class chips at the top */}
         <div className="hero-chips-row">
-          <Badge variant="blue" label={profile.name || 'Guest'} />
+          <PillBadge label={profile.name || 'Guest'} />
           {profile.classSection && (
-            <Badge variant="blue" label={`Class: ${profile.classSection}`} />
+            <PillBadge label={`Class: ${profile.classSection}`} />
           )}
           {hasFinisherBadge && (
-            <Badge variant="blue" label="⭐ Finisher" />
+            <PillBadge label="⭐ Finisher" />
           )}
           {hasComebackBadge && (
-            <Badge variant="blue" label="🔄 Comeback" />
+            <PillBadge label="🔄 Comeback" />
           )}
         </div>
 
@@ -254,7 +255,7 @@ FILMING & COMPETITION NOTES
                 r={circleRadius}
               />
               <circle
-                className="score-track-fill-terracotta score-track-fill-teal"
+                className="score-track-fill-blue"
                 cx="70"
                 cy="70"
                 r={circleRadius}
@@ -267,7 +268,7 @@ FILMING & COMPETITION NOTES
             </svg>
             <div className="score-inside-text">
               {report.isPartial ? (
-                <span className="score-number-big" style={{ fontSize: '1.625rem' }}>
+                <span className="score-number-big score-number-partial">
                   {report.answeredCount}/10
                 </span>
               ) : (
@@ -303,8 +304,8 @@ FILMING & COMPETITION NOTES
           </div>
         </div>
 
-        {/* Specific Verdict Line with Warm Amber Highlight Callout */}
-        <div className={`hero-verdict-box ${report.isPartial ? 'verdict-box-partial' : 'verdict-box-amber'}`}>
+        {/* Specific Verdict Line */}
+        <div className={`hero-verdict-box ${report.isPartial ? 'verdict-box-partial' : 'verdict-box-blue'}`}>
           <p className="hero-verdict-line result-verdict">{report.verdictLine}</p>
         </div>
 
@@ -316,31 +317,30 @@ FILMING & COMPETITION NOTES
 
       {/* 2. WEAKEST PART WITH ONE FIX ONLY */}
       <section className="result-card weakest-part-section" aria-label="Weakest habit area and single fix">
-        <div className="part-header" style={{ marginBottom: '8px' }}>
-          <span className="icon-tile" aria-hidden="true">🎯</span>
-          <span className="part-name-label" style={{ fontSize: '1.125rem' }}>Weakest Area & Single Fix</span>
+        <div className="part-header">
+          <span className="part-name-label part-name-label-lg">🎯 Weakest Area &amp; Single Fix</span>
         </div>
-        <div style={{ backgroundColor: 'var(--bg-subtle)', border: '1px solid var(--border-blue-100)', borderRadius: 'var(--radius-xl)', padding: '16px 18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-            <span style={{ fontSize: '0.9375rem', fontWeight: 600, color: 'var(--navy)' }}>
+        <div className="weakest-fix-bubble">
+          <div className="weakest-fix-row">
+            <span className="weakest-fix-area">
               Focus Area: {report.weakestPartTitle}
             </span>
-            <Badge variant="blue" label="Priority Target" />
+            <PillBadge label="Priority Target" />
           </div>
-          <p style={{ fontSize: '0.9375rem', color: 'var(--text-slate-600)', lineHeight: '1.55' }}>
+          <p className="weakest-fix-text">
             <strong>One Fix:</strong> {singleFix}
           </p>
         </div>
       </section>
 
-      {/* 3. PARTS SUMMARY GRID (User's authentic 2x2 grid) */}
+      {/* 3. PARTS SUMMARY GRID (2x2 grid) */}
       <section className="result-card parts-section-container" aria-label="Habit breakdown by area">
         <h2 className="parts-section-title">Four Habit Areas</h2>
         <div className="parts-summary-grid">
           {report.partScores.map((part) => (
             <div className="part-stat-card part-result-card" key={part.partIndex}>
               <div className="part-header">
-                <span className="icon-tile" aria-hidden="true">{part.emoji}</span>
+                <span className="part-emoji-mark" aria-hidden="true">{part.emoji}</span>
                 <span className="part-name-label">{part.title}</span>
                 <span className="part-score-pill">
                   {part.hasAnswered ? `${part.score} / ${part.maxScore} pts` : 'No answers'}
@@ -364,8 +364,8 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 4. RECOMMENDATIONS SECTION (User's authentic design) */}
-      <section className="result-card recommendations-section" aria-label="Personal recommendations">
+      {/* 4. RECOMMENDATIONS SECTION — navy panel with 3 stacked white cards */}
+      <section className="recommendations-panel" aria-label="Personal recommendations">
         <h2 className="rec-section-title">Top Three Practical Actions</h2>
         <p className="rec-section-subtext">
           Targeted habit adjustments based directly on your weakest diagnostic area:
@@ -389,11 +389,10 @@ FILMING & COMPETITION NOTES
 
       {/* 5. THE 7-DAY CHALLENGE PICKER (Filmable challenge for video) */}
       <section className="result-card" aria-label="Pick Your 7-Day Team Challenge">
-        <div className="part-header" style={{ marginBottom: '8px' }}>
-          <span className="icon-tile" aria-hidden="true">✅</span>
-          <span className="part-name-label" style={{ fontSize: '1.125rem' }}>Pick Your 7-Day Team Challenge</span>
+        <div className="part-header">
+          <span className="part-name-label part-name-label-lg">✅ Pick Your 7-Day Team Challenge</span>
         </div>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-slate-600)', lineHeight: '1.5' }}>
+        <p className="challenge-intro">
           Select exactly ONE challenge to test for seven continuous days. This is the real habit trial
           your team can film and document for the video competition.
         </p>
@@ -406,15 +405,15 @@ FILMING & COMPETITION NOTES
             role="radio"
             aria-checked={selectedChallenge === 'breaks'}
           >
-            <span style={{ fontSize: '1.5rem', lineHeight: 1 }} aria-hidden="true">✅</span>
-            <div>
-              <strong style={{ display: 'block', fontSize: '0.9375rem', color: 'var(--text-slate-800)', marginBottom: '2px' }}>
+            <span className="challenge-toggle-emoji" aria-hidden="true">✅</span>
+            <span className="challenge-toggle-body">
+              <strong className="challenge-toggle-title">
                 Phone-free breaks during the day
               </strong>
-              <span style={{ fontSize: '0.8125rem', color: 'var(--text-slate-600)' }}>
+              <span className="challenge-toggle-desc">
                 Leave screens behind during pauses. Physical reset with water and stretching.
               </span>
-            </div>
+            </span>
           </button>
 
           <button
@@ -424,15 +423,15 @@ FILMING & COMPETITION NOTES
             role="radio"
             aria-checked={selectedChallenge === 'cutoff'}
           >
-            <span style={{ fontSize: '1.5rem', lineHeight: 1 }} aria-hidden="true">✅</span>
-            <div>
-              <strong style={{ display: 'block', fontSize: '0.9375rem', color: 'var(--text-slate-800)', marginBottom: '2px' }}>
+            <span className="challenge-toggle-emoji" aria-hidden="true">✅</span>
+            <span className="challenge-toggle-body">
+              <strong className="challenge-toggle-title">
                 A 9pm screen cut-off
               </strong>
-              <span style={{ fontSize: '0.8125rem', color: 'var(--text-slate-600)' }}>
+              <span className="challenge-toggle-desc">
                 Shut down active devices at 9:00 PM. Charge away from bed and wind down offline.
               </span>
-            </div>
+            </span>
           </button>
         </div>
 
@@ -465,33 +464,32 @@ FILMING & COMPETITION NOTES
 
       {/* 6. VIDEO-READY SUMMARY BLOCK */}
       <section className="result-card" aria-label="British Council Your World Summary">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '8px' }}>
-          <div className="part-header" style={{ marginBottom: 0 }}>
-            <span className="icon-tile" aria-hidden="true">🏆</span>
-            <span className="part-name-label" style={{ fontSize: '1.125rem' }}>British Council Your World Summary</span>
+        <div className="summary-header-row">
+          <div className="part-header part-header-inline">
+            <span className="part-name-label part-name-label-lg">🏆 British Council Your World Summary</span>
           </div>
           {copied && (
-            <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--blue)', backgroundColor: 'var(--bg-subtle)', border: '1px solid var(--border-blue-100)', padding: '4px 12px', borderRadius: 'var(--radius-full)' }}>
+            <span className="copied-pill">
               ✓ Copied to clipboard!
             </span>
           )}
         </div>
-        <p style={{ fontSize: '0.875rem', color: 'var(--text-slate-600)', lineHeight: '1.5', marginBottom: '14px' }}>
+        <p className="summary-intro">
           Your video-ready habit evidence summary. Read the spoken paragraph aloud in your video, and copy the full record below.
         </p>
 
         {/* Read-Aloud Spoken Paragraph */}
-        <div className="read-aloud-box" style={{ backgroundColor: 'var(--bg-subtle)', border: '1px solid var(--border-blue-100)', borderRadius: 'var(--radius-xl)', padding: '16px 18px', marginBottom: '14px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', marginBottom: '6px' }}>
-            <span style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--blue)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+        <div className="read-aloud-box">
+          <div className="read-aloud-header">
+            <span className="read-aloud-label">
               🗣️ Spoken Video Script (Read Aloud)
             </span>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-slate-400)' }}>
+            <span className="read-aloud-time">
               ~20 seconds
             </span>
           </div>
-          <p style={{ fontSize: '0.9375rem', color: 'var(--navy)', fontStyle: 'italic', lineHeight: '1.6', margin: 0 }}>
-            "{readAloudParagraph}"
+          <p className="read-aloud-text">
+            &ldquo;{readAloudParagraph}&rdquo;
           </p>
         </div>
 
@@ -500,20 +498,20 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 6. ACTION BAR (Always visible) */}
+      {/* 7. ACTION BAR (Always visible) */}
       <div className="result-action-bar-container result-action-bar">
         <div className="action-bar-buttons-row">
-          <Button
+          <PillButton
             label={copied ? '✓ Summary Copied' : '📋 Copy Summary'}
             variant="primary"
             onClick={handleCopySummary}
           />
-          <Button
+          <PillButton
             label="🖨️ Print or Save PDF"
             variant="secondary"
             onClick={handlePrint}
           />
-          <Button
+          <PillButton
             label="🔄 Retake Quest"
             variant="secondary"
             onClick={onRetake}
