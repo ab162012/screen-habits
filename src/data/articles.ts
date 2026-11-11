@@ -8,7 +8,7 @@ export const ARTICLES: Article[] = [
     topicTag: 'Breaks & Routines',
     emoji: '🚶',
     readTime: '3 min read',
-    summary: 'Why switching from homework on a laptop to scrolling reels on a phone is not a real break, and how physical resets restore true stamina.',
+    summary: 'Why switching screens is not a real break — and how physical resets restore stamina.',
     intro: 'When school assignments, study materials, and friend messages all live on illuminated glass, taking a "break" often just means switching from a computer monitor to a phone screen. That is not a break for your eye muscles, neck vertebrae, or attention span. A genuine break changes your physical environment and your sensory input so your nervous system can downshift.',
     steps: [
       {
@@ -28,7 +28,7 @@ export const ARTICLES: Article[] = [
         detail: 'Tie pauses to completed tasks rather than rigid alarms: after finishing two math problems, drafting an essay section, or reading one textbook chapter. A completed milestone gives your mind permission to rest.'
       }
     ],
-    closingLine: 'Try picking phone-free breaks as your 7-day challenge on the Quest, and film your team\'s real daily reset.'
+    closingLine: 'Try picking phone-free breaks as your 7-day challenge on the Quest.'
   },
   {
     id: '9pm-screen-cutoff',
@@ -37,7 +37,7 @@ export const ARTICLES: Article[] = [
     topicTag: 'Evening Boundaries',
     emoji: '🌙',
     readTime: '4 min read',
-    summary: 'A clear evening boundary that protects melatonin, calms interactive alertness, and separates daytime work from restful sleep.',
+    summary: 'A clear evening boundary that protects sleep and separates work from rest.',
     intro: 'Late-night screen exposure does two things at once: bright blue-spectrum light delays the body\'s natural melatonin release, while interactive feeds and group chats keep your cognitive alertness on high guard. Setting an explicit boundary like 9:00 PM gives your mind an unambiguous signal that the day\'s performance demands are officially finished.',
     steps: [
       {
@@ -66,7 +66,7 @@ export const ARTICLES: Article[] = [
     topicTag: 'Sleep & Rest',
     emoji: '🛌',
     readTime: '3 min read',
-    summary: 'How high-stimulus media keeps your nervous system vigilant, and four practical habits to restore restorative nighttime rest.',
+    summary: 'How high-stimulus media keeps you alert — and four habits for restful sleep.',
     intro: 'High-stimulus media—fast-paced video feeds, video games, and emotional group chats—triggers alertness right when core body temperature and brainwave frequencies need to gradually lower. Protecting your final sixty minutes before sleep transforms morning clarity and long-term retention.',
     steps: [
       {
@@ -95,7 +95,7 @@ export const ARTICLES: Article[] = [
     topicTag: 'App Habits',
     emoji: '📱',
     readTime: '4 min read',
-    summary: 'Radical detoxes fail because school and life rely on connectivity. Here is how to add smart friction to mindless algorithmic feeds.',
+    summary: 'Smart friction for mindless feeds — no radical detox needed.',
     intro: 'Total digital detoxes rarely work for students because school assignments, group projects, and friend networks require active digital communication. The objective is not abandoning technology—it is dismantling friction-free, mindless scrolling loops while preserving the tools that actually serve your life.',
     steps: [
       {
@@ -124,7 +124,7 @@ export const ARTICLES: Article[] = [
     topicTag: 'Vision & Focus',
     emoji: '👁️',
     readTime: '3 min read',
-    summary: 'Staring at illuminated flat planes drops your blink rate in half. Learn simple vision hygiene and focus pacing to study without strain.',
+    summary: 'Simple vision hygiene and focus pacing for strain-free study.',
     intro: 'When reading or working on digital screens, human blink rates drop by up to fifty percent, drying the protective tear film across your corneas. Coupled with continuous close-up lens contraction, hours of unbroken screen work cause dull headaches and mental fatigue that simple habits can easily prevent.',
     steps: [
       {
@@ -144,7 +144,7 @@ export const ARTICLES: Article[] = [
         detail: 'Never study with a blazing bright display in an unlit room. Match the luminance of your screen to the ambient brightness of the surrounding space to reduce ocular contrast strain.'
       }
     ],
-    closingLine: 'See where your Body and Focus stand on your personal Screen Habits report and share your real experience in your team\'s video.'
+    closingLine: 'See where your Body and Focus stand on your personal Screen Habits report.'
   },
   {
     id: 'healthy-habits-student-team',
@@ -153,7 +153,7 @@ export const ARTICLES: Article[] = [
     topicTag: 'Video & Teamwork',
     emoji: '🎬',
     readTime: '4 min read',
-    summary: 'A blueprint for the British Council Your World video competition: turning honest seven-day habit trials into a compelling 3-minute story.',
+    summary: 'Turning honest seven-day habit trials into a 3-minute story.',
     intro: 'The British Council Your World competition challenges student teams to explore the theme "Healthy habits in a digital world." Healthy habits do not mean avoiding screens altogether; they mean developing boundaries, intentional rhythms, and team accountability so technology serves human growth rather than consuming all your free hours.',
     steps: [
       {
@@ -173,6 +173,6 @@ export const ARTICLES: Article[] = [
         detail: 'Brainstorm your storyboard on paper and index cards before touching editing software. Collaborative face-to-face planning keeps your team aligned and reduces unnecessary editing screen hours.'
       }
     ],
-    closingLine: 'Complete your Screen Habits Quest now, choose your 7-day challenge, and generate your video-ready summary for the competition.'
+    closingLine: 'Complete your Screen Habits Quest now and choose your 7-day challenge.'
   }
 ];

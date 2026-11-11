@@ -17,7 +17,7 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({ onNavigate }) => {
           <span className="section-emoji" aria-hidden="true">📚</span> Screen Habits Guides
         </h1>
         <p className="articles-intro">
-          Six practical, honest articles for students. Everyday habit routines that protect evening sleep, reduce eye strain, and build real balance.
+          Six practical, honest guides for students.
         </p>
       </section>
 

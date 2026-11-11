@@ -22,7 +22,6 @@ export const ResultPage: React.FC<ResultPageProps> = ({
   onRetake,
   onNavigate
 }) => {
-  const [copied, setCopied] = useState(false);
   const [selectedChallenge, setSelectedChallenge] = useState<ChallengeType>('breaks');
   const [startDay, setStartDay] = useState<string>('Tomorrow');
   const [animatedScore, setAnimatedScore] = useState<number>(0);
@@ -110,80 +109,6 @@ export const ResultPage: React.FC<ResultPageProps> = ({
     }
   }, [report]);
 
-  // One short paragraph the user can read aloud in their team video
-  const readAloudParagraph = useMemo(() => {
-    if (report.isPartial) {
-      return `During my Screen Habits diagnostic, I completed a partial check answering ${report.answeredCount} of 10 questions. My initial habit focus is ${report.weakestPartTitle}, and for our team video project on Healthy habits in a digital world, I am committing to a 7-day challenge of "${currentChallenge.title}" starting ${startDay}. Over the next week, our team will test and film this habit in action.`;
-    }
-    return `During my Screen Habits diagnostic, I achieved a ${report.band} score of ${report.totalScore}/100, answering ${report.answeredCount} of 10 questions. My weakest area was ${report.weakestPartTitle}, so for our team video project on Healthy habits in a digital world, I am committing to a 7-day challenge of "${currentChallenge.title}" starting ${startDay}. Over the next week, our team will test and film this habit in action.`;
-  }, [report, currentChallenge, startDay]);
-
-  // Video-ready summary block text
-  const videoSummaryText = useMemo(() => {
-    const studentLine = profile.name
-      ? `Student: ${profile.name}${profile.classSection ? ` (${profile.classSection})` : ''}`
-      : 'Student habits profile';
-
-    const baselineLine = report.isPartial
-      ? `Screen Balance: Partial check (${report.answeredCount} of 10 questions answered).`
-      : `Screen Balance Score: ${report.totalScore}/100 (${report.band} Band, based on ${report.answeredCount} of 10 questions).`;
-
-    const weakestLine = `Habit Focus Area: ${report.weakestPartTitle}.`;
-
-    const challengeLine = `7-Day Challenge: ${currentChallenge.title} (Starting: ${startDay}).
-Challenge Commitment: ${currentChallenge.desc}`;
-
-    const questionLines = QUESTIONS.map((q) => {
-      const p = report.partScores[q.partIndex];
-      const r = p?.questionResults.find((qr) => qr.questionId === q.id);
-      return `• ${q.title}: ${r ? r.statusText : 'Skipped'}`;
-    }).join('\n');
-
-    return `SCREEN HABITS — VIDEO SUMMARY
-Theme: Healthy habits in a digital world
-Competition: British Council Your World Video Competition
-
-SPOKEN SCRIPT (READ ALOUD IN VIDEO)
-"${readAloudParagraph}"
-
-${studentLine}
-Slogan: ${APP_SLOGAN}
-
-BASELINE DIAGNOSTIC
-${baselineLine}
-${weakestLine}
-One Fix: ${singleFix}
-Verdict: ${report.verdictLine}
-
-CHOSEN 7-DAY CHALLENGE (✅)
-${challengeLine}
-
-QUESTION DETAIL (HONEST RECORD)
-${questionLines}
-
-FILMING & COMPETITION NOTES
-• What to film: Real students, a real place, the real seven days of testing this habit change.
-• Video format: Live-action only, maximum 3 minutes duration, created by a team of 3 to 5 students.
-• Important: This summary provides baseline habit evidence. Team registration and student eligibility are confirmed by school mentors, not by this webpage.`;
-  }, [report, profile, currentChallenge, startDay, readAloudParagraph, singleFix]);
-
-  const handleCopySummary = async () => {
-    try {
-      await navigator.clipboard.writeText(videoSummaryText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
-    } catch {
-      const textarea = document.createElement('textarea');
-      textarea.value = videoSummaryText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
-    }
-  };
-
   const handlePrint = () => {
     window.print();
   };
@@ -197,7 +122,7 @@ FILMING & COMPETITION NOTES
             No Active Result Yet
           </h2>
           <p className="result-empty-body">
-            Complete the ten-question Screen Habits Quest to calculate your personal balance score and unlock your video-ready report.
+            Complete the ten-question Screen Habits Quest to calculate your personal balance score and see your result.
           </p>
           <PillButton
             label="Start the Quest"
@@ -316,7 +241,6 @@ FILMING & COMPETITION NOTES
       {/* 2. PATH WALKED — proof of what was answered, below the score. */}
       <div className="result-path-strip">
         <PathMap
-          variant="strip"
           currentStep={QUESTIONS.length}
           answers={answers}
         />
@@ -376,9 +300,6 @@ FILMING & COMPETITION NOTES
           (the hero is already the page's one dark band). */}
       <section className="result-card recommendations-section" aria-label="Personal recommendations">
         <h2 className="result-section-heading"><span className="section-emoji" aria-hidden="true">💡</span> Top Three Practical Actions</h2>
-        <p className="rec-section-subtext">
-          Targeted habit adjustments based directly on your weakest diagnostic area:
-        </p>
         <div className="rec-cards-list">
           {report.recommendations.map((rec, index) => (
             <div className="rec-card action-card" key={rec.id}>
@@ -396,15 +317,14 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 6. THE 7-DAY CHALLENGE PICKER (Filmable challenge for video) */}
+      {/* 6. THE 7-DAY CHALLENGE PICKER */}
       <section className="result-card" aria-label="Pick Your 7-Day Team Challenge">
         <h2 className="result-section-heading">
           <span className="section-emoji" aria-hidden="true">✅</span>
           <span>Pick Your 7-Day Team Challenge</span>
         </h2>
         <p className="challenge-intro">
-          Select exactly ONE challenge to test for seven continuous days. This is the real habit trial
-          your team can film and document for the video competition.
+          Select exactly ONE challenge to test for seven continuous days.
         </p>
 
         <div className="challenge-picker-box" role="radiogroup" aria-label="7-Day Challenge Options">
@@ -472,51 +392,8 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 7. VIDEO-READY SUMMARY BLOCK */}
-      <section className="result-card video-summary-section" aria-label="British Council Your World Summary">
-        <div className="summary-header-row">
-          <h2 className="result-section-heading">
-            <span className="section-emoji" aria-hidden="true">🏆</span>
-            <span>British Council Your World Summary</span>
-          </h2>
-          {copied && (
-            <span className="copied-pill">
-              ✓ Copied to clipboard!
-            </span>
-          )}
-        </div>
-        <p className="summary-intro">
-          Your video-ready habit evidence summary. Read the spoken paragraph aloud in your video, and copy the full record below.
-        </p>
-
-        {/* Read-Aloud Spoken Paragraph */}
-        <div className="read-aloud-box">
-          <div className="read-aloud-header">
-            <span className="read-aloud-label">
-              <span className="section-emoji" aria-hidden="true">🗣️</span>
-              <span>Spoken Video Script (Read Aloud)</span>
-            </span>
-            <span className="read-aloud-time">
-              ~20 seconds
-            </span>
-          </div>
-          <p className="read-aloud-text">
-            &ldquo;{readAloudParagraph}&rdquo;
-          </p>
-        </div>
-
-        <div className="video-summary-wrapper video-summary-box">
-          <pre className="video-summary-content video-summary-pre">{videoSummaryText}</pre>
-        </div>
-      </section>
-
-      {/* 8. ACTION BAR — floating pill, same component as the Quest nav. */}
+      {/* 7. ACTION BAR — floating pill, same component as the Quest nav. */}
       <FloatingBar label="Result actions">
-        <PillButton
-          label={copied ? '✓ Summary Copied' : '📋 Copy Summary'}
-          variant="primary"
-          onClick={handleCopySummary}
-        />
         <PillButton
           label="🖨️ Print or Save PDF"
           variant="secondary"

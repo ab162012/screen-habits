@@ -227,6 +227,7 @@ section {
   line-height: 1.3;
   color: var(--ocean-mid);
   margin-bottom: 16px;
+  text-align: center;
 }
 
 .eyebrow-emoji {
@@ -250,16 +251,9 @@ section {
   margin-bottom: 16px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 8px;
-}
-
-.section-intro {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--slate);
-  margin: 0 0 32px;
-  max-width: 620px;
 }
 
 /* ---------- Scroll reveal (one-shot, 250ms, 12px rise) ---------- */
@@ -734,11 +728,12 @@ section {
   gap: 96px;
 }
 
-/* Hero — the whole pitch. Display type, left-aligned, 2nd line indented. */
+/* Hero — the whole pitch. Display type, centred. */
 .home-hero {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   animation: hero-rise var(--dur-enter) var(--ease);
 }
 
@@ -774,14 +769,13 @@ section {
 
 .hero-line.hero-accent {
   color: var(--ocean-mid);
-  padding-left: 0.6em;
 }
 
 /* The sticker sits in normal flow BELOW the headline — it overlaps
    nothing (it used to be pulled up 24px over the H1 and hid the period
    of "OWN YOUR TIME."). */
 .hero-sticker {
-  align-self: flex-start;
+  align-self: center;
   margin: 16px 0 0;
   z-index: 1;
 }
@@ -792,12 +786,13 @@ section {
   line-height: 1.5;
   color: var(--slate);
   max-width: 620px;
-  margin: 24px 0 32px;
+  margin: 24px auto 32px;
 }
 
 .home-hero-buttons {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
 }
 
@@ -817,6 +812,10 @@ section {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 24px 16px;
 }
 
 .home-stat-num {
@@ -861,6 +860,7 @@ section {
   color: var(--ocean-pale);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -873,7 +873,13 @@ section {
 .honest-rule-item {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 16px;
 }
 
 .honest-rule-num {
@@ -886,6 +892,7 @@ section {
 .honest-rule-text {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-size: 16px;
   font-weight: 400;
@@ -908,23 +915,24 @@ section {
   flex-direction: column;
 }
 
-/* How It Works — 3 equal rows, no stagger, no ghost numerals,
-   no arrow discs, no buried CTA. Rows split by 1px rules. */
+/* How It Works — 3 equal capsule cards in a grid, no stagger,
+   no ghost numerals, no arrow discs, no buried CTA. */
 .how-steps-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
 .how-step-row {
   display: flex;
-  gap: 16px;
-  padding: 24px 0;
-  border-top: 1px solid var(--line);
-}
-
-.how-step-row:first-child {
-  border-top: none;
-  padding-top: 0;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 24px;
 }
 
 .how-step-num {
@@ -938,6 +946,7 @@ section {
 .how-step-body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
 }
 
@@ -968,61 +977,7 @@ section {
   margin-top: 32px;
 }
 
-/* Video band — contained navy panel, no CTA. */
-.video-note-band {
-  background: var(--ocean);
-  border-radius: var(--radius-xl);
-  padding: 32px;
-}
-
-.video-note-title {
-  font-size: clamp(28px, 3.5vw, 40px);
-  font-weight: 800;
-  text-transform: uppercase;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: #fff;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.video-note-text {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #fff;
-  margin-bottom: 16px;
-  max-width: 680px;
-}
-
-.video-note-text strong {
-  font-weight: 700;
-}
-
-.video-note-bullets {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-width: 680px;
-}
-
-.video-note-bullets li {
-  font-size: 16px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.85);
-  padding-left: 24px;
-  position: relative;
-}
-
-.video-note-bullets li::before {
-  content: '•';
-  position: absolute;
-  left: 8px;
-  color: var(--ocean-sky);
-}
-
-/* ---------- PathMap ---------- */
+/* ---------- PathMap (quest progress strip only) ---------- */
 .path-strip {
   display: flex;
   justify-content: center;
@@ -1077,132 +1032,12 @@ button.path-node:not(:disabled):hover {
   transform: translateY(-2px);
 }
 
-.path-map {
-  width: 100%;
-}
-
-.path-winding {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  aspect-ratio: 1000 / 930;
-}
-
-.path-winding-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* ONE consistent treatment: a single full-ocean stroke. The old split —
-   a pale 22%-opacity track with a full-ocean scroll-drawn overlay —
-   cut the path dark-then-pale with a hard visible seam at the draw
-   point (seen between nodes 5 and 6). No second stroke, no seam. */
-.path-track {
-  stroke: var(--ocean);
-  stroke-width: 6;
-  stroke-linecap: round;
-}
-
-.path-node-slot {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
-.path-node-full {
-  width: 52px;
-  height: 52px;
-  font-size: 18px;
-}
-
-.path-node-face {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-/* Part labels sit ABOVE their node (12px above the node's top edge):
-   bottom edge = node centre - 26px (half the node) - 12px gap. Labels
-   are white-backed so the path never shows through text, and stacked in
-   a compact 2-row layout (chip + emoji + title on one row, count pill
-   below) so they stay clear of the neighbouring nodes. */
-.path-part-label {
-  position: absolute;
-  transform: translate(-50%, -100%);
-  margin-top: -38px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  text-align: center;
-  pointer-events: none;
-  white-space: nowrap;
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 6px 12px;
-}
-
-.path-part-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.path-part-chip {
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  line-height: 1.3;
-  color: var(--ocean-mid);
-}
-
-.path-part-emoji {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ocean);
-  font-size: 22px;
-  line-height: 1;
-}
-
 .path-strip-emoji {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
   line-height: 1;
-}
-
-.path-part-title {
-  font-size: 20px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  color: var(--ocean);
-  line-height: 1.1;
-}
-
-.path-part-count {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ocean-mid);
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-full);
-  padding: 3px 10px;
-}
-
-/* Phones: vertical snake (desktop winding path hidden). */
-.path-snake {
-  display: none;
 }
 
 /* ---------- Quest ---------- */
@@ -1345,6 +1180,7 @@ button.path-node:not(:disabled):hover {
 .question-eyebrow {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-size: 12px;
   font-weight: 800;
@@ -1787,6 +1623,8 @@ button.path-node:not(:disabled):hover {
   margin-bottom: 16px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 8px;
 }
 
@@ -2094,18 +1932,10 @@ button.path-node:not(:disabled):hover {
 }
 
 /* Recommendations — WHITE ground, not a navy panel. */
-.rec-section-subtext {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--slate);
-  margin-bottom: 24px;
-}
-
 .rec-cards-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
 .rec-card {
@@ -2300,102 +2130,6 @@ button.path-node:not(:disabled):hover {
   outline-offset: 2px;
 }
 
-/* Video-ready summary — white card, 4px ocean top rule, 8px radius. */
-.video-summary-section {
-  border-top: 4px solid var(--ocean);
-  border-radius: var(--radius-sm);
-}
-
-.summary-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.summary-header-row .result-section-heading {
-  margin-bottom: 0;
-}
-
-.copied-pill {
-  display: inline-flex;
-  background: var(--ocean-mid);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  white-space: nowrap;
-}
-
-.summary-intro {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--slate);
-  margin: 16px 0 24px;
-}
-
-.read-aloud-box {
-  background: var(--ocean-wash);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  margin-bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.read-aloud-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.read-aloud-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--ocean);
-}
-
-.read-aloud-time {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--slate);
-}
-
-.read-aloud-text {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--slate);
-}
-
-.video-summary-wrapper {
-  background: var(--bg-paper);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  overflow-x: auto;
-}
-
-.video-summary-pre {
-  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--ocean);
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
 /* Empty state — a separate white card, not a negated hero variant. */
 .result-empty-state {
   display: flex;
@@ -2438,7 +2172,8 @@ button.path-node:not(:disabled):hover {
 .articles-header {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
 }
 
 .articles-header .section-headline {
@@ -2451,6 +2186,7 @@ button.path-node:not(:disabled):hover {
   line-height: 1.5;
   color: var(--slate);
   max-width: 620px;
+  margin: 0 auto;
 }
 
 .articles-list-grid {
@@ -2569,8 +2305,10 @@ button.path-node:not(:disabled):hover {
 .article-title-inner {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   gap: 16px;
+  margin: 0 auto;
 }
 
 .article-emoji-mark {
@@ -2589,6 +2327,7 @@ button.path-node:not(:disabled):hover {
 .article-tag-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -2606,6 +2345,7 @@ button.path-node:not(:disabled):hover {
   line-height: 1.5;
   color: var(--slate);
   max-width: 680px;
+  margin: 0 auto;
 }
 
 .article-steps-list {
@@ -2808,24 +2548,11 @@ button.path-node:not(:disabled):hover {
   .honest-rules-list {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  /* The winding's node spacing scales with container width, but nodes
-     are fixed-size: shrink them so neighbours never touch (min node
-     distance is ~52px at 769px width vs 52px nodes). */
-  .path-node-full {
-    width: 44px;
-    height: 44px;
-  }
 }
 
 @media (max-width: 768px) {
   .home-hero-headline {
     font-size: 48px;
-  }
-
-  .path-node-full {
-    width: 36px;
-    height: 36px;
   }
 
   .single-cards-grid {
@@ -2872,8 +2599,15 @@ button.path-node:not(:disabled):hover {
     grid-template-columns: 1fr;
   }
 
+  .how-steps-list {
+    grid-template-columns: 1fr;
+  }
+
+  .rec-cards-list {
+    grid-template-columns: 1fr;
+  }
+
   .honest-rules-band,
-  .video-note-band,
   .article-title-block {
     padding: 24px 16px;
   }
@@ -2898,41 +2632,6 @@ button.path-node:not(:disabled):hover {
 
   .result-hero-card {
     padding: 32px 16px;
-  }
-
-  /* Winding path becomes the vertical snake on phones. */
-  .path-winding {
-    display: none;
-  }
-
-  .path-snake {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .path-snake-part {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .path-snake-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .path-snake-nodes {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .path-snake .path-node-full {
-    width: 48px;
-    height: 48px;
   }
 
   .footer-columns {
@@ -2965,7 +2664,6 @@ button.path-node:not(:disabled):hover {
 @media print {
   .top-navbar,
   .site-footer,
-  .path-map,
   .path-strip,
   .sticker,
   .pill-btn,
@@ -2992,7 +2690,7 @@ button.path-node:not(:disabled):hover {
     display: none;
   }
 
-  .result-composed-page > section:has(.video-summary-box) {
+  .result-composed-page > section.result-hero-card {
     display: block;
     border: none;
     box-shadow: none;

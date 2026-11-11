@@ -175,7 +175,6 @@ export const QuestPage: React.FC<QuestPageProps> = ({
       <div className="quest-progress-row" aria-label={`Question ${safeStep + 1} of ${QUESTIONS.length}`}>
         <span className="quest-progress-label">{safeStep + 1} of {QUESTIONS.length}</span>
         <PathMap
-          variant="strip"
           currentStep={safeStep}
           answers={answers}
           onSelect={onStepChange}
