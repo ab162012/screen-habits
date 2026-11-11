@@ -94,6 +94,13 @@ html {
   scroll-behavior: smooth;
   /* Anchor/focus jumps land clear of the 64px sticky header. */
   scroll-padding-top: 88px;
+  /* Vertical proximity snapping: when a scroll stop lands near a section
+     top, it settles with the section clear of the sticky header instead
+     of resting half-sliced under it (the header is solid ocean, so the
+     slicing is scroll position, not transparency). Gentle `proximity` —
+     it only engages near a snap point, so ordinary scrolling is untouched.
+     Snap points are the sections below (scroll-margin-top: 88px). */
+  scroll-snap-type: y proximity;
 }
 
 body {
@@ -197,9 +204,12 @@ ol {
 }
 
 /* Every section clears the sticky header on anchor/focus jumps — not
-   only sections that happen to carry an id. */
+   only sections that happen to carry an id. Sections are also snap
+   points (see html scroll-snap-type): a stop near a section top settles
+   88px below the viewport top, 24px clear of the 64px header. */
 section {
   scroll-margin-top: 88px;
+  scroll-snap-align: start;
 }
 
 /* ---------- Type scale (§3.1 — the ONLY sizes on the site) ---------- */
@@ -602,9 +612,12 @@ section {
    Wordmark renders FULLY ("SCREEN HABITS", nothing sliced): it is sized
    to fit its container at every width (measured with the real Manrope
    800: 728px at 96px cap) with line-height 1 and no negative margin, and
-   the footer no longer clips it (overflow removed). 96px of bottom
+   the footer no longer clips it (overflow removed). 128px of bottom
    padding lets the fixed floating bar sit clear of the wordmark at max
-   scroll. The hand-drawn scribbles SVG is gone — its wavy line struck
+   scroll with room to spare: the bar is 64px tall and sits 12px off the
+   viewport bottom (76px zone), so 128px leaves a 52px gap. The 96px
+   that was here before left only 20px, and mid-scroll the bar swept the
+   wordmark — the gap is now unmistakable. The hand-drawn scribbles SVG is gone — its wavy line struck
    straight through the credits/disclaimer text and its circle floated
    as a stray oval. Columns are content-sized and centred as a group, so
    their visual mass sits on the page centre. */
@@ -619,7 +632,7 @@ section {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 72px 24px 96px;
+  padding: 72px 24px 128px;
   text-align: center;
 }
 
@@ -1083,16 +1096,11 @@ button.path-node:not(:disabled):hover {
   height: 100%;
 }
 
-/* One consistent colour treatment: the track is the same ocean as the
-   drawn path, at 22% opacity — no abrupt dark-to-pale split. */
+/* ONE consistent treatment: a single full-ocean stroke. The old split —
+   a pale 22%-opacity track with a full-ocean scroll-drawn overlay —
+   cut the path dark-then-pale with a hard visible seam at the draw
+   point (seen between nodes 5 and 6). No second stroke, no seam. */
 .path-track {
-  stroke: var(--ocean);
-  stroke-opacity: 0.22;
-  stroke-width: 6;
-  stroke-linecap: round;
-}
-
-.path-drawn {
   stroke: var(--ocean);
   stroke-width: 6;
   stroke-linecap: round;
@@ -1198,12 +1206,21 @@ button.path-node:not(:disabled):hover {
 }
 
 /* ---------- Quest ---------- */
+/* The fixed floating bar (64px tall, 12px off the viewport bottom) can
+   never cover the footer CTA on arrival: the quest page is short, so
+   without this the footer rises into the initial viewport and its
+   "Start the Quest" button lands in the bar's 76px zone. This min-height
+   (viewport minus header 64px and main padding 32px + 96px = 192px)
+   pushes the footer top to at or below the viewport bottom on arrival,
+   so the CTA band is below the fold and the bar has nothing to cover. */
 .main-content-questions {
   max-width: 860px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  min-height: calc(100vh - 192px);
+  min-height: calc(100dvh - 192px);
 }
 
 .quest-gamification-bar {
@@ -1717,7 +1734,12 @@ button.path-node:not(:disabled):hover {
 
 /* ---------- Floating bar — Quest nav + Result actions, one component ----------
    White pill, full radius, light-blue border, soft shadow, max 860px,
-   centred, 12px above the viewport bottom edge. Never full-width. */
+   centred, 12px above the viewport bottom edge. Never full-width.
+   Measured height: md button 46px (14px/1.3 + 24px padding + 4px
+   border) + 16px bar padding + 2px border = 64px tall, so the bar's
+   zone is 76px from the viewport bottom (72px on phones: 8px offset).
+   The footer bottom padding (128px) and the quest min-height are set
+   from this number — change the bar height and both must be re-checked. */
 .floating-bar {
   position: fixed;
   left: 50%;
@@ -2624,9 +2646,15 @@ button.path-node:not(:disabled):hover {
   color: var(--ocean);
 }
 
+/* Step detail reads washed out at 400 under the 700-weight ocean
+   headings, even though the colour is already slate #475569 (7.58:1) —
+   the paleness is weight, not colour. 600 matches the intro paragraph's
+   proven readability and keeps the text clearly subordinate to its
+   700-weight heading (smaller, lighter colour). Size and colour
+   unchanged. */
 .article-step-detail {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.6;
   color: var(--slate);
 }
@@ -2979,6 +3007,10 @@ button.path-node:not(:disabled):hover {
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-snap-type: none;
+  }
+
   *,
   *::before,
   *::after {

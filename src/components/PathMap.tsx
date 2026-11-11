@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { QUESTIONS, isQuestionAnswered, PART_NAMES } from '../questions';
 import type { AnswersState } from '../types';
 
 /**
  * Path Template — the one path component for the whole site.
- * - Full (winding path): Home preview — 10 nodes along an ocean SVG path drawn
- *   over a light-blue track as the user scrolls; part labels as two-word
- *   display titles + count bubbles. On phones it becomes a vertical snake.
+ * - Full (winding path): Home preview — 10 nodes along a single full-ocean
+ *   SVG path; part labels as two-word display titles + count bubbles. On
+ *   phones it becomes a vertical snake.
  * - Strip (horizontal): Quest + Result, progress at a glance.
  * Done = ocean filled check. Current = big ocean-mid node, pulsing ring.
  * Upcoming = grey, locked, not clickable. Done nodes are clickable to go back.
@@ -29,8 +29,11 @@ interface PathMapProps {
    first node without touching the previous node. Consecutive nodes are
    >=68px apart at full width (52px nodes) — none touch, none stack.
    The path starts exactly at Q1 and ends exactly at Q10: no dangling ends.
-   Track and drawn path are one hue (ocean at 22% / full) — one consistent
-   colour treatment; the travelling dot is gone (it read as a stray dot). */
+   One stroke, one colour: the path is a single full-ocean track. The old
+   pale track + scroll-drawn overlay split it dark-then-pale with a hard
+   visible seam at the draw point (seen between nodes 5 and 6), so the
+   draw is gone — no second stroke, no seam. The travelling dot is gone
+   (it read as a stray dot). */
 const PATH_W = 1000;
 const PATH_H = 930;
 /* t for each node (y = 140, 196, 326, 382, 438, 568, 624, 754, 810, 866). */
@@ -58,55 +61,6 @@ export const PathMap: React.FC<PathMapProps> = ({
   onSelect,
   preview = false
 }) => {
-  const drawnPathRef = useRef<SVGPathElement>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [pathLength, setPathLength] = useState(2400);
-  const [drawProgress, setDrawProgress] = useState(0);
-
-  /* Scroll-linked draw of the ocean path over the light-blue track.
-     requestAnimationFrame-throttled: the old version called setState on
-     every scroll event. */
-  useEffect(() => {
-    if (variant !== 'full') return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setDrawProgress(1);
-      return;
-    }
-    const pathEl = drawnPathRef.current;
-    if (pathEl) {
-      try {
-        setPathLength(pathEl.getTotalLength());
-      } catch {
-        // keep the fallback length
-      }
-    }
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      const el = wrapRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const viewportH = window.innerHeight || 800;
-      const total = rect.height + viewportH;
-      const seen = viewportH - rect.top;
-      const p = Math.min(1, Math.max(0, seen / total));
-      setDrawProgress(p);
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        window.requestAnimationFrame(update);
-      }
-    };
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', update);
-    };
-  }, [variant]);
-
   if (variant === 'strip') {
     return (
       <div className="path-strip" role="list" aria-label="Quest path">
@@ -169,7 +123,7 @@ export const PathMap: React.FC<PathMapProps> = ({
   return (
     <div className="path-map" aria-label="Quest path">
       {/* Desktop / tablet: winding SVG path with nodes placed along it. */}
-      <div className="path-winding" ref={wrapRef}>
+      <div className="path-winding">
         <svg
           className="path-winding-svg"
           viewBox={`0 0 ${PATH_W} ${PATH_H}`}
@@ -177,16 +131,6 @@ export const PathMap: React.FC<PathMapProps> = ({
           aria-hidden="true"
         >
           <path d={buildPathD()} className="path-track" fill="none" />
-          <path
-            ref={drawnPathRef}
-            d={buildPathD()}
-            className="path-drawn"
-            fill="none"
-            style={{
-              strokeDasharray: pathLength,
-              strokeDashoffset: pathLength * (1 - drawProgress)
-            }}
-          />
         </svg>
         {QUESTIONS.map((q, i) => {
           const p = pathPoint(NODE_T[i]);
