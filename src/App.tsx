@@ -8,7 +8,6 @@ import { ArticlesPage } from './components/ArticlesPage';
 import { ArticleDetailPage } from './components/ArticleDetailPage';
 import { ARTICLES } from './data/articles';
 import { QUESTIONS, isQuestionAnswered } from './questions';
-import { Loader } from './components/Loader';
 import type { AnswersState, UserProfile } from './types';
 
 const STORAGE_KEY_PROFILE = 'screen_habits_profile_gamified';
@@ -207,7 +206,6 @@ export const App: React.FC = () => {
 
   return (
     <div className="site-wrapper">
-      <Loader />
       <a href="#main-content" className="skip-link">Skip to content</a>
       {/* Top Navigation Bar */}
       <Navbar currentRoute={currentRoute} onNavigate={navigateTo} />

@@ -7,9 +7,10 @@ interface RevealProps {
 }
 
 /**
- * Scroll reveal: fades + slides content up 16px once when it enters the
- * viewport (IntersectionObserver, 400ms ease-out). One-shot, no re-trigger.
- * Disabled under prefers-reduced-motion (content shows immediately).
+ * Scroll reveal: fades + slides content up 12px once when it enters the
+ * viewport (IntersectionObserver, 250ms, one easing token). One-shot,
+ * no re-trigger. Disabled under prefers-reduced-motion (content shows
+ * immediately).
  */
 export const Reveal: React.FC<RevealProps> = ({ children, className = '', delayMs = 0 }) => {
   const ref = useRef<HTMLDivElement>(null);

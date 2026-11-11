@@ -9,6 +9,7 @@ import { PathMap } from './PathMap';
 import { QuestionCard } from './QuestionCard';
 import { NameClassDialog } from './NameClassDialog';
 import { PillButton } from './PillButton';
+import { FloatingBar } from './FloatingBar';
 
 interface QuestPageProps {
   answers: AnswersState;
@@ -54,7 +55,7 @@ export const QuestPage: React.FC<QuestPageProps> = ({
   useEffect(() => {
     if (currentXP > prevXpRef.current) {
       setXpPopping(true);
-      const timer = setTimeout(() => setXpPopping(false), 400);
+      const timer = setTimeout(() => setXpPopping(false), 150);
       prevXpRef.current = currentXP;
       return () => clearTimeout(timer);
     }
@@ -126,7 +127,8 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         onSkip={onCloseDialog}
       />
 
-      {/* Gamification Bar */}
+      {/* Gamification row — ONE row: XP badge + level tag + streak pill.
+          The skip message is plain text under the row, not a pill. */}
       <section className="quest-gamification-bar" aria-label="Quest Progress & Gamification">
         <div className="quest-gamification-header">
           <div className="quest-xp-group">
@@ -134,50 +136,29 @@ export const QuestPage: React.FC<QuestPageProps> = ({
             <span key={currentXP} className={`quest-xp-badge ${xpPopping ? 'xp-pop' : ''}`}>{currentXP} XP</span>
             <span className="quest-level-tag">Level: {level}</span>
           </div>
-          <span className="quest-gamify-divider" aria-hidden="true" />
-          <div className={`quest-streak-pill ${currentStreak > 0 ? 'active' : ''} ${showSkipAlert ? 'reset-shake' : ''}`}>
+          <div className={`quest-streak-pill ${currentStreak > 0 ? 'active' : ''}`}>
             <span className="quest-streak-emoji" aria-hidden="true">🔥</span>
             <span>Streak:</span>
             <strong key={currentStreak}>{currentStreak}</strong>
           </div>
         </div>
-        <div
-          className="quest-xp-track"
-          role="progressbar"
-          aria-label="Quest XP"
-          aria-valuenow={currentXP}
-          aria-valuemin={0}
-          aria-valuemax={100}
-        >
-          <span className="quest-xp-fill" style={{ width: `${currentXP}%` }} />
-        </div>
         {showSkipAlert && (
-          <div className="quest-skip-alert" role="status">
+          <p className="quest-skip-alert" role="status">
             Streak reset to 0 — skip recorded
-          </div>
+          </p>
         )}
       </section>
 
-      {/* One progress unit: path strip nodes on a rail, segments as the rail fill.
-          The strip is the tap-to-go-back control; the segments are the position display. */}
-      <div className="quest-progress-unit">
+      {/* ONE progress control: the path strip IS the navigation
+          (done nodes clickable back); the label IS the position display. */}
+      <div className="quest-progress-row" aria-label={`Question ${safeStep + 1} of ${QUESTIONS.length}`}>
+        <span className="quest-progress-label">{safeStep + 1} of {QUESTIONS.length}</span>
         <PathMap
           variant="strip"
           currentStep={safeStep}
           answers={answers}
           onSelect={onStepChange}
         />
-        <div className="quest-segments" aria-label={`Question ${safeStep + 1} of ${QUESTIONS.length}`}>
-          <span className="quest-segments-label">{safeStep + 1} of {QUESTIONS.length}</span>
-          <div className="quest-segments-track" role="progressbar" aria-valuenow={safeStep + 1} aria-valuemin={1} aria-valuemax={QUESTIONS.length}>
-            {QUESTIONS.map((q, i) => (
-              <span
-                key={q.id}
-                className={`quest-segment ${i < safeStep ? 'done' : ''} ${i === safeStep ? 'current' : ''}`}
-              />
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Question Card */}
@@ -192,29 +173,27 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         questionNumber={safeStep + 1}
       />
 
-      {/* Sticky Bottom Navigation Bar */}
-      <nav className="sticky-nav-bar" aria-label="Question Navigation">
-        <div className="sticky-nav-inner">
-          <PillButton
-            label="← Back"
-            variant="ghost"
-            disabled={safeStep === 0}
-            onClick={handleBack}
-          />
-          <PillButton
-            label="Skip"
-            variant="ghost"
-            onClick={handleSkip}
-          />
-          <PillButton
-            label={safeStep === QUESTIONS.length - 1 ? 'See Result →' : 'Next →'}
-            variant="primary"
-            arrow
-            disabled={!isCurrentAnswered}
-            onClick={handleNext}
-          />
-        </div>
-      </nav>
+      {/* Floating pill navigation — 12px above the viewport bottom edge. */}
+      <FloatingBar label="Question Navigation">
+        <PillButton
+          label="← Back"
+          variant="ghost"
+          disabled={safeStep === 0}
+          onClick={handleBack}
+        />
+        <PillButton
+          label="Skip"
+          variant="ghost"
+          onClick={handleSkip}
+        />
+        <PillButton
+          label={safeStep === QUESTIONS.length - 1 ? 'See Result' : 'Next'}
+          variant="primary"
+          arrow
+          disabled={!isCurrentAnswered}
+          onClick={handleNext}
+        />
+      </FloatingBar>
     </div>
   );
 };

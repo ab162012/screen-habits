@@ -5,6 +5,7 @@ import type { AnswersState, UserProfile, ChallengeType } from '../types';
 import { PathMap } from './PathMap';
 import { PillButton } from './PillButton';
 import { PillBadge } from './PillBadge';
+import { FloatingBar } from './FloatingBar';
 
 interface ResultPageProps {
   answers: AnswersState;
@@ -59,8 +60,8 @@ export const ResultPage: React.FC<ResultPageProps> = ({
     }
     let start = 0;
     const target = report.totalScore;
-    const stepTime = 16;
-    const totalSteps = 40;
+    const stepTime = 20;
+    const totalSteps = 25;
     const increment = target / totalSteps;
 
     const timer = setInterval(() => {
@@ -190,7 +191,7 @@ FILMING & COMPETITION NOTES
   if (report.answeredCount === 0) {
     return (
       <div className="result-composed-page">
-        <section className="result-card result-hero-card result-empty-state">
+        <section className="result-card result-empty-state">
           <span className="result-empty-mark" aria-hidden="true">📱</span>
           <h2 className="result-empty-title">
             No Active Result Yet
@@ -221,25 +222,22 @@ FILMING & COMPETITION NOTES
 
   return (
     <div className="result-composed-page">
-      {/* Path walked: every node you actually answered, in navy — finish screen */}
-      <PathMap
-        variant="strip"
-        currentStep={QUESTIONS.length}
-        answers={answers}
-      />
-      {/* 1. HERO CARD */}
+      {/* 1. HERO CARD — the score first. The path strip now sits BELOW
+          the hero, not above it. */}
       <section className="result-card result-hero-card">
-        {/* Name and class chips at the top */}
+        {/* Name and class chips at the top — ALL white pill / navy text
+            inside the ocean band (the old navy-on-navy Finisher badge
+            was invisible at 1.00:1). */}
         <div className="hero-chips-row">
-          <PillBadge label={profile.name || 'Guest'} />
+          <PillBadge label={profile.name || 'Guest'} tone="on-dark" />
           {profile.classSection && (
-            <PillBadge label={`Class: ${profile.classSection}`} />
+            <PillBadge label={`Class: ${profile.classSection}`} tone="on-dark" />
           )}
           {hasFinisherBadge && (
-            <PillBadge label="⭐ Finisher" tone="navy" />
+            <PillBadge label="⭐ Finisher" tone="on-dark" />
           )}
           {hasComebackBadge && (
-            <PillBadge label="🔄 Comeback" tone="light" />
+            <PillBadge label="🔄 Comeback" tone="on-dark" />
           )}
         </div>
 
@@ -315,14 +313,21 @@ FILMING & COMPETITION NOTES
         </p>
       </section>
 
-      {/* 2. WEAKEST PART WITH ONE FIX ONLY */}
+      {/* 2. PATH WALKED — proof of what was answered, below the score. */}
+      <div className="result-path-strip">
+        <PathMap
+          variant="strip"
+          currentStep={QUESTIONS.length}
+          answers={answers}
+        />
+      </div>
+
+      {/* 3. WEAKEST PART WITH ONE FIX ONLY */}
       <section className="result-card weakest-part-section" aria-label="Weakest habit area and single fix">
-        <div className="part-header">
-          <h2 className="part-name-label part-name-label-lg result-section-heading">
-            <span className="section-emoji" aria-hidden="true">🎯</span>
-            <span>Weakest Area &amp; Single Fix</span>
-          </h2>
-        </div>
+        <h2 className="result-section-heading">
+          <span className="section-emoji" aria-hidden="true">🎯</span>
+          <span>Weakest Area &amp; Single Fix</span>
+        </h2>
         <div className="weakest-fix-bubble">
           <div className="weakest-fix-row">
             <span className="weakest-fix-area">
@@ -336,13 +341,12 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 3. PARTS SUMMARY GRID (2x2 grid) */}
+      {/* 4. PARTS SUMMARY GRID (2x2 grid) */}
       <section className="result-card parts-section-container" aria-label="Habit breakdown by area">
-        <h2 className="parts-section-title"><span className="section-emoji" aria-hidden="true">🧩</span> Four Habit Areas</h2>
+        <h2 className="result-section-heading"><span className="section-emoji" aria-hidden="true">🧩</span> Four Habit Areas</h2>
         <div className="parts-summary-grid">
           {report.partScores.map((part) => (
             <div className="part-stat-card part-result-card" key={part.partIndex}>
-              <span className="part-ghost-num" aria-hidden="true">{String(part.partIndex + 1).padStart(2, '0')}</span>
               <div className="part-header">
                 <span className="part-emoji-mark" aria-hidden="true">{part.emoji}</span>
                 <span className="part-name-label">{part.title}</span>
@@ -368,9 +372,10 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 4. RECOMMENDATIONS SECTION — navy panel with 3 stacked white cards */}
-      <section className="recommendations-panel" aria-label="Personal recommendations">
-        <h2 className="rec-section-title"><span className="section-emoji" aria-hidden="true">💡</span> Top Three Practical Actions</h2>
+      {/* 5. RECOMMENDATIONS — WHITE ground, not a navy panel
+          (the hero is already the page's one dark band). */}
+      <section className="result-card recommendations-section" aria-label="Personal recommendations">
+        <h2 className="result-section-heading"><span className="section-emoji" aria-hidden="true">💡</span> Top Three Practical Actions</h2>
         <p className="rec-section-subtext">
           Targeted habit adjustments based directly on your weakest diagnostic area:
         </p>
@@ -391,14 +396,12 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 5. THE 7-DAY CHALLENGE PICKER (Filmable challenge for video) */}
+      {/* 6. THE 7-DAY CHALLENGE PICKER (Filmable challenge for video) */}
       <section className="result-card" aria-label="Pick Your 7-Day Team Challenge">
-        <div className="part-header">
-          <h2 className="part-name-label part-name-label-lg result-section-heading">
-            <span className="section-emoji" aria-hidden="true">✅</span>
-            <span>Pick Your 7-Day Team Challenge</span>
-          </h2>
-        </div>
+        <h2 className="result-section-heading">
+          <span className="section-emoji" aria-hidden="true">✅</span>
+          <span>Pick Your 7-Day Team Challenge</span>
+        </h2>
         <p className="challenge-intro">
           Select exactly ONE challenge to test for seven continuous days. This is the real habit trial
           your team can film and document for the video competition.
@@ -469,15 +472,13 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 6. VIDEO-READY SUMMARY BLOCK */}
+      {/* 7. VIDEO-READY SUMMARY BLOCK */}
       <section className="result-card video-summary-section" aria-label="British Council Your World Summary">
         <div className="summary-header-row">
-          <div className="part-header part-header-inline">
-            <h2 className="part-name-label part-name-label-lg result-section-heading">
-              <span className="section-emoji" aria-hidden="true">🏆</span>
-              <span>British Council Your World Summary</span>
-            </h2>
-          </div>
+          <h2 className="result-section-heading">
+            <span className="section-emoji" aria-hidden="true">🏆</span>
+            <span>British Council Your World Summary</span>
+          </h2>
           {copied && (
             <span className="copied-pill">
               ✓ Copied to clipboard!
@@ -509,26 +510,24 @@ FILMING & COMPETITION NOTES
         </div>
       </section>
 
-      {/* 7. ACTION BAR (Always visible) */}
-      <div className="result-action-bar-container result-action-bar">
-        <div className="action-bar-buttons-row">
-          <PillButton
-            label={copied ? '✓ Summary Copied' : '📋 Copy Summary'}
-            variant="primary"
-            onClick={handleCopySummary}
-          />
-          <PillButton
-            label="🖨️ Print or Save PDF"
-            variant="secondary"
-            onClick={handlePrint}
-          />
-          <PillButton
-            label="🔄 Retake Quest"
-            variant="secondary"
-            onClick={onRetake}
-          />
-        </div>
-      </div>
+      {/* 8. ACTION BAR — floating pill, same component as the Quest nav. */}
+      <FloatingBar label="Result actions">
+        <PillButton
+          label={copied ? '✓ Summary Copied' : '📋 Copy Summary'}
+          variant="primary"
+          onClick={handleCopySummary}
+        />
+        <PillButton
+          label="🖨️ Print or Save PDF"
+          variant="secondary"
+          onClick={handlePrint}
+        />
+        <PillButton
+          label="🔄 Retake Quest"
+          variant="secondary"
+          onClick={onRetake}
+        />
+      </FloatingBar>
     </div>
   );
 };

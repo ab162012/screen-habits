@@ -2,7 +2,6 @@ import React from 'react';
 import { ARTICLES } from '../data/articles';
 import { PillButton } from './PillButton';
 import { Sticker } from './Sticker';
-import { Marquee } from './Marquee';
 import { PathMap } from './PathMap';
 import { ArticleCard } from './ArticleCard';
 import { Reveal } from './Reveal';
@@ -19,18 +18,9 @@ const HONEST_RULES = [
   'Under 5 = Partial result'
 ];
 
-/** Emoji system: one fixed emoji per honest rule, used on the About stickers
-    AND in the "How scoring works" band — same rule, same emoji, everywhere. */
+/** Emoji system: one fixed emoji per honest rule, used in the
+    "How scoring works" band — same rule, same emoji, everywhere. */
 const HONEST_RULE_EMOJIS = ['⭐', '⏭️', '📊', '🧩'];
-
-const MARQUEE_ITEMS = [
-  'KNOW YOUR SCREEN',
-  'OWN YOUR TIME',
-  '10 QUESTIONS',
-  'NO SIGN-UP',
-  '7-DAY CHALLENGE',
-  'HONEST CHECK — NO FAKE SCORES'
-];
 
 const HOW_STEPS = [
   {
@@ -55,7 +45,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
 
   return (
     <div className="home-page">
-      {/* 3.1 Hero */}
+      {/* 1. Hero */}
       <section className="home-hero" aria-labelledby="hero-title">
         <span className="eyebrow">01 — Student Quest · Screen Habits</span>
         <span className="home-hero-chip">10 questions · No sign-up · 7-day challenge</span>
@@ -84,25 +74,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </div>
       </section>
 
-      {/* 3.2 Marquee */}
-      <Marquee items={MARQUEE_ITEMS} />
-
-      {/* 3.3 About / statement */}
-      <Reveal>
-        <section className="home-about" aria-label="About the quest">
-          <span className="eyebrow eyebrow-centre">About the Quest</span>
-          <p className="home-about-statement">
-            A 10-question check for students. Know your habit, pick one 7-day challenge.
-          </p>
-          <div className="home-about-stickers" aria-hidden="true">
-            <Sticker text={`${HONEST_RULE_EMOJIS[0]} ${HONEST_RULES[0]}`} tone="navy" rotate={-3} />
-            <Sticker text={`${HONEST_RULE_EMOJIS[1]} ${HONEST_RULES[1]}`} tone="blue" rotate={2} />
-            <Sticker text={`${HONEST_RULE_EMOJIS[2]} ${HONEST_RULES[2]}`} tone="light" rotate={-3} />
-          </div>
-        </section>
-      </Reveal>
-
-      {/* 3.4 Stats */}
+      {/* 2. Stats — the quest in numbers, once (contained wash panel). */}
       <Reveal>
         <section className="home-stats" aria-label="The quest in numbers">
           <div className="home-stat">
@@ -120,7 +92,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
-      {/* 3.5 Honest rules — merged into one navy band (the separate strip is deleted) */}
+      {/* 3. How scoring works — navy band, KEPT per the owner's word
+          (the map cut it; the owner praised this section and the footer).
+          Form is a contained panel, not a full-bleed escape. */}
       <Reveal>
         <section className="honest-rules-band" aria-label="How the score works">
           <div className="honest-rules-inner">
@@ -137,7 +111,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
-      {/* 3.6 Your Path — winding path */}
+      {/* 4. Your Path — winding path */}
       <Reveal>
         <section className="path-home-section" aria-labelledby="path-title">
           <span className="eyebrow">02 — Your Path</span>
@@ -157,7 +131,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
-      {/* 3.7 How It Works */}
+      {/* 5. How It Works — 3 equal rows, no stagger, no ghost numerals,
+          no arrow discs, no buried CTA. */}
       <Reveal>
         <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
           <span className="eyebrow">03 — How It Works</span>
@@ -165,27 +140,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
             <span className="section-emoji" aria-hidden="true">⚙️</span> How It Works
           </h2>
           <div className="how-steps-list">
-            {HOW_STEPS.map((step, i) => (
-              <div className={`how-step-row how-step-row-${i + 1}`} key={step.num}>
-                <span className="how-step-ghost-num" aria-hidden="true">{step.num}</span>
+            {HOW_STEPS.map((step) => (
+              <div className="how-step-row" key={step.num}>
+                <span className="how-step-num" aria-hidden="true">{step.num.padStart(2, '0')}</span>
                 <div className="how-step-body">
-                  <h3 className="step-card-title">{step.title}</h3>
+                  <h3 className="step-card-title">{step.title.replace(/^\d+\.\s*/, '')}</h3>
                   <p className="step-card-desc">{step.desc}</p>
                 </div>
-                {i < HOW_STEPS.length - 1 ? (
-                  <span className="step-arrow" aria-hidden="true">→</span>
-                ) : (
-                  <span className="step-arrow step-arrow-cta" aria-hidden="true">
-                    <PillButton label="Start the Quest" variant="primary" arrow onClick={() => onNavigate('quest')} />
-                  </span>
-                )}
               </div>
             ))}
           </div>
         </section>
       </Reveal>
 
-      {/* 3.8 Articles preview */}
+      {/* 6. Articles preview — 3 equal guides, no featured card. */}
       <Reveal>
         <section className="articles-preview-section" aria-labelledby="articles-preview-title">
           <span className="eyebrow">04 — Guides</span>
@@ -193,13 +161,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
             <span className="section-emoji" aria-hidden="true">📚</span> Articles &amp; Habit Guides
           </h2>
           <div className="articles-preview-grid">
-            {previewArticles.map((art, i) => (
-              <ArticleCard key={art.id} article={art} onNavigate={onNavigate} variant="preview" featured={i === 0} />
+            {previewArticles.map((art) => (
+              <ArticleCard key={art.id} article={art} onNavigate={onNavigate} variant="preview" />
             ))}
           </div>
           <div className="articles-preview-footer">
             <PillButton
-              label="View All 6 Articles →"
+              label="View All 6 Articles"
               variant="secondary"
               arrow
               onClick={() => onNavigate('articles')}
@@ -208,12 +176,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
-      {/* 3.9 Video project band */}
+      {/* 7. Video project band — contained navy panel, no CTA. */}
       <Reveal>
         <section className="video-note-band" aria-labelledby="video-note-title">
-          <h3 id="video-note-title" className="video-note-title">
+          <h2 id="video-note-title" className="video-note-title">
             <span className="section-emoji" aria-hidden="true">🎬</span> British Council Your World Video Project
-          </h3>
+          </h2>
           <p className="video-note-text">
             This site provides the diagnostic foundation and 7-day habit trial for student teams creating a video for the theme <strong>Healthy habits in a digital world</strong>.
           </p>

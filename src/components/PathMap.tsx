@@ -21,12 +21,14 @@ interface PathMapProps {
   preview?: boolean;
 }
 
-/* Sine-wave winding path geometry (viewBox 1000 x 620). */
+/* Sine-wave winding path geometry (viewBox 1000 x 680 — 60px top inset so
+   part labels, which sit BELOW their node, never collide with the section
+   intro above the path). */
 const PATH_W = 1000;
-const PATH_H = 620;
+const PATH_H = 680;
 const pathPoint = (t: number) => ({
   x: 500 + 340 * Math.sin(t * Math.PI * 2.5),
-  y: 30 + t * 560
+  y: 90 + t * 560
 });
 
 const buildPathD = () => {
@@ -52,7 +54,9 @@ export const PathMap: React.FC<PathMapProps> = ({
   const [pathLength, setPathLength] = useState(2400);
   const [drawProgress, setDrawProgress] = useState(0);
 
-  /* Scroll-linked draw of the ocean path over the light-blue track. */
+  /* Scroll-linked draw of the ocean path over the light-blue track.
+     requestAnimationFrame-throttled: the old version called setState on
+     every scroll event. */
   useEffect(() => {
     if (variant !== 'full') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -67,7 +71,9 @@ export const PathMap: React.FC<PathMapProps> = ({
         // keep the fallback length
       }
     }
+    let ticking = false;
     const update = () => {
+      ticking = false;
       const el = wrapRef.current;
       if (!el) return;
       const rect = el.getBoundingClientRect();
@@ -77,11 +83,17 @@ export const PathMap: React.FC<PathMapProps> = ({
       const p = Math.min(1, Math.max(0, seen / total));
       setDrawProgress(p);
     };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    };
     update();
-    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', update);
     return () => {
-      window.removeEventListener('scroll', update);
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', update);
     };
   }, [variant]);

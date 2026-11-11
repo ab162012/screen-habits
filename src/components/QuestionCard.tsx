@@ -28,10 +28,6 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   const dialRef = useRef<HTMLDivElement>(null);
   const programmaticRef = useRef(false);
   const scrollTimerRef = useRef<number | undefined>(undefined);
-  // Reel direction: while the dial rolls, numbers blur like a mechanical
-  // dial; the blur clears the moment it snaps to a value.
-  const [isRolling, setIsRolling] = React.useState(false);
-  const rollingTimerRef = useRef<number | undefined>(undefined);
   const dialValues = useMemo(() => {
     const min = question.min || 1;
     const max = question.max || 16;
@@ -62,9 +58,6 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   const handleDialScroll = () => {
     const el = dialRef.current;
     if (!el || programmaticRef.current) return;
-    setIsRolling(true);
-    window.clearTimeout(rollingTimerRef.current);
-    rollingTimerRef.current = window.setTimeout(() => setIsRolling(false), 150);
     window.clearTimeout(scrollTimerRef.current);
     scrollTimerRef.current = window.setTimeout(() => {
       const idx = Math.round(el.scrollLeft / dialItemWidth);
@@ -129,7 +122,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             </button>
             <div className="hours-drum-box">
               <div className="hours-drum-pointer" aria-hidden="true" />
-              <div className={`hours-drum ${isRolling ? 'rolling' : ''}`} ref={dialRef} onScroll={handleDialScroll} role="listbox" aria-label={question.title}>
+              <div className="hours-drum" ref={dialRef} onScroll={handleDialScroll} role="listbox" aria-label={question.title}>
               {dialValues.map((v) => {
                 const isActive = value === v;
                 return (
@@ -152,11 +145,11 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
             </button>
           </div>
 
-          <div className="slider-ticks">
+          {/* Scale labels: min/max pair only — the old five ticks could
+              never sit under the drum values (64px pitch vs space-between),
+              so misaligned labels are gone, not re-spaced. */}
+          <div className="slider-ticks" aria-hidden="true">
             <span>{question.min || 1}h</span>
-            <span>4h</span>
-            <span>8h</span>
-            <span>12h</span>
             <span>{question.max || 16}h+</span>
           </div>
         </div>

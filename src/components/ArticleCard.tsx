@@ -7,14 +7,13 @@ interface ArticleCardProps {
   onNavigate: (route: string) => void;
   /** 'preview' = Home teaser (link "Read Guide →"); 'full' = Articles grid (pill button). */
   variant?: 'preview' | 'full';
-  /** Featured lead card: navy, spans 2 columns (first card on Home + Articles). */
-  featured?: boolean;
 }
 
-/** Shared article card (two26 work-grid card pattern): emoji mark, topic tag, title, summary, read time, CTA. */
-export const ArticleCard: React.FC<ArticleCardProps> = ({ article, onNavigate, variant = 'full', featured = false }) => {
+/** Shared article card: emoji mark, topic tag, title, summary, read time, CTA.
+    One card — no featured variant, no navy variant. */
+export const ArticleCard: React.FC<ArticleCardProps> = ({ article, onNavigate, variant = 'full' }) => {
   return (
-    <article className={`article-card${featured ? ' article-card-featured' : ''}`}>
+    <article className="article-card">
       <span className="article-card-emoji" aria-hidden="true">{article.emoji}</span>
       <span className="article-card-topic">{article.topicTag}</span>
       <h3 className="article-card-title">{article.title}</h3>
