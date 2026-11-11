@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PillButton } from './PillButton';
 import { CloseIcon, MenuIcon } from './icons';
 
 interface NavbarProps {
@@ -118,15 +117,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
               })}
             </ul>
           </nav>
-          <span className="nav-cta">
-            <PillButton
-              label="Start Quest →"
-              variant="primary"
-              size="lg"
-              arrow
-              onClick={() => handleNavigate('quest')}
-            />
-          </span>
           <button
             type="button"
             ref={hamburgerRef}
@@ -166,14 +156,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
               })}
             </ul>
           </nav>
-          <PillButton
-            label="Start Quest →"
-            variant="primary"
-            size="lg"
-            arrow
-            className="mobile-menu-cta"
-            onClick={() => handleNavigate('quest')}
-          />
         </div>
       )}
     </header>

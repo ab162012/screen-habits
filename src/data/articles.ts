@@ -9,7 +9,7 @@ export const ARTICLES: Article[] = [
     emoji: '🚶',
     readTime: '3 min read',
     summary: 'Why switching screens is not a real break — and how physical resets restore stamina.',
-    intro: 'When school assignments, study materials, and friend messages all live on illuminated glass, taking a "break" often just means switching from a computer monitor to a phone screen. That is not a break for your eye muscles, neck vertebrae, or attention span. A genuine break changes your physical environment and your sensory input so your nervous system can downshift.',
+    intro: 'A real break changes your body, not just your screen.',
     steps: [
       {
         heading: '1. Establish physical separation',
@@ -28,7 +28,7 @@ export const ARTICLES: Article[] = [
         detail: 'Tie pauses to completed tasks rather than rigid alarms: after finishing two math problems, drafting an essay section, or reading one textbook chapter. A completed milestone gives your mind permission to rest.'
       }
     ],
-    closingLine: 'Try picking phone-free breaks as your 7-day challenge on the Quest.'
+    closingLine: 'Pick phone-free breaks as your 7-day challenge.'
   },
   {
     id: '9pm-screen-cutoff',
@@ -38,7 +38,7 @@ export const ARTICLES: Article[] = [
     emoji: '🌙',
     readTime: '4 min read',
     summary: 'A clear evening boundary that protects sleep and separates work from rest.',
-    intro: 'Late-night screen exposure does two things at once: bright blue-spectrum light delays the body\'s natural melatonin release, while interactive feeds and group chats keep your cognitive alertness on high guard. Setting an explicit boundary like 9:00 PM gives your mind an unambiguous signal that the day\'s performance demands are officially finished.',
+    intro: 'Screens after 9pm keep your brain alert when it should be winding down.',
     steps: [
       {
         heading: '1. Set a ten-minute transition chime at 8:50 PM',
@@ -57,7 +57,7 @@ export const ARTICLES: Article[] = [
         detail: 'Tell your close friends and study team that your screens turn off at 9:00 PM. Setting expectations eliminates the fear of missing out and takes away the anxiety of leaving messages unread.'
       }
     ],
-    closingLine: 'Select the 9pm screen cut-off as your 7-day challenge in the Result screen to track how your morning energy changes.'
+    closingLine: 'Try the 9pm cut-off for seven days and notice your mornings.'
   },
   {
     id: 'sleep-last-hour',
@@ -67,7 +67,7 @@ export const ARTICLES: Article[] = [
     emoji: '🛌',
     readTime: '3 min read',
     summary: 'How high-stimulus media keeps you alert — and four habits for restful sleep.',
-    intro: 'High-stimulus media—fast-paced video feeds, video games, and emotional group chats—triggers alertness right when core body temperature and brainwave frequencies need to gradually lower. Protecting your final sixty minutes before sleep transforms morning clarity and long-term retention.',
+    intro: 'Your last hour before bed decides how you sleep.',
     steps: [
       {
         heading: '1. Shift to dim, warm ambient lighting',
@@ -86,7 +86,7 @@ export const ARTICLES: Article[] = [
         detail: 'Avoid doing stressful homework, typing essays, or watching intense videos in bed. Maintaining a strict association between your bed and sleep prevents tossing and turning when you turn the lights out.'
       }
     ],
-    closingLine: 'Check your Night and Sleep score on the Screen Habits Quest to measure how your bedtime routine affects your focus.'
+    closingLine: 'Protect your last hour before bed for seven days.'
   },
   {
     id: 'scrolling-less',
@@ -96,7 +96,7 @@ export const ARTICLES: Article[] = [
     emoji: '📱',
     readTime: '4 min read',
     summary: 'Smart friction for mindless feeds — no radical detox needed.',
-    intro: 'Total digital detoxes rarely work for students because school assignments, group projects, and friend networks require active digital communication. The objective is not abandoning technology—it is dismantling friction-free, mindless scrolling loops while preserving the tools that actually serve your life.',
+    intro: 'You don\'t need a detox — you need friction between you and the feed.',
     steps: [
       {
         heading: '1. Nest high-friction apps into deep folders',
@@ -115,7 +115,7 @@ export const ARTICLES: Article[] = [
         detail: 'Before tapping any feed app, pause for ten seconds and state your exact purpose aloud: "I am checking tomorrow\'s bus timing" or "I am replying to Sarah." If you cannot name a purpose, put the device down.'
       }
     ],
-    closingLine: 'Take the Quest to see how your app use habits compare across your peer group and pick your 7-day pledge.'
+    closingLine: 'Pick one friction trick and use it for seven days.'
   },
   {
     id: 'eyes-focus-breaks',
@@ -125,7 +125,7 @@ export const ARTICLES: Article[] = [
     emoji: '👁️',
     readTime: '3 min read',
     summary: 'Simple vision hygiene and focus pacing for strain-free study.',
-    intro: 'When reading or working on digital screens, human blink rates drop by up to fifty percent, drying the protective tear film across your corneas. Coupled with continuous close-up lens contraction, hours of unbroken screen work cause dull headaches and mental fatigue that simple habits can easily prevent.',
+    intro: 'Your blink rate halves on screens. Look away, blink, rest your eyes.',
     steps: [
       {
         heading: '1. Practice the 20-20-2 habit',
@@ -144,7 +144,7 @@ export const ARTICLES: Article[] = [
         detail: 'Never study with a blazing bright display in an unlit room. Match the luminance of your screen to the ambient brightness of the surrounding space to reduce ocular contrast strain.'
       }
     ],
-    closingLine: 'See where your Body and Focus stand on your personal Screen Habits report.'
+    closingLine: 'Use the 20-20-2 rule during study for seven days.'
   },
   {
     id: 'healthy-habits-student-team',
@@ -153,16 +153,16 @@ export const ARTICLES: Article[] = [
     topicTag: 'Video & Teamwork',
     emoji: '🎬',
     readTime: '4 min read',
-    summary: 'Turning honest seven-day habit trials into a 3-minute story.',
-    intro: 'The British Council Your World competition challenges student teams to explore the theme "Healthy habits in a digital world." Healthy habits do not mean avoiding screens altogether; they mean developing boundaries, intentional rhythms, and team accountability so technology serves human growth rather than consuming all your free hours.',
+    summary: 'How a student team tests honest seven-day habit changes.',
+    intro: 'Healthy habits mean boundaries and rhythm, not avoiding screens.',
     steps: [
       {
         heading: '1. Establish clear team communication boundaries',
         detail: 'Agree with your teammates on designated communication hours. Agree that late-night notifications are never expected to receive an immediate response, allowing every team member to wind down properly.'
       },
       {
-        heading: '2. Film the real seven-day habit trial',
-        detail: 'Capture authentic, unscripted moments of your team testing habit changes—awkward early attempts, genuine struggles with late-night scrolling, and honest improvements in energy and study focus over the seven days.'
+        heading: '2. Test the real seven-day habit trial',
+        detail: 'Notice the real moments of your team testing habit changes—awkward early attempts, genuine struggles with late-night scrolling, and honest improvements in energy and study focus over the seven days.'
       },
       {
         heading: '3. Tell a focused, actionable story',
@@ -173,6 +173,6 @@ export const ARTICLES: Article[] = [
         detail: 'Brainstorm your storyboard on paper and index cards before touching editing software. Collaborative face-to-face planning keeps your team aligned and reduces unnecessary editing screen hours.'
       }
     ],
-    closingLine: 'Complete your Screen Habits Quest now and choose your 7-day challenge.'
+    closingLine: 'Pick one habit and test it as a team for seven days.'
   }
 ];

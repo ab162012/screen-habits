@@ -14,19 +14,24 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
 }) => {
   return (
     <article className="article-detail-container article-reading-view article-detail" aria-labelledby="article-heading">
-      {/* Back links: one to the articles list, one to the Quest */}
+      {/* Back links: one to the articles list, one plain link to the Quest —
+          the quest is reachable, not pushed. */}
       <div className="article-back-nav article-top-nav-bar article-nav-back">
         <PillButton
           label="← Back to Articles"
           variant="secondary"
           onClick={() => onNavigate('articles')}
         />
-        <PillButton
-          label="Take the Quest →"
-          variant="primary"
-          arrow
-          onClick={() => onNavigate('quest')}
-        />
+        <a
+          href="#quest"
+          className="article-read-link"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate('quest');
+          }}
+        >
+          Take the Quest →
+        </a>
       </div>
 
       {/* Title, then topic tag */}

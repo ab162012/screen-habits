@@ -40,72 +40,94 @@ const HOW_STEPS = [
   }
 ];
 
+/** Campaign facts, not quest numbers — the campaign carries the same
+    weight as the quest. One line each. */
+const CAMPAIGN_FACTS = [
+  {
+    emoji: '🌍',
+    title: 'British Council Your World',
+    desc: '2026–27 · Healthy habits in a digital world.'
+  },
+  {
+    emoji: '🎓',
+    title: 'Student team · Islamabad',
+    desc: 'Four students, one campaign.'
+  },
+  {
+    emoji: '🏫',
+    title: 'For classes Grade 4 – IG1',
+    desc: 'Awareness + quest, in class groups.'
+  }
+];
+
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswers }) => {
   const previewArticles = ARTICLES.slice(0, 3);
 
   return (
     <div className="home-page">
-      {/* 1. Hero */}
+      {/* 1. Hero — the campaign message leads, not the quest. The quest
+          is one secondary button, not the pitch. */}
       <section className="home-hero" aria-labelledby="hero-title">
-        <span className="eyebrow">01 — Student Quest · Screen Habits</span>
-        <span className="home-hero-chip">10 questions · No sign-up · 7-day challenge</span>
+        <span className="eyebrow">01 — Student Campaign · Screen Habits</span>
+        <span className="home-hero-chip">Healthy habits in a digital world</span>
         <h1 id="hero-title" className="home-hero-headline">
           <span className="hero-line">Know your screen.</span>
           <span className="hero-line hero-accent">Own your time.</span>
         </h1>
         <Sticker text="Honest check · No fake scores" tone="navy" rotate={-3} className="hero-sticker" />
         <p className="home-hero-subline">
-          A 10-question check for students.
+          A student campaign about healthier screen habits.
         </p>
         <div className="home-hero-buttons">
           <PillButton
-            label={hasExistingAnswers ? 'Continue the Quest' : 'Start the Quest'}
+            label="Read the Guides"
             variant="primary"
             size="lg"
             arrow
-            onClick={() => onNavigate('quest')}
+            onClick={() => onNavigate('articles')}
           />
           <PillButton
-            label="Read Articles"
+            label={hasExistingAnswers ? 'Continue the Quest' : 'Take the Quest'}
             variant="secondary"
             size="lg"
-            onClick={() => onNavigate('articles')}
+            onClick={() => onNavigate('quest')}
           />
         </div>
       </section>
 
-      {/* 2. Stats — the quest in numbers, once (contained wash panel,
-          three white capsules). */}
+      {/* 2. Campaign — who this is and who it is for, in three capsules. */}
       <Reveal>
-        <section className="home-stats" aria-label="The quest in numbers">
-          <div className="home-stat">
-            <span className="home-stat-num">10</span>
-            <span className="home-stat-label"><span className="home-stat-emoji" aria-hidden="true">❓</span> Questions</span>
-          </div>
-          <div className="home-stat">
-            <span className="home-stat-num">7</span>
-            <span className="home-stat-label"><span className="home-stat-emoji" aria-hidden="true">📅</span> Day challenge</span>
-          </div>
-          <div className="home-stat">
-            <span className="home-stat-num">4</span>
-            <span className="home-stat-label"><span className="home-stat-emoji" aria-hidden="true">🧩</span> Parts</span>
-          </div>
+        <section className="home-campaign" aria-label="About the campaign">
+          {CAMPAIGN_FACTS.map((fact) => (
+            <div className="home-campaign-card" key={fact.title}>
+              <span className="home-campaign-emoji" aria-hidden="true">{fact.emoji}</span>
+              <span className="home-campaign-title">{fact.title}</span>
+              <span className="home-campaign-desc">{fact.desc}</span>
+            </div>
+          ))}
         </section>
       </Reveal>
 
-      {/* 3. How scoring works — navy band, four capsules. */}
+      {/* 3. Articles preview — the guides carry equal weight with the
+          quest, so they come before it. */}
       <Reveal>
-        <section className="honest-rules-band" aria-label="How the score works">
-          <div className="honest-rules-inner">
-            <span className="eyebrow honest-rules-eyebrow"><span className="eyebrow-emoji" aria-hidden="true">📊</span> How scoring works</span>
-            <ol className="honest-rules-list">
-              {HONEST_RULES.map((rule, i) => (
-                <li key={rule} className="honest-rule-item">
-                  <span className="honest-rule-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="honest-rule-text"><span className="honest-rule-emoji" aria-hidden="true">{HONEST_RULE_EMOJIS[i]}</span> {rule}</span>
-                </li>
-              ))}
-            </ol>
+        <section className="articles-preview-section" aria-labelledby="articles-preview-title">
+          <span className="eyebrow">02 — Guides</span>
+          <h2 id="articles-preview-title" className="section-headline">
+            <span className="section-emoji" aria-hidden="true">📚</span> Articles &amp; Habit Guides
+          </h2>
+          <div className="articles-preview-grid">
+            {previewArticles.map((art) => (
+              <ArticleCard key={art.id} article={art} onNavigate={onNavigate} variant="preview" />
+            ))}
+          </div>
+          <div className="articles-preview-footer">
+            <PillButton
+              label="View All 6 Articles"
+              variant="secondary"
+              arrow
+              onClick={() => onNavigate('articles')}
+            />
           </div>
         </section>
       </Reveal>
@@ -113,7 +135,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
       {/* 4. How It Works — 3 equal capsule cards in a grid. */}
       <Reveal>
         <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
-          <span className="eyebrow">02 — How It Works</span>
+          <span className="eyebrow">03 — How It Works</span>
           <h2 id="how-it-works-title" className="section-headline">
             <span className="section-emoji" aria-hidden="true">⚙️</span> How It Works
           </h2>
@@ -131,25 +153,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
-      {/* 5. Articles preview — 3 equal guides, no featured card. */}
+      {/* 5. How scoring works — the honesty proof, kept but last: the
+          quest no longer opens the page. */}
       <Reveal>
-        <section className="articles-preview-section" aria-labelledby="articles-preview-title">
-          <span className="eyebrow">03 — Guides</span>
-          <h2 id="articles-preview-title" className="section-headline">
-            <span className="section-emoji" aria-hidden="true">📚</span> Articles &amp; Habit Guides
-          </h2>
-          <div className="articles-preview-grid">
-            {previewArticles.map((art) => (
-              <ArticleCard key={art.id} article={art} onNavigate={onNavigate} variant="preview" />
-            ))}
-          </div>
-          <div className="articles-preview-footer">
-            <PillButton
-              label="View All 6 Articles"
-              variant="secondary"
-              arrow
-              onClick={() => onNavigate('articles')}
-            />
+        <section className="honest-rules-band" aria-label="How the score works">
+          <div className="honest-rules-inner">
+            <span className="eyebrow honest-rules-eyebrow"><span className="eyebrow-emoji" aria-hidden="true">📊</span> How scoring works</span>
+            <ol className="honest-rules-list">
+              {HONEST_RULES.map((rule, i) => (
+                <li key={rule} className="honest-rule-item">
+                  <span className="honest-rule-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="honest-rule-text"><span className="honest-rule-emoji" aria-hidden="true">{HONEST_RULE_EMOJIS[i]}</span> {rule}</span>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
       </Reveal>
