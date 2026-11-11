@@ -36,6 +36,10 @@ export const QuestPage: React.FC<QuestPageProps> = ({
 }) => {
   const [showSkipAlert, setShowSkipAlert] = useState(false);
   const [xpPopping, setXpPopping] = useState(false);
+  /* Skipped question ids, tracked as events — an unanswered question is
+     NOT a skipped one. The skip button shows "✓ Marked as Skipped" only
+     after an actual skip; answering the question clears the mark. */
+  const [skippedIds, setSkippedIds] = useState<Set<string>>(new Set());
 
   // 1. Calculate XP (10 XP per answered question, 0 for skipped)
   const answeredCount = useMemo(() => {
@@ -82,8 +86,13 @@ export const QuestPage: React.FC<QuestPageProps> = ({
   const currentValue = answers[currentQuestion.id];
   const isCurrentAnswered = isQuestionAnswered(currentQuestion, currentValue);
 
-  // Handle Skip
+  // Handle Skip — records the skip (answer stays undefined, 0 XP).
   const handleSkip = () => {
+    setSkippedIds((prev) => {
+      const next = new Set(prev);
+      next.add(currentQuestion.id);
+      return next;
+    });
     onUpdateAnswer(currentQuestion.id, undefined);
     setShowSkipAlert(true);
     setTimeout(() => {
@@ -105,6 +114,18 @@ export const QuestPage: React.FC<QuestPageProps> = ({
     } else {
       onStepChange(safeStep + 1);
     }
+  };
+
+  // Answering a question clears its skip mark (a skip is an event, not
+  // a state of the answer — the answer itself is just undefined either way).
+  const handleAnswerChange = (val: string | number | string[]) => {
+    onUpdateAnswer(currentQuestion.id, val);
+    setSkippedIds((prev) => {
+      if (!prev.has(currentQuestion.id)) return prev;
+      const next = new Set(prev);
+      next.delete(currentQuestion.id);
+      return next;
+    });
   };
 
   // Handle Back
@@ -167,9 +188,9 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         key={currentQuestion.id}
         question={currentQuestion}
         value={currentValue}
-        onChange={(val) => onUpdateAnswer(currentQuestion.id, val)}
+        onChange={handleAnswerChange}
         onSkip={handleSkip}
-        isSkipped={!isCurrentAnswered && currentValue === undefined}
+        isSkipped={skippedIds.has(currentQuestion.id)}
         questionNumber={safeStep + 1}
       />
 

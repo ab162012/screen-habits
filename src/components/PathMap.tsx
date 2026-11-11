@@ -21,14 +21,23 @@ interface PathMapProps {
   preview?: boolean;
 }
 
-/* Sine-wave winding path geometry (viewBox 1000 x 680 — 60px top inset so
-   part labels, which sit BELOW their node, never collide with the section
-   intro above the path). */
+/* Gentle single-S winding path (viewBox 1000 x 930 — 140px top inset so
+   the Part 1 label, which sits ABOVE its node, never leaves the box).
+   One full sine period over the height: wide graceful lobes, no hairpins.
+   Nodes sit at part-aware t values (not uniform t): 56px steps inside a
+   part, ~130px gaps between parts, so each part's label fits ABOVE its
+   first node without touching the previous node. Consecutive nodes are
+   >=68px apart at full width (52px nodes) — none touch, none stack.
+   The path starts exactly at Q1 and ends exactly at Q10: no dangling ends.
+   Track and drawn path are one hue (ocean at 22% / full) — one consistent
+   colour treatment; the travelling dot is gone (it read as a stray dot). */
 const PATH_W = 1000;
-const PATH_H = 680;
+const PATH_H = 930;
+/* t for each node (y = 140, 196, 326, 382, 438, 568, 624, 754, 810, 866). */
+const NODE_T = [0, 0.0771, 0.2562, 0.3333, 0.4105, 0.5895, 0.6667, 0.8457, 0.9229, 1];
 const pathPoint = (t: number) => ({
-  x: 500 + 340 * Math.sin(t * Math.PI * 2.5),
-  y: 90 + t * 560
+  x: 500 + 280 * Math.sin(t * Math.PI * 2),
+  y: 140 + t * 726
 });
 
 const buildPathD = () => {
@@ -164,7 +173,7 @@ export const PathMap: React.FC<PathMapProps> = ({
         <svg
           className="path-winding-svg"
           viewBox={`0 0 ${PATH_W} ${PATH_H}`}
-          preserveAspectRatio="none"
+          preserveAspectRatio="xMidYMid meet"
           aria-hidden="true"
         >
           <path d={buildPathD()} className="path-track" fill="none" />
@@ -178,16 +187,9 @@ export const PathMap: React.FC<PathMapProps> = ({
               strokeDashoffset: pathLength * (1 - drawProgress)
             }}
           />
-          {/* Travelling blue dot at the drawn head. */}
-          <circle
-            className="path-traveller"
-            r="7"
-            cx={pathPoint(drawProgress).x}
-            cy={pathPoint(drawProgress).y}
-          />
         </svg>
         {QUESTIONS.map((q, i) => {
-          const p = pathPoint((i + 0.5) / QUESTIONS.length);
+          const p = pathPoint(NODE_T[i]);
           return (
             <span
               key={q.id}
@@ -202,16 +204,18 @@ export const PathMap: React.FC<PathMapProps> = ({
           const first = QUESTIONS.findIndex((q) => q.partIndex === part.index);
           if (first < 0) return null;
           const count = QUESTIONS.filter((q) => q.partIndex === part.index).length;
-          const p = pathPoint((first + 0.5) / QUESTIONS.length);
+          const p = pathPoint(NODE_T[first]);
           return (
             <span
               key={part.index}
               className="path-part-label"
               style={{ left: `${(p.x / PATH_W) * 100}%`, top: `${(p.y / PATH_H) * 100}%` }}
             >
-              <span className="path-part-chip">Part {part.index + 1}</span>
-              <span className="path-part-emoji" aria-hidden="true">{part.emoji}</span>
-              <span className="path-part-title">{part.title}</span>
+              <span className="path-part-row">
+                <span className="path-part-chip">Part {part.index + 1}</span>
+                <span className="path-part-emoji" aria-hidden="true">{part.emoji}</span>
+                <span className="path-part-title">{part.title}</span>
+              </span>
               <span className="path-part-count">{count} questions</span>
             </span>
           );

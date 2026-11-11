@@ -92,6 +92,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchor/focus jumps land clear of the 64px sticky header. */
+  scroll-padding-top: 88px;
 }
 
 body {
@@ -194,7 +196,9 @@ ol {
   animation: page-fade 200ms var(--ease);
 }
 
-section[id] {
+/* Every section clears the sticky header on anchor/focus jumps — not
+   only sections that happen to carry an id. */
+section {
   scroll-margin-top: 88px;
 }
 
@@ -594,33 +598,28 @@ section[id] {
   margin-top: 16px;
 }
 
-/* ---------- Footer: ocean block, giant cropped wordmark ----------
-   KEPT VERBATIM per the owner's word ("footer is proper") — the only
-   change from the old file is margin-top: 0 (map §2.1: the main's 96px
-   bottom padding is the only gap above the footer). The 260px wordmark,
-   13px/15px micro sizes and blue-pill CTA are deliberate exceptions to
-   the type scale and contrast table; see the rebuild report. */
+/* ---------- Footer: ocean block ----------
+   Wordmark renders FULLY ("SCREEN HABITS", nothing sliced): it is sized
+   to fit its container at every width (measured with the real Manrope
+   800: 728px at 96px cap) with line-height 1 and no negative margin, and
+   the footer no longer clips it (overflow removed). 96px of bottom
+   padding lets the fixed floating bar sit clear of the wordmark at max
+   scroll. The hand-drawn scribbles SVG is gone — its wavy line struck
+   straight through the credits/disclaimer text and its circle floated
+   as a stray oval. Columns are content-sized and centred as a group, so
+   their visual mass sits on the page centre. */
 .site-footer {
   background: var(--ocean);
   color: #fff;
   position: relative;
-  overflow: hidden;
   margin-top: 0;
-}
-
-.footer-scribbles {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
 }
 
 .footer-inner {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 72px 24px 0;
+  padding: 72px 24px 96px;
   text-align: center;
 }
 
@@ -638,8 +637,9 @@ section[id] {
 
 .footer-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  gap: 96px;
   max-width: 860px;
   margin: 0 auto 40px;
   text-align: left;
@@ -691,14 +691,18 @@ section[id] {
   margin: 0 auto 48px;
 }
 
+/* Wordmark fits fully at every width: 88px cap (below the 96px hero
+   Display, so the hero stays the biggest type) and a 32px floor, so it
+   fits the 312px phone footer too. Line-height 1, no negative margin,
+   no cropping — every letter visible. */
 .footer-wordmark {
-  font-size: clamp(80px, 18vw, 260px);
+  font-size: clamp(32px, 9vw, 88px);
   font-weight: 800;
   text-transform: uppercase;
-  line-height: 0.8;
+  line-height: 1;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  margin-bottom: -0.16em;
+  margin-bottom: 0;
   user-select: none;
 }
 
@@ -738,7 +742,11 @@ section[id] {
 }
 
 .home-hero-headline {
-  font-size: clamp(64px, 9vw, 112px);
+  /* Display, 96px cap (was 112px): measured with the real Manrope 800,
+     "KNOW YOUR SCREEN." is 1,156px at 112px vs the 1,152px container, so
+     line 1 wrapped; at 96px it is 991px and fits on one line at every
+     desktop width. Floor 48px per the map. */
+  font-size: clamp(48px, 9vw, 96px);
   font-weight: 800;
   text-transform: uppercase;
   line-height: 0.95;
@@ -756,11 +764,12 @@ section[id] {
   padding-left: 0.6em;
 }
 
-/* The sticker overlaps the H1's lower-right — it never floats in
-   whitespace below the headline. */
+/* The sticker sits in normal flow BELOW the headline — it overlaps
+   nothing (it used to be pulled up 24px over the H1 and hid the period
+   of "OWN YOUR TIME."). */
 .hero-sticker {
-  align-self: flex-end;
-  margin: -24px 8% 0 0;
+  align-self: flex-start;
+  margin: 16px 0 0;
   z-index: 1;
 }
 
@@ -1064,7 +1073,7 @@ button.path-node:not(:disabled):hover {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  aspect-ratio: 1000 / 680;
+  aspect-ratio: 1000 / 930;
 }
 
 .path-winding-svg {
@@ -1074,8 +1083,11 @@ button.path-node:not(:disabled):hover {
   height: 100%;
 }
 
+/* One consistent colour treatment: the track is the same ocean as the
+   drawn path, at 22% opacity — no abrupt dark-to-pale split. */
 .path-track {
-  stroke: var(--line);
+  stroke: var(--ocean);
+  stroke-opacity: 0.22;
   stroke-width: 6;
   stroke-linecap: round;
 }
@@ -1084,10 +1096,6 @@ button.path-node:not(:disabled):hover {
   stroke: var(--ocean);
   stroke-width: 6;
   stroke-linecap: round;
-}
-
-.path-traveller {
-  fill: var(--ocean-mid);
 }
 
 .path-node-slot {
@@ -1109,20 +1117,33 @@ button.path-node:not(:disabled):hover {
   line-height: 1;
 }
 
-/* Part labels sit BELOW their node (12px below the node's bottom edge):
-   top edge = node centre + 26px (half the node) + 12px gap. */
+/* Part labels sit ABOVE their node (12px above the node's top edge):
+   bottom edge = node centre - 26px (half the node) - 12px gap. Labels
+   are white-backed so the path never shows through text, and stacked in
+   a compact 2-row layout (chip + emoji + title on one row, count pill
+   below) so they stay clear of the neighbouring nodes. */
 .path-part-label {
   position: absolute;
-  transform: translate(-50%, 0);
-  margin-top: 38px;
+  transform: translate(-50%, -100%);
+  margin-top: -38px;
   z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   text-align: center;
   pointer-events: none;
   white-space: nowrap;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 6px 12px;
+}
+
+.path-part-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .path-part-chip {
@@ -1405,14 +1426,19 @@ button.path-node:not(:disabled):hover {
   overflow: hidden;
 }
 
+/* Drum window: a 64px frame (left/right borders only, no background)
+   marking the centred slot — it never bisects the value, because the
+   active item is exactly 64px wide and sits INSIDE the frame. The old
+   full-height 3px centre line cut straight through "6.0". */
 .hours-drum-pointer {
   position: absolute;
   left: 50%;
   top: 0;
   bottom: 0;
-  width: 3px;
-  margin-left: -1.5px;
-  background: var(--ocean-mid);
+  width: 64px;
+  margin-left: -32px;
+  border-left: 3px solid var(--ocean-mid);
+  border-right: 3px solid var(--ocean-mid);
   z-index: 2;
   pointer-events: none;
 }
@@ -1440,10 +1466,16 @@ button.path-node:not(:disabled):hover {
   scroll-snap-align: center;
 }
 
+/* The selected value is a white chip inside the window frame: 20px/800
+   ocean (the palette's navy; old navy #0A1F44 is retired) on a white
+   card — it reads as a drum, not a flat strip. */
 .hours-drum-item.active {
   color: var(--ocean);
   font-size: 20px;
   font-weight: 800;
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Scale labels: min/max pair only. */
@@ -2622,7 +2654,11 @@ button.path-node:not(:disabled):hover {
 }
 
 /* ---------- Name & Class dialog ---------- */
+/* The global margin reset wipes the native <dialog> UA margin: auto,
+   so the modal docked to the left edge (UA left: 0; right: 0). Restored
+   here — the dialog is centred on both axes. */
 .name-dialog {
+  margin: auto;
   border: none;
   border-radius: var(--radius-xl);
   padding: 0;
@@ -2744,11 +2780,24 @@ button.path-node:not(:disabled):hover {
   .honest-rules-list {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* The winding's node spacing scales with container width, but nodes
+     are fixed-size: shrink them so neighbours never touch (min node
+     distance is ~52px at 769px width vs 52px nodes). */
+  .path-node-full {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 @media (max-width: 768px) {
   .home-hero-headline {
     font-size: 48px;
+  }
+
+  .path-node-full {
+    width: 36px;
+    height: 36px;
   }
 
   .single-cards-grid {
