@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 /**
  * Loader (two26 loader pattern, Astryx colours): full white screen, single
- * navy arc drawing/rotating in the centre, shown once on first load only,
+ * ocean arc drawing/rotating in the centre, shown once on first load only,
  * max ~1.5s, then the hero fades in. Skipped entirely under
  * prefers-reduced-motion. Purely cosmetic — it unmounts on a timer and
  * never blocks content.

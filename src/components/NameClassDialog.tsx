@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { UserProfile } from '../types';
 import { APP_SLOGAN } from '../questions';
 import { PillButton } from './PillButton';
+import { CloseIcon } from './icons';
 
 interface NameClassDialogProps {
   isOpen: boolean;
@@ -78,7 +79,7 @@ export const NameClassDialog: React.FC<NameClassDialogProps> = ({
           aria-label="Close without saving"
           onClick={() => dialogRef.current?.close()}
         >
-          ✕
+          <CloseIcon size={16} />
         </button>
         <h2 id="name-dialog-title" className="name-dialog-title">Screen Habits Check</h2>
         <p className="name-dialog-subtitle">{APP_SLOGAN}</p>

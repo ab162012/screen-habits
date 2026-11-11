@@ -134,8 +134,10 @@ export const QuestPage: React.FC<QuestPageProps> = ({
             <span key={currentXP} className={`quest-xp-badge ${xpPopping ? 'xp-pop' : ''}`}>{currentXP} XP</span>
             <span className="quest-level-tag">Level: {level}</span>
           </div>
+          <span className="quest-gamify-divider" aria-hidden="true" />
           <div className={`quest-streak-pill ${currentStreak > 0 ? 'active' : ''} ${showSkipAlert ? 'reset-shake' : ''}`}>
-            <span>🔥 Streak:</span>
+            <span className="quest-streak-emoji" aria-hidden="true">🔥</span>
+            <span>Streak:</span>
             <strong key={currentStreak}>{currentStreak}</strong>
           </div>
         </div>
@@ -156,26 +158,25 @@ export const QuestPage: React.FC<QuestPageProps> = ({
         )}
       </section>
 
-      {/* Path strip: the whole 10-node path at a glance, tap a done node to go back */}
-      <PathMap
-        variant="strip"
-        currentStep={safeStep}
-        answers={answers}
-        onSelect={onStepChange}
-      />
-
-      {/* Segmented progress: "N of 10" + 10 segments. The Path
-          strip above stays — it is the tap-to-go-back control, this is the
-          position display. */}
-      <div className="quest-segments" aria-label={`Question ${safeStep + 1} of ${QUESTIONS.length}`}>
-        <span className="quest-segments-label">{safeStep + 1} of {QUESTIONS.length}</span>
-        <div className="quest-segments-track" role="progressbar" aria-valuenow={safeStep + 1} aria-valuemin={1} aria-valuemax={QUESTIONS.length}>
-          {QUESTIONS.map((q, i) => (
-            <span
-              key={q.id}
-              className={`quest-segment ${i < safeStep ? 'done' : ''} ${i === safeStep ? 'current' : ''}`}
-            />
-          ))}
+      {/* One progress unit: path strip nodes on a rail, segments as the rail fill.
+          The strip is the tap-to-go-back control; the segments are the position display. */}
+      <div className="quest-progress-unit">
+        <PathMap
+          variant="strip"
+          currentStep={safeStep}
+          answers={answers}
+          onSelect={onStepChange}
+        />
+        <div className="quest-segments" aria-label={`Question ${safeStep + 1} of ${QUESTIONS.length}`}>
+          <span className="quest-segments-label">{safeStep + 1} of {QUESTIONS.length}</span>
+          <div className="quest-segments-track" role="progressbar" aria-valuenow={safeStep + 1} aria-valuemin={1} aria-valuemax={QUESTIONS.length}>
+            {QUESTIONS.map((q, i) => (
+              <span
+                key={q.id}
+                className={`quest-segment ${i < safeStep ? 'done' : ''} ${i === safeStep ? 'current' : ''}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 

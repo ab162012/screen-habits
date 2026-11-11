@@ -5,7 +5,7 @@ interface MarqueeProps {
 }
 
 /**
- * Navy marquee band (two26 marquee pattern, Astryx colours): slightly tilted,
+ * Ocean marquee band (two26 marquee pattern, ocean colours): slightly tilted,
  * repeated white Manrope 800 caps separated by blue dots, infinite loop.
  * The one looping animation on the site; paused under prefers-reduced-motion.
  */

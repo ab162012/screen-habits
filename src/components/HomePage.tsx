@@ -19,6 +19,10 @@ const HONEST_RULES = [
   'Under 5 = Partial result'
 ];
 
+/** Emoji system: one fixed emoji per honest rule, used on the About stickers
+    AND in the "How scoring works" band — same rule, same emoji, everywhere. */
+const HONEST_RULE_EMOJIS = ['⭐', '⏭️', '📊', '🧩'];
+
 const MARQUEE_ITEMS = [
   'KNOW YOUR SCREEN',
   'OWN YOUR TIME',
@@ -91,9 +95,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
             A 10-question check for students. Know your habit, pick one 7-day challenge.
           </p>
           <div className="home-about-stickers" aria-hidden="true">
-            <Sticker text={HONEST_RULES[0]} tone="navy" rotate={-3} />
-            <Sticker text={HONEST_RULES[1]} tone="blue" rotate={2} />
-            <Sticker text={HONEST_RULES[2]} tone="light" rotate={-3} />
+            <Sticker text={`${HONEST_RULE_EMOJIS[0]} ${HONEST_RULES[0]}`} tone="navy" rotate={-3} />
+            <Sticker text={`${HONEST_RULE_EMOJIS[1]} ${HONEST_RULES[1]}`} tone="blue" rotate={2} />
+            <Sticker text={`${HONEST_RULE_EMOJIS[2]} ${HONEST_RULES[2]}`} tone="light" rotate={-3} />
           </div>
         </section>
       </Reveal>
@@ -103,30 +107,33 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         <section className="home-stats" aria-label="The quest in numbers">
           <div className="home-stat">
             <span className="home-stat-num">10</span>
-            <span className="home-stat-label">Questions</span>
+            <span className="home-stat-label"><span className="home-stat-emoji" aria-hidden="true">❓</span> Questions</span>
           </div>
           <div className="home-stat">
             <span className="home-stat-num">7</span>
-            <span className="home-stat-label">Day challenge</span>
+            <span className="home-stat-label"><span className="home-stat-emoji" aria-hidden="true">📅</span> Day challenge</span>
           </div>
           <div className="home-stat">
             <span className="home-stat-num">4</span>
-            <span className="home-stat-label">Parts</span>
+            <span className="home-stat-label"><span className="home-stat-emoji" aria-hidden="true">🧩</span> Parts</span>
           </div>
         </section>
       </Reveal>
 
-      {/* 3.5 Honest rules strip */}
+      {/* 3.5 Honest rules — merged into one navy band (the separate strip is deleted) */}
       <Reveal>
-        <section className="honest-rules-strip" aria-label="How the score works">
-          {HONEST_RULES.map((rule, i) => (
-            <Sticker
-              key={rule}
-              text={rule}
-              tone={i % 3 === 0 ? 'navy' : i % 3 === 1 ? 'blue' : 'light'}
-              rotate={i % 2 === 0 ? -3 : 2}
-            />
-          ))}
+        <section className="honest-rules-band" aria-label="How the score works">
+          <div className="honest-rules-inner">
+            <span className="eyebrow honest-rules-eyebrow"><span className="eyebrow-emoji" aria-hidden="true">📊</span> How scoring works</span>
+            <ol className="honest-rules-list">
+              {HONEST_RULES.map((rule, i) => (
+                <li key={rule} className="honest-rule-item">
+                  <span className="honest-rule-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="honest-rule-text"><span className="honest-rule-emoji" aria-hidden="true">{HONEST_RULE_EMOJIS[i]}</span> {rule}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </section>
       </Reveal>
 
@@ -135,7 +142,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         <section className="path-home-section" aria-labelledby="path-title">
           <span className="eyebrow">02 — Your Path</span>
           <h2 id="path-title" className="section-headline">
-            Your Path
+            <span className="section-emoji" aria-hidden="true">🗺️</span> Your Path
           </h2>
           <p className="section-intro">
             10 questions in 4 parts — answer them in order, earn 10 XP per answered question.
@@ -155,14 +162,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
           <span className="eyebrow">03 — How It Works</span>
           <h2 id="how-it-works-title" className="section-headline">
-            How It Works
+            <span className="section-emoji" aria-hidden="true">⚙️</span> How It Works
           </h2>
-          <div className="how-steps-grid">
+          <div className="how-steps-list">
             {HOW_STEPS.map((step, i) => (
-              <div className="step-card" key={step.num}>
-                <span className="step-num-badge" aria-hidden="true">{step.num}</span>
-                <h3 className="step-card-title">{step.title}</h3>
-                <p className="step-card-desc">{step.desc}</p>
+              <div className={`how-step-row how-step-row-${i + 1}`} key={step.num}>
+                <span className="how-step-ghost-num" aria-hidden="true">{step.num}</span>
+                <div className="how-step-body">
+                  <h3 className="step-card-title">{step.title}</h3>
+                  <p className="step-card-desc">{step.desc}</p>
+                </div>
                 {i < HOW_STEPS.length - 1 ? (
                   <span className="step-arrow" aria-hidden="true">→</span>
                 ) : (
@@ -181,11 +190,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         <section className="articles-preview-section" aria-labelledby="articles-preview-title">
           <span className="eyebrow">04 — Guides</span>
           <h2 id="articles-preview-title" className="section-headline">
-            Articles &amp; Habit Guides
+            <span className="section-emoji" aria-hidden="true">📚</span> Articles &amp; Habit Guides
           </h2>
           <div className="articles-preview-grid">
-            {previewArticles.map((art) => (
-              <ArticleCard key={art.id} article={art} onNavigate={onNavigate} variant="preview" />
+            {previewArticles.map((art, i) => (
+              <ArticleCard key={art.id} article={art} onNavigate={onNavigate} variant="preview" featured={i === 0} />
             ))}
           </div>
           <div className="articles-preview-footer">
@@ -203,7 +212,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
       <Reveal>
         <section className="video-note-band" aria-labelledby="video-note-title">
           <h3 id="video-note-title" className="video-note-title">
-            British Council Your World Video Project
+            <span className="section-emoji" aria-hidden="true">🎬</span> British Council Your World Video Project
           </h3>
           <p className="video-note-text">
             This site provides the diagnostic foundation and 7-day habit trial for student teams creating a video for the theme <strong>Healthy habits in a digital world</strong>.

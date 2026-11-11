@@ -8,7 +8,7 @@ interface PillBadgeProps {
   className?: string;
 }
 
-/** Shared pill badge — replaces Astryx Badge. Blue pill / navy pill / light-blue pill. */
+/** Shared pill badge — replaces Astryx Badge. Ocean-mid pill / ocean pill / light-blue pill. */
 export const PillBadge: React.FC<PillBadgeProps> = ({ label, tone = 'blue', className = '' }) => {
   return (
     <span className={`pill-badge pill-badge-${tone} ${className}`.trim()}>{label}</span>

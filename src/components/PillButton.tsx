@@ -16,11 +16,11 @@ interface PillButtonProps {
 }
 
 /**
- * Shared pill button (two26 pill + circular arrow disc, Astryx colours).
- * Primary: navy pill, white label, blue arrow disc.
- * Secondary: white pill, blue label, 1.5px blue border.
- * Ghost: plain navy/blue text, no background.
- * Blue: blue pill, white label, white arrow disc (for use on navy ground).
+ * Shared pill button (two26 pill + circular arrow disc, ocean colours).
+ * Primary: ocean pill, white label, ocean-mid arrow disc.
+ * Secondary: white pill, ocean-mid label, 1.5px ocean-mid border.
+ * Ghost: plain ocean text, no background.
+ * Blue: ocean-mid pill, white label, white arrow disc (for use on ocean ground).
  */
 export const PillButton: React.FC<PillButtonProps> = ({
   label,

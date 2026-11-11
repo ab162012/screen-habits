@@ -9,7 +9,7 @@ interface StickerProps {
   className?: string;
 }
 
-/** Rotated pill sticker (two26 sticker pattern, Astryx colours). Only existing copy may be used as text. */
+/** Rotated pill sticker (two26 sticker pattern, ocean colours). Only existing copy may be used as text. */
 export const Sticker: React.FC<StickerProps> = ({ text, tone = 'navy', rotate = -3, className = '' }) => {
   return (
     <span

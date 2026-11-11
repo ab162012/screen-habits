@@ -11,7 +11,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     <footer className="site-footer" role="contentinfo">
       {/* Faint hand-drawn loop scribbles, drawn fresh — decorative only. */}
       <svg className="footer-scribbles" aria-hidden="true" viewBox="0 0 1200 300" preserveAspectRatio="none">
-        <path d="M60 220 C 180 120, 320 260, 430 180 S 640 120, 720 200" fill="none" stroke="#2563EB" strokeWidth="3" strokeLinecap="round" opacity="0.35" />
+        <path d="M60 220 C 180 120, 320 260, 430 180 S 640 120, 720 200" fill="none" stroke="#7DD3FC" strokeWidth="3" strokeLinecap="round" opacity="0.35" />
         <path d="M780 90 C 880 180, 1020 100, 1140 190" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeLinecap="round" opacity="0.25" />
         <circle cx="150" cy="80" r="26" fill="none" stroke="#FFFFFF" strokeWidth="3" opacity="0.2" />
       </svg>

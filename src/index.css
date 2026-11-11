@@ -1,58 +1,113 @@
 /* ==========================================================================
    Screen Habits — Know your screen. Own your time.
-   two26-structure rebuild, Astryx colours (white / navy #0A1F44 / blue #2563EB).
-   Manrope ONLY. One accent (blue) + navy + white + light-blue tints + slate.
+   two26-structure rebuild, Pass 4 ocean-blue palette (white / ocean #0B4F6C /
+   mid ocean #0369A1 / light blue #BAE6FD + #93C5FD + #7DD3FC). Old navy #0A1F44
+   and bright blue #2563EB are RETIRED — no usage remains in this file.
+   Manrope ONLY. One dark primary (ocean) + one mid accent + white + light-blue
+   tints + slate greys for body text only. See :root --ocean-* tokens.
+   ========================================================================== */
+
+/* ==========================================================================
+   EMOJI SYSTEM (Pass 3 — "emoji up the system").
+   Emoji are design elements, not decoration: every emoji below is either
+   restored from the frozen data fields (question partEmoji / option emoji /
+   article emoji / rec icon / bandEmoji — src/questions.ts, src/data/articles.ts,
+   never edited) or a fixed system mark listed here. No emoji is invented per
+   page; the same meaning always gets the same emoji.
+   Rules:
+   - Size per context: nav brand mark 20px (.brand-emoji); section headers
+     20px (.section-emoji); article card mark 28px glyph in the 56px
+     light-blue circle (.article-card-emoji); article detail mark 48px
+     (.article-emoji-mark); option emoji 18px on multi-chips (.chip-emoji),
+     24px on single-cards (.card-emoji); Q7 scale faces 32px (.scale-face,
+     40px when selected); streak/badge/band emoji 16–18px
+     (.quest-streak-emoji, .band-pill-emoji); part marks 22px
+     (.path-part-emoji, .part-emoji-mark); rec icons 24px (.rec-icon-emoji);
+     result empty-state mark 3rem (.result-empty-mark).
+   - Placement: emoji LEAD the label they belong to, never trail it.
+   - Treatment: no extra backgrounds, except the existing light-blue circles
+     for card marks (.article-card-emoji) and the empty-state mark.
+   - The one exception: the challenge-toggle radio stays a real radio
+     indicator (ocean-mid fill + white ✓ when selected, hollow ring when not) —
+     emoji toggles are NOT restored (Pass 2 bug fix, kept).
+   - Typographic glyphs (✓ → • · — ✕) are not emoji and are untouched.
+   - The favicon 📱 in index.html is frozen and stays.
    ========================================================================== */
 
 :root {
-  --navy: #0A1F44;
-  --blue: #2563EB;
-  --blue-hover: #1D4ED8;
-  --blue-dark: #1E40AF;
-  --blue-light: #60A5FA;
+  /* Pass 4 palette — exactly three colours + slate greys for body text only.
+     Ocean blue (primary / dark):  #0B4F6C — white on it is 8.94:1 (AA, body).
+     Ocean deep (shade / hover):   #083A4F — white on it is 12.15:1.
+     Ocean hover (primary hover):   #08415A — white on it is 10.97:1.
+     Ocean mid (accent on white):   #0369A1 — on white 5.93:1 (AA, body + links).
+     Ocean mid hover:               #075985 — on white 7.56:1.
+     Light blue (secondary):        #BAE6FD (borders / sky tint), #93C5FD (pale
+       accent on ocean), #7DD3FC (bright light-blue accent on ocean).
+     Light-blue wash (section bg):  #E0F2FE. Soft tint (kept): #DBEAFE.
+     White (ground):                #FFFFFF. */
+  --ocean: #0B4F6C;
+  --ocean-deep: #083A4F;
+  --ocean-hover: #08415A;
+  --ocean-mid: #0369A1;
+  --ocean-mid-hover: #075985;
+  --ocean-light: #BAE6FD;
+  --ocean-pale: #93C5FD;
+  --ocean-sky: #7DD3FC;
+  --ocean-wash: #E0F2FE;
+  --ocean-soft: #DBEAFE;
+  --white: #FFFFFF;
+
+  /* Historic names kept as internal aliases — every one now points at an
+     ocean token above, so no retired hex survives anywhere in this file. */
+  --navy: #0B4F6C;
+  --blue: #0369A1;
+  --blue-hover: #075985;
+  --blue-dark: #083A4F;
+  --blue-light: #7DD3FC;
   --blue-pale: #93C5FD;
   --bg-page: #FFFFFF;
-  --bg-subtle: #EFF6FF;
+  --bg-subtle: #E0F2FE;
   --bg-paper: #F8FAFC;
-  --border-blue-100: #DBEAFE;
+  --border-blue-100: #BAE6FD;
   --border-slate: #CBD5E1;
-  --text-slate-800: #0A1F44;
+  --text-slate-800: #0B4F6C;
   --text-slate-600: #475569;
   --text-slate-400: #94A3B8;
   --card-bg: #FFFFFF;
   --disabled-bg: #E2E8F0;
   --disabled-text: #94A3B8;
 
-  /* Legacy aliases — all point at blue/navy so no legacy colour leaks back in. */
-  --terracotta-primary: #2563EB;
-  --terracotta-shade-1: #1D4ED8;
-  --terracotta-shade-2: #0A1F44;
-  --terracotta-tint-1: #EFF6FF;
+  /* Legacy aliases — all point at ocean values so no legacy colour leaks back in. */
+  --terracotta-primary: #0369A1;
+  --terracotta-shade-1: #075985;
+  --terracotta-shade-2: #0B4F6C;
+  --terracotta-tint-1: #E0F2FE;
   --terracotta-tint-2: #DBEAFE;
-  --terracotta-border: #DBEAFE;
-  --teal-primary: #2563EB;
-  --teal-shade-1: #1D4ED8;
-  --teal-shade-2: #0A1F44;
-  --teal-tint-1: #EFF6FF;
+  --terracotta-border: #BAE6FD;
+  --teal-primary: #0369A1;
+  --teal-shade-1: #075985;
+  --teal-shade-2: #0B4F6C;
+  --teal-tint-1: #E0F2FE;
   --teal-tint-2: #DBEAFE;
-  --teal-border: #DBEAFE;
-  --amber-primary: #2563EB;
-  --amber-shade: #1D4ED8;
-  --amber-tint: #EFF6FF;
-  --amber-border: #DBEAFE;
+  --teal-border: #BAE6FD;
+  --amber-primary: #0369A1;
+  --amber-shade: #075985;
+  --amber-tint: #E0F2FE;
+  --amber-border: #BAE6FD;
 
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-full: 9999px;
+  --radius-sharp: 0;
 
-  --shadow-sm: 0 1px 3px rgba(10, 31, 68, 0.05);
-  --shadow-soft: 0 2px 8px rgba(10, 31, 68, 0.05);
-  --shadow-card: 0 4px 14px rgba(10, 31, 68, 0.06);
-  --shadow-pop: 0 8px 24px rgba(37, 99, 235, 0.12);
-  --shadow-btn: 0 4px 12px rgba(37, 99, 235, 0.22);
+  --shadow-sm: 0 1px 3px rgba(11, 79, 108, 0.05);
+  --shadow-soft: 0 2px 8px rgba(11, 79, 108, 0.05);
+  --shadow-card: 0 4px 14px rgba(11, 79, 108, 0.06);
+  --shadow-pop: 0 8px 24px rgba(3, 105, 161, 0.12);
+  --shadow-btn: 0 4px 12px rgba(3, 105, 161, 0.22);
 
   --dur-fast: 200ms;
   --dur-normal: 400ms;
@@ -141,6 +196,10 @@ img, svg {
   color: #fff;
 }
 
+section[id] {
+  scroll-margin-top: 88px;
+}
+
 .site-main {
   flex: 1;
   width: 100%;
@@ -170,21 +229,28 @@ img, svg {
   text-align: center;
 }
 
+/* Emoji system: one shared size for section-header emoji (20px, leading). */
+.section-emoji {
+  font-size: 20px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
 .section-headline {
-  font-size: clamp(40px, 6vw, 88px);
+  font-size: clamp(34px, 5vw, 64px);
   font-weight: 800;
   text-transform: uppercase;
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--navy);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .section-intro {
   font-size: 15px;
   color: var(--text-slate-600);
-  margin: 0 auto 32px;
-  text-align: center;
+  margin: 0 0 40px;
+  text-align: left;
   max-width: 620px;
 }
 
@@ -268,7 +334,7 @@ img, svg {
 }
 
 .pill-btn-primary:hover:not(:disabled) {
-  background: #12295c;
+  background: #08415A;
   transform: translateY(-1px);
 }
 
@@ -431,48 +497,71 @@ img, svg {
   to { transform: translateX(-50%); }
 }
 
-/* ---------- Navbar: floating white pill ---------- */
+/* ---------- Navbar: full-width OCEAN bar + mobile hamburger sheet ----------
+   Pass 4 rework (not a re-skin): the bar is now the ocean primary itself —
+   white wordmark ("Screen" white / "Habits" light blue), white links with a
+   light-blue active underline, and a WHITE pill CTA (ocean text) so the call
+   to action is the brightest thing in the bar. Mobile keeps only brand +
+   hamburger; the CTA lives inside the sheet. The sheet is ocean-deep with
+   white links, so the whole menu reads as one ocean system. */
 .top-navbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 16px 24px 0;
+  background: var(--ocean);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 2px 12px rgba(11, 79, 108, 0.18);
 }
 
-.nav-pill {
+.top-navbar a:focus-visible,
+.top-navbar button:focus-visible {
+  outline: 2px solid var(--ocean-sky);
+  outline-offset: 2px;
+}
+
+.nav-bar {
+  width: 100%;
+}
+
+.nav-bar-inner {
   max-width: 1200px;
   margin: 0 auto;
-  background: #fff;
-  border: 1px solid var(--border-blue-100);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-card);
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  min-height: 72px;
+  padding: 0 24px;
+  display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 10px 12px 10px 22px;
-}
-
-.nav-main {
-  grid-column: 1;
-  justify-self: start;
+  gap: 32px;
 }
 
 .nav-brand {
-  grid-column: 2;
-  justify-self: center;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
-  color: var(--navy);
+  letter-spacing: -0.01em;
   white-space: nowrap;
+  flex: 0 0 auto;
 }
 
+/* Emoji system: nav brand mark, 20px, leading the wordmark. */
 .brand-emoji {
   font-size: 20px;
   line-height: 1;
+}
+
+.nav-brand-screen {
+  color: #fff;
+}
+
+.nav-brand-habits {
+  color: var(--ocean-light);
+}
+
+.nav-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .nav-links {
@@ -484,30 +573,120 @@ img, svg {
 
 .nav-item a {
   display: inline-block;
-  padding: 9px 16px;
-  border-radius: var(--radius-full);
+  padding: 10px 14px;
   font-size: 15px;
   font-weight: 700;
-  color: var(--navy);
+  color: rgba(255, 255, 255, 0.85);
+  border-bottom: 3px solid transparent;
+  border-radius: 12px 12px 0 0;
 }
 
 .nav-item a:hover {
-  background: var(--bg-subtle);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom-color: var(--ocean-sky);
 }
 
 .nav-item a.active {
-  color: var(--blue);
-  background: var(--bg-subtle);
+  color: #fff;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.12);
+  border-bottom-color: var(--ocean-sky);
 }
 
 .nav-cta {
-  grid-column: 3;
-  justify-self: end;
   display: inline-flex;
   flex: 0 0 auto;
 }
 
-/* ---------- Footer: navy block, giant cropped wordmark ---------- */
+/* CTA is the brightest thing in the bar: white pill, ocean text + ocean disc. */
+.nav-cta .pill-btn-primary,
+.mobile-menu-sheet .pill-btn-primary {
+  background: #fff;
+  color: var(--ocean);
+  box-shadow: none;
+}
+
+.nav-cta .pill-btn-primary:hover:not(:disabled),
+.mobile-menu-sheet .pill-btn-primary:hover:not(:disabled) {
+  background: var(--ocean-wash);
+  transform: translateY(-1px);
+}
+
+.nav-cta .pill-btn-primary .pill-btn-disc,
+.mobile-menu-sheet .pill-btn-primary .pill-btn-disc {
+  background: var(--ocean);
+  color: #fff;
+}
+
+/* Hamburger: mobile only. */
+.nav-hamburger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-hamburger:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Mobile slide-down sheet: ocean-deep, directly under the bar. */
+.mobile-menu-sheet {
+  display: none;
+  background: var(--ocean-deep);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 12px 24px 24px;
+  animation: sheet-drop 200ms ease-out;
+}
+
+@keyframes sheet-drop {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mobile-menu-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu-links a {
+  display: block;
+  padding: 14px 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  border-left: 3px solid transparent;
+  border-radius: 0 12px 12px 0;
+}
+
+.mobile-menu-links a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mobile-menu-links a.active {
+  color: var(--ocean-light);
+  font-weight: 800;
+  border-left-color: var(--ocean-sky);
+  background: rgba(255, 255, 255, 0.08);
+  padding-left: 16px;
+}
+
+.mobile-menu-cta {
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* ---------- Footer: ocean block, giant cropped wordmark ---------- */
 .site-footer {
   background: var(--navy);
   color: #fff;
@@ -545,11 +724,11 @@ img, svg {
 }
 
 .footer-columns {
-  display: flex;
-  justify-content: center;
-  gap: 96px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  max-width: 860px;
+  margin: 0 auto 40px;
   text-align: left;
 }
 
@@ -615,7 +794,7 @@ img, svg {
 }
 
 .footer-wordmark-habits {
-  color: var(--blue);
+  color: var(--blue-light); /* light blue on ocean — mid ocean would vanish here */
 }
 
 /* ---------- Home ---------- */
@@ -626,7 +805,8 @@ img, svg {
 
 .home-hero {
   text-align: center;
-  padding: 64px 0 56px;
+  padding: 56px 0 48px;
+  scroll-margin-top: 88px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -651,7 +831,7 @@ img, svg {
 }
 
 .home-hero-headline {
-  font-size: clamp(56px, 9vw, 128px);
+  font-size: clamp(56px, 9vw, 96px); /* hero stays dominant; section H2s cap at 64px */
   font-weight: 800;
   text-transform: uppercase;
   line-height: 0.95;
@@ -697,7 +877,7 @@ img, svg {
 
 .home-about {
   text-align: center;
-  padding: 96px 16px;
+  padding: 80px 16px;
   position: relative;
 }
 
@@ -722,7 +902,10 @@ img, svg {
   justify-content: center;
   gap: 72px;
   flex-wrap: wrap;
-  padding: 48px 0 72px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: var(--bg-subtle);
+  padding: 48px 24px 56px;
 }
 
 .home-stat {
@@ -733,7 +916,7 @@ img, svg {
 }
 
 .home-stat-num {
-  font-size: clamp(72px, 8vw, 96px);
+  font-size: clamp(56px, 7vw, 80px);
   font-weight: 800;
   line-height: 1;
   color: var(--navy);
@@ -741,6 +924,9 @@ img, svg {
 }
 
 .home-stat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
@@ -748,63 +934,121 @@ img, svg {
   color: var(--blue);
 }
 
-.honest-rules-strip {
+/* Emoji system: stat-label emoji, 16px, leading the label. */
+.home-stat-emoji {
+  font-size: 16px;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Honest rules — one full-bleed ocean band with 4 numbered items. */
+.honest-rules-band {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: var(--navy);
+  color: #fff;
+  padding: 48px 24px 56px;
+}
+
+.honest-rules-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.honest-rules-eyebrow {
+  color: var(--blue-pale);
+  margin-bottom: 20px;
+}
+
+.honest-rules-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.honest-rule-item {
   display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  padding: 8px 0 96px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.honest-rule-num {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--blue-light);
+  letter-spacing: 0.06em;
+}
+
+.honest-rule-text {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #fff;
+}
+
+/* Emoji system: honest-rule emoji, 20px, leading the rule text. */
+.honest-rule-emoji {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Emoji system: eyebrow emoji, 16px, leading the eyebrow text. */
+.eyebrow-emoji {
+  font-size: 16px;
+  line-height: 1;
 }
 
 .path-home-section,
 .how-it-works-section,
 .articles-preview-section {
-  padding: 96px 0;
-  text-align: center;
-}
-
-.path-home-section .section-headline,
-.how-it-works-section .section-headline,
-.articles-preview-section .section-headline {
-  text-align: center;
-}
-
-.how-steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  padding: 80px 0; /* Pass 4 rhythm: 80px desktop / 48px mobile, every section */
   text-align: left;
 }
 
-.step-card {
-  background: #fff;
-  border: 1px solid var(--border-blue-100);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: 28px;
+/* How It Works — staggered numbered rows, no card boxes. */
+.how-steps-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  transition: transform var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard);
+  text-align: left;
 }
 
-.step-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-pop);
+.how-step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border-blue-100);
 }
 
-.step-num-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--bg-subtle);
-  color: var(--blue);
-  font-size: 26px;
+.how-step-row:last-child {
+  border-bottom: none;
+}
+
+.how-step-row-2 {
+  padding-left: 48px;
+}
+
+.how-step-row-3 {
+  padding-left: 96px;
+}
+
+.how-step-ghost-num {
+  flex: 0 0 auto;
+  font-size: 64px;
   font-weight: 800;
-  line-height: 1;
+  line-height: 0.9;
+  color: var(--border-blue-100);
+  letter-spacing: -0.02em;
+}
+
+.how-step-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .step-card-title {
@@ -820,13 +1064,13 @@ img, svg {
   font-size: 15px;
   color: var(--text-slate-600);
   line-height: 1.55;
-  flex: 1;
 }
 
 .step-arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 auto;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -834,6 +1078,7 @@ img, svg {
   color: #fff;
   font-size: 18px;
   line-height: 1;
+  margin-top: 12px;
 }
 
 .step-arrow-cta {
@@ -841,6 +1086,7 @@ img, svg {
   height: auto;
   background: transparent;
   border-radius: 0;
+  margin-top: 0;
 }
 
 .articles-preview-grid {
@@ -858,8 +1104,9 @@ img, svg {
 
 .video-note-band {
   background: var(--navy);
-  border-radius: 24px;
-  padding: 48px 40px;
+  border-radius: var(--radius-sharp);
+  clip-path: polygon(0 24px, 100% 0, 100% 100%, 0 100%);
+  padding: 56px 40px 48px;
   margin-bottom: 24px;
   color: #fff;
   text-align: left;
@@ -910,8 +1157,8 @@ img, svg {
 /* ---------- Article cards (shared: Home preview + Articles grid) ---------- */
 .article-card {
   background: #fff;
-  border: 1px solid var(--border-blue-100);
-  border-radius: var(--radius-lg);
+  border-top: 2px solid var(--blue);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   box-shadow: var(--shadow-card);
   padding: 28px;
   display: flex;
@@ -926,6 +1173,43 @@ img, svg {
   box-shadow: var(--shadow-pop);
 }
 
+/* Featured lead card: ocean, spans 2 columns (set on the grid). */
+.article-card-featured {
+  background: var(--navy);
+  border-top: none;
+  border-radius: var(--radius-lg);
+}
+
+.article-card-featured .article-card-topic {
+  color: var(--blue-pale);
+}
+
+.article-card-featured .article-card-title {
+  color: #fff;
+}
+
+.article-card-featured .article-card-summary {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.article-card-featured .article-card-readtime {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.article-card-featured .article-read-link {
+  color: #fff;
+}
+
+.article-card-featured .article-read-link:hover {
+  color: var(--blue-pale);
+}
+
+.article-card-featured .article-card-emoji {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Emoji system: article card mark — 28px glyph in the 56px light-blue circle. */
 .article-card-emoji {
   display: inline-flex;
   align-items: center;
@@ -934,6 +1218,7 @@ img, svg {
   height: 56px;
   border-radius: 50%;
   background: var(--bg-subtle);
+  color: var(--navy);
   font-size: 28px;
   line-height: 1;
 }
@@ -1022,14 +1307,14 @@ img, svg {
 .path-node-current {
   background: var(--blue);
   color: #fff;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 0 0 4px rgba(3, 105, 161, 0.25);
   animation: node-pulse 1.6s ease-out infinite;
 }
 
 @keyframes node-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.35); }
-  70% { box-shadow: 0 0 0 12px rgba(37, 99, 235, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(3, 105, 161, 0.35); }
+  70% { box-shadow: 0 0 0 12px rgba(3, 105, 161, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(3, 105, 161, 0); }
 }
 
 .path-node-locked {
@@ -1116,8 +1401,34 @@ button.path-node:not(:disabled):hover {
   white-space: nowrap;
 }
 
+.articles-preview-grid .article-card-featured {
+  grid-column: span 2;
+}
+
+.path-part-chip {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+}
+
+/* Emoji system: part mark on path labels, 22px, leading the part title. */
 .path-part-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
   font-size: 22px;
+  line-height: 1;
+}
+
+/* Emoji system: part emoji on quest strip nodes for unanswered questions, 18px. */
+.path-strip-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
   line-height: 1;
 }
 
@@ -1151,7 +1462,7 @@ button.path-node:not(:disabled):hover {
 .main-content-questions {
   max-width: 860px;
   margin: 0 auto;
-  padding: 32px 0 120px;
+  padding: 40px 0 120px;
 }
 
 .quest-gamification-bar {
@@ -1205,6 +1516,12 @@ button.path-node:not(:disabled):hover {
   color: var(--blue);
 }
 
+.quest-gamify-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--border-blue-100);
+}
+
 .quest-streak-pill {
   display: inline-flex;
   align-items: center;
@@ -1215,6 +1532,12 @@ button.path-node:not(:disabled):hover {
   padding: 8px 16px;
   font-size: 15px;
   font-weight: 700;
+}
+
+/* Emoji system: streak flame, 16px, leading "Streak:". */
+.quest-streak-emoji {
+  font-size: 16px;
+  line-height: 1;
 }
 
 .quest-streak-pill.active {
@@ -1259,11 +1582,40 @@ button.path-node:not(:disabled):hover {
   font-weight: 700;
 }
 
+/* One progress unit: strip nodes on a rail, segments as the rail fill. */
+.quest-progress-unit {
+  background: #fff;
+  border: 1px solid var(--border-blue-100);
+  border-radius: var(--radius-lg);
+  padding: 8px 16px 16px;
+  margin-bottom: 24px;
+}
+
+.quest-progress-unit .path-strip {
+  position: relative;
+  padding: 20px 0 12px;
+}
+
+.quest-progress-unit .path-strip::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  right: 28px;
+  top: 42px;
+  height: 2px;
+  background: var(--border-blue-100);
+}
+
+.quest-progress-unit .path-node-strip {
+  position: relative;
+  z-index: 1;
+}
+
 .quest-segments {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 20px 0 24px;
+  margin: 0;
 }
 
 .quest-segments-label {
@@ -1298,7 +1650,8 @@ button.path-node:not(:disabled):hover {
 .question-card {
   background: #fff;
   border: 1px solid var(--border-blue-100);
-  border-radius: 24px;
+  border-bottom: none;
+  border-radius: 24px 24px 0 0;
   box-shadow: var(--shadow-card);
   padding: 36px 32px 28px;
   animation: card-in 400ms ease-out;
@@ -1314,12 +1667,25 @@ button.path-node:not(:disabled):hover {
 }
 
 .question-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--blue);
   margin-bottom: 10px;
+}
+
+/* Emoji system: question eyebrow part emoji, 14px, leading the eyebrow. */
+.question-part-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  font-size: 14px;
+  line-height: 1;
 }
 
 .question-title {
@@ -1508,7 +1874,12 @@ button.path-node:not(:disabled):hover {
   line-height: 1;
 }
 
+/* Emoji system: multi-chip option emoji, 18px. */
 .chip-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
   font-size: 18px;
   line-height: 1;
 }
@@ -1544,7 +1915,12 @@ button.path-node:not(:disabled):hover {
   background: var(--bg-subtle);
 }
 
+/* Emoji system: single-card option emoji, 24px. */
 .card-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
   font-size: 24px;
   line-height: 1;
 }
@@ -1562,11 +1938,40 @@ button.path-node:not(:disabled):hover {
   line-height: 1.45;
 }
 
-/* 1–5 scale face cards */
+/* 1–5 scale numbered cards */
 .scale-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+/* Thin number track above the row: purely visual, driven by the value. */
+.scale-track {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scale-track-end {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.scale-track-rail {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--border-blue-100);
+  overflow: hidden;
+}
+
+.scale-track-fill {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  border-radius: var(--radius-full);
+  transition: width 300ms ease-out;
 }
 
 .scale-buttons-row {
@@ -1600,12 +2005,20 @@ button.path-node:not(:disabled):hover {
   background: var(--bg-subtle);
 }
 
+/* Emoji system: Q7 scale faces, 32px (40px when selected). */
 .scale-face {
   font-size: 32px;
+  font-weight: 800;
   line-height: 1;
+  color: var(--navy);
 }
 
-.scale-face-label {
+.scale-face-card.selected .scale-face {
+  font-size: 40px;
+  color: var(--blue);
+}
+
+.scale-num-label {
   font-size: 13px;
   font-weight: 700;
   color: var(--navy);
@@ -1634,25 +2047,25 @@ button.path-node:not(:disabled):hover {
   margin-top: 28px;
 }
 
-/* Sticky bottom nav */
+/* Sticky bottom nav — full-width app-chrome bar, not a floating pill. */
 .sticky-nav-bar {
   position: sticky;
-  bottom: 16px;
+  bottom: 0;
   z-index: 50;
-  margin-top: 24px;
+  width: 100vw;
+  margin: 24px 0 0 calc(50% - 50vw);
+  background: #fff;
+  border-top: 1px solid var(--border-blue-100);
 }
 
 .sticky-nav-inner {
-  background: #fff;
-  border: 1px solid var(--border-blue-100);
-  border-top: 1px solid var(--border-blue-100);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-pop);
+  max-width: 860px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 10px 12px;
+  padding: 10px 24px;
 }
 
 /* ---------- Name & Class dialog (plain HTML <dialog>) ---------- */
@@ -1667,7 +2080,7 @@ button.path-node:not(:disabled):hover {
 }
 
 .name-dialog::backdrop {
-  background: rgba(10, 31, 68, 0.45);
+  background: rgba(11, 79, 108, 0.45);
 }
 
 .name-dialog-panel {
@@ -1752,7 +2165,7 @@ button.path-node:not(:disabled):hover {
 .dialog-input:focus {
   border-color: var(--blue);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 0 0 3px rgba(3, 105, 161, 0.15);
 }
 
 .dialog-actions-row {
@@ -1768,7 +2181,7 @@ button.path-node:not(:disabled):hover {
   padding: 16px 0 120px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 28px;
 }
 
 .result-card {
@@ -1783,6 +2196,80 @@ button.path-node:not(:disabled):hover {
   padding: 32px 28px;
 }
 
+/* Hero score — full-bleed ocean band (empty state stays a white card). */
+.result-hero-card:not(.result-empty-state) {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: var(--navy);
+  border: none;
+  border-radius: var(--radius-sharp);
+  box-shadow: none;
+  padding: 40px 24px;
+}
+
+.result-hero-card:not(.result-empty-state) > * {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.result-hero-card:not(.result-empty-state) .hero-chips-row {
+  margin-bottom: 24px;
+}
+
+.result-hero-card:not(.result-empty-state) .hero-score-block {
+  margin-bottom: 20px;
+}
+
+.result-hero-card:not(.result-empty-state) .score-track-bg {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+
+.result-hero-card:not(.result-empty-state) .score-track-fill-blue {
+  stroke: var(--blue-light); /* mid ocean would vanish on the ocean band */
+}
+
+.result-hero-card:not(.result-empty-state) .score-number-big {
+  color: #fff;
+}
+
+.result-hero-card:not(.result-empty-state) .score-max-label {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.result-hero-card:not(.result-empty-state) .band-pill {
+  background: #fff;
+  color: var(--navy);
+}
+
+.result-hero-card:not(.result-empty-state) .band-pill-incomplete {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.result-hero-card:not(.result-empty-state) .hero-slogan-line {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.result-hero-card:not(.result-empty-state) .answered-count-badge {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* Verdict = white inset panel inside the navy band. */
+.result-hero-card:not(.result-empty-state) .hero-verdict-box {
+  background: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  margin-bottom: 14px;
+}
+
+.result-hero-card:not(.result-empty-state) .hero-scoring-rule {
+  color: rgba(255, 255, 255, 0.65);
+}
+
 .result-empty-state {
   text-align: center;
   padding: 36px 20px;
@@ -1792,8 +2279,18 @@ button.path-node:not(:disabled):hover {
   gap: 12px;
 }
 
+/* Emoji system: result empty-state mark — 📱 at 3rem in the light-blue circle. */
 .result-empty-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--bg-subtle);
+  color: var(--navy);
   font-size: 3rem;
+  font-weight: 800;
   line-height: 1;
 }
 
@@ -1902,16 +2399,17 @@ button.path-node:not(:disabled):hover {
   font-weight: 800;
 }
 
+/* Emoji system: band emoji (🏆), 18px, leading the band name. */
+.band-pill-emoji {
+  font-size: 18px;
+  line-height: 1;
+}
+
 .band-pill-incomplete {
   background: var(--bg-subtle);
   color: var(--navy);
   border: 1px solid var(--border-blue-100);
   font-size: 15px;
-}
-
-.band-pill-emoji {
-  font-size: 18px;
-  line-height: 1;
 }
 
 .hero-slogan-line {
@@ -1979,6 +2477,27 @@ button.path-node:not(:disabled):hover {
   font-size: 18px;
 }
 
+/* Result section headings: true h2s with a small emoji prefix (20px, .section-emoji). */
+.result-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+/* Weakest area — light-blue angled panel. */
+.weakest-part-section {
+  background: var(--bg-subtle);
+  border: none;
+  border-radius: var(--radius-sharp);
+  clip-path: polygon(24px 0, 100% 0, 100% 100%, 0 100%);
+  padding: 36px 28px 36px 44px;
+}
+
+.weakest-part-section .weakest-fix-bubble {
+  background: #fff;
+}
+
 .weakest-fix-bubble {
   background: var(--bg-subtle);
   border: 1px solid var(--border-blue-100);
@@ -2019,7 +2538,7 @@ button.path-node:not(:disabled):hover {
   font-weight: 800;
   text-transform: uppercase;
   color: var(--navy);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .parts-summary-grid {
@@ -2029,16 +2548,34 @@ button.path-node:not(:disabled):hover {
 }
 
 .part-stat-card {
+  position: relative;
   background: #fff;
   border: 1px solid var(--border-blue-100);
+  border-top: 2px solid var(--blue);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 40px 20px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+.part-ghost-num {
+  position: absolute;
+  top: 4px;
+  right: 16px;
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--border-blue-100);
+  letter-spacing: -0.02em;
+}
+
+/* Emoji system: habit-area card part mark, 22px, leading the part title. */
 .part-emoji-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
   font-size: 22px;
   line-height: 1;
 }
@@ -2101,7 +2638,7 @@ button.path-node:not(:disabled):hover {
   color: var(--text-slate-600);
 }
 
-/* Recommendations: navy panel, 3 stacked white cards */
+/* Recommendations: ocean panel, 3 stacked white cards */
 .recommendations-panel {
   background: var(--navy);
   border-radius: 24px;
@@ -2140,13 +2677,28 @@ button.path-node:not(:disabled):hover {
   gap: 8px;
 }
 
+/* Fanned stack: alternating radii/tilts so the three cards are not identical. */
+.rec-cards-list .rec-card:nth-child(2) {
+  transform: rotate(-2deg);
+}
+
+.rec-cards-list .rec-card:nth-child(3) {
+  transform: rotate(1deg);
+  border-left: 4px solid var(--blue);
+}
+
 .rec-card-header {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* Emoji system: recommendation card icon, 24px, leading the rec title. */
 .rec-icon-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
   font-size: 24px;
   line-height: 1;
 }
@@ -2196,6 +2748,7 @@ button.path-node:not(:disabled):hover {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 16px;
+  align-items: start;
 }
 
 .challenge-toggle-btn {
@@ -2220,9 +2773,56 @@ button.path-node:not(:disabled):hover {
   background: var(--bg-subtle);
 }
 
-.challenge-toggle-emoji {
-  font-size: 24px;
+/* Asymmetric panels: breaks = white + blue left border; cutoff = navy, offset lower. */
+.challenge-picker-box .challenge-toggle-btn:nth-child(1) {
+  border-left: 4px solid var(--blue);
+}
+
+.challenge-picker-box .challenge-toggle-btn:nth-child(2) {
+  background: var(--navy);
+  border-color: var(--navy);
+  margin-top: 24px;
+}
+
+.challenge-picker-box .challenge-toggle-btn:nth-child(2):hover {
+  border-color: var(--blue-light);
+}
+
+.challenge-picker-box .challenge-toggle-btn:nth-child(2).selected {
+  background: var(--navy);
+  border-color: var(--blue-light);
+}
+
+.challenge-picker-box .challenge-toggle-btn:nth-child(2) .challenge-toggle-title {
+  color: #fff;
+}
+
+.challenge-picker-box .challenge-toggle-btn:nth-child(2) .challenge-toggle-desc {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Real radio indicator: blue filled circle + white check when selected,
+   hollow #CBD5E1 ring when not. Fixes the old check-on-both-options bug. */
+.challenge-radio {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--border-slate);
+  background: #fff;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
   line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.challenge-radio.selected {
+  background: var(--blue);
+  border-color: var(--blue);
 }
 
 .challenge-toggle-body {
@@ -2247,6 +2847,7 @@ button.path-node:not(:disabled):hover {
 .challenge-pledge-card {
   background: #fff;
   border: 1px solid var(--border-blue-100);
+  border-top: 2px dashed var(--blue);
   border-radius: var(--radius-lg);
   padding: 20px;
 }
@@ -2328,7 +2929,17 @@ button.path-node:not(:disabled):hover {
   margin-bottom: 6px;
 }
 
+/* Video summary — document panel: sharpest radius, ocean top rule. */
+.video-summary-section {
+  border: 1px solid var(--border-slate);
+  border-top: 4px solid var(--navy);
+  border-radius: var(--radius-sm);
+}
+
 .read-aloud-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 700;
   color: var(--blue);
@@ -2365,19 +2976,21 @@ button.path-node:not(:disabled):hover {
   word-break: break-word;
 }
 
-/* Result action bar */
+/* Result action bar — full-width bottom bar, like the Quest sticky nav. */
 .result-action-bar-container {
   position: sticky;
-  bottom: 16px;
+  bottom: 0;
   z-index: 50;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: #fff;
+  border-top: 1px solid var(--border-blue-100);
 }
 
 .result-action-bar {
-  background: #fff;
-  border: 1px solid var(--border-blue-100);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-pop);
-  padding: 10px 12px;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 12px 24px;
 }
 
 .action-bar-buttons-row {
@@ -2391,13 +3004,26 @@ button.path-node:not(:disabled):hover {
 .articles-page-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding-top: 32px;
+  gap: 32px;
+  padding-top: 40px;
 }
 
 .articles-header {
+  position: relative;
   text-align: left;
   padding: 16px 0 8px;
+}
+
+.articles-ghost-num {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 80px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--border-blue-100);
+  letter-spacing: -0.02em;
+  user-select: none;
 }
 
 .articles-intro {
@@ -2411,6 +3037,10 @@ button.path-node:not(:disabled):hover {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+}
+
+.articles-list-grid .articles-grid-featured {
+  grid-column: span 2;
 }
 
 .articles-list-grid .reveal {
@@ -2433,19 +3063,41 @@ button.path-node:not(:disabled):hover {
   flex-wrap: wrap;
 }
 
+/* Title block — full-bleed light-blue band with an angled bottom edge. */
 .article-title-block {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: var(--bg-subtle);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 24px), 0 100%);
+  padding: 48px 24px 64px;
+}
+
+.article-title-inner {
+  max-width: 780px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Emoji system: article detail title-block mark, 48px. */
 .article-emoji-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
   font-size: 48px;
   line-height: 1;
 }
 
+/* Emoji system: closing-banner mark, 16px, leading "Habit Action:". */
+.article-closing-emoji {
+  font-size: 16px;
+  line-height: 1;
+}
+
 .article-main-heading {
-  font-size: clamp(32px, 5vw, 56px);
+  font-size: clamp(28px, 4vw, 36px); /* Pass 4: title must dominate the intro */
   font-weight: 800;
   color: var(--navy);
   line-height: 1.1;
@@ -2466,8 +3118,8 @@ button.path-node:not(:disabled):hover {
 }
 
 .article-intro {
-  font-size: clamp(24px, 3vw, 28px);
-  font-weight: 700;
+  font-size: clamp(20px, 2.5vw, 23px);
+  font-weight: 600; /* Pass 4: standfirst steps down from the 36px title */
   color: var(--navy);
   line-height: 1.4;
 }
@@ -2479,10 +3131,30 @@ button.path-node:not(:disabled):hover {
 }
 
 .article-body-step {
-  border: 1px solid var(--border-blue-100);
-  border-radius: var(--radius-lg);
-  padding: 18px 20px;
-  background: #fff;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-blue-100);
+  padding: 18px 4px;
+  background: transparent;
+}
+
+.article-body-step:last-child {
+  border-bottom: none;
+}
+
+.article-step-num {
+  flex: 0 0 auto;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--border-blue-100);
+  letter-spacing: -0.02em;
+}
+
+.article-step-body {
+  flex: 1;
+  min-width: 0;
 }
 
 .article-step-heading {
@@ -2500,7 +3172,8 @@ button.path-node:not(:disabled):hover {
 
 .article-closing-banner {
   background: var(--navy);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sharp);
+  border-left: 6px solid var(--blue-light); /* light blue on ocean */
   padding: 20px 22px;
   color: #fff;
   font-size: 15px;
@@ -2513,9 +3186,12 @@ button.path-node:not(:disabled):hover {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .how-steps-grid,
   .articles-preview-grid,
   .articles-list-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .honest-rules-list {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -2529,47 +3205,41 @@ button.path-node:not(:disabled):hover {
     padding: 16px 16px 64px;
   }
 
-  .top-navbar {
-    padding: 12px 12px 0;
-  }
-
-  .nav-pill {
-    grid-template-columns: auto 1fr;
-    border-radius: 24px;
-    padding: 10px 12px;
-    row-gap: 8px;
+  /* Mobile menu: brand + hamburger only; the CTA lives inside the sheet. */
+  .nav-bar-inner {
+    min-height: 60px;
+    padding: 0 16px;
+    gap: 12px;
   }
 
   .nav-brand {
-    grid-column: 1;
-    grid-row: 1;
-    justify-self: start;
-  }
-
-  .nav-cta {
-    grid-column: 2;
-    grid-row: 1;
+    font-size: 18px;
+    flex: 1;
   }
 
   .nav-main {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-self: stretch;
-  }
-
-  .nav-links {
-    overflow-x: auto;
-    scrollbar-width: none;
-    width: 100%;
-  }
-
-  .nav-links::-webkit-scrollbar {
     display: none;
   }
 
-  .nav-cta .pill-btn-lg {
-    padding: 12px 18px;
-    font-size: 14px;
+  .nav-cta {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: inline-flex;
+  }
+
+  .mobile-menu-sheet {
+    display: block;
+    padding: 12px 16px 24px;
+  }
+
+  .home-hero {
+    padding: 40px 0 32px;
+  }
+
+  .home-hero-headline {
+    font-size: clamp(40px, 11vw, 56px);
   }
 
   .hero-sticker {
@@ -2585,17 +3255,39 @@ button.path-node:not(:disabled):hover {
 
   .home-stats {
     gap: 36px;
-    padding: 32px 0 48px;
+    padding: 32px 24px 48px;
   }
 
-  .honest-rules-strip {
-    padding-bottom: 48px;
+  .honest-rules-band {
+    padding: 32px 16px 40px;
   }
 
-  .how-steps-grid,
+  .honest-rules-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .how-step-row-2,
+  .how-step-row-3 {
+    padding-left: 0;
+  }
+
+  .how-step-ghost-num {
+    font-size: 48px;
+  }
+
   .articles-preview-grid,
   .articles-list-grid {
     grid-template-columns: 1fr;
+  }
+
+  .articles-preview-grid .article-card-featured,
+  .articles-list-grid .articles-grid-featured {
+    grid-column: span 1;
+  }
+
+  .articles-ghost-num {
+    display: none;
   }
 
   .parts-summary-grid {
@@ -2610,8 +3302,12 @@ button.path-node:not(:disabled):hover {
     grid-template-columns: 1fr;
   }
 
+  .challenge-picker-box .challenge-toggle-btn:nth-child(2) {
+    margin-top: 0;
+  }
+
   .video-note-band {
-    padding: 32px 24px;
+    padding: 40px 24px 32px;
   }
 
   .question-card {
@@ -2626,6 +3322,10 @@ button.path-node:not(:disabled):hover {
     padding: 20px;
   }
 
+  .weakest-part-section {
+    padding: 28px 20px 28px 32px;
+  }
+
   .hero-score-block {
     flex-direction: column;
     align-items: flex-start;
@@ -2633,8 +3333,7 @@ button.path-node:not(:disabled):hover {
   }
 
   .sticky-nav-inner {
-    flex-wrap: wrap;
-    justify-content: center;
+    padding: 10px 16px;
   }
 
   .action-bar-buttons-row {
@@ -2701,14 +3400,14 @@ button.path-node:not(:disabled):hover {
   }
 
   .footer-columns {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    grid-template-columns: 1fr;
     gap: 32px;
+    justify-items: start;
+    text-align: left;
   }
 
   .footer-column {
-    align-items: center;
+    align-items: flex-start;
   }
 }
 
@@ -2729,7 +3428,7 @@ button.path-node:not(:disabled):hover {
   .skip-link,
   .hero-sticker,
   .home-about-stickers,
-  .honest-rules-strip {
+  .honest-rules-band {
     display: none !important;
   }
 

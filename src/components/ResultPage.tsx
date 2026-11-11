@@ -29,7 +29,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
 
   const report = useMemo(() => calculateReport(answers), [answers]);
 
-  // Confetti in site blues only, 14 pieces, falling once for ~2s
+  // Confetti in ocean blues only, 14 pieces, falling once for ~2s
   useEffect(() => {
     if (!confettiFired.current && !report.isPartial && report.answeredCount > 0) {
       confettiFired.current = true;
@@ -38,7 +38,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           particleCount: 14,
           spread: 55,
           origin: { y: 0.65 },
-          colors: ['#2563EB', '#1D4ED8', '#60A5FA', '#DBEAFE']
+          colors: ['#0B4F6C', '#0369A1', '#7DD3FC', '#BAE6FD']
         });
       } catch {
         // Fallback
@@ -236,10 +236,10 @@ FILMING & COMPETITION NOTES
             <PillBadge label={`Class: ${profile.classSection}`} />
           )}
           {hasFinisherBadge && (
-            <PillBadge label="⭐ Finisher" />
+            <PillBadge label="⭐ Finisher" tone="navy" />
           )}
           {hasComebackBadge && (
-            <PillBadge label="🔄 Comeback" />
+            <PillBadge label="🔄 Comeback" tone="light" />
           )}
         </div>
 
@@ -284,12 +284,12 @@ FILMING & COMPETITION NOTES
           <div className="hero-band-block">
             {report.isPartial ? (
               <span className="band-pill band-pill-incomplete result-band-title">
-                <span className="band-pill-emoji">⏳</span>
+                <span className="band-pill-emoji" aria-hidden="true">⏳</span>
                 Not enough answers for a full score
               </span>
             ) : (
               <span className="band-pill result-band-title">
-                <span className="band-pill-emoji">{report.bandEmoji}</span>
+                <span className="band-pill-emoji" aria-hidden="true">{report.bandEmoji}</span>
                 {report.band} Band
               </span>
             )}
@@ -318,7 +318,10 @@ FILMING & COMPETITION NOTES
       {/* 2. WEAKEST PART WITH ONE FIX ONLY */}
       <section className="result-card weakest-part-section" aria-label="Weakest habit area and single fix">
         <div className="part-header">
-          <span className="part-name-label part-name-label-lg">🎯 Weakest Area &amp; Single Fix</span>
+          <h2 className="part-name-label part-name-label-lg result-section-heading">
+            <span className="section-emoji" aria-hidden="true">🎯</span>
+            <span>Weakest Area &amp; Single Fix</span>
+          </h2>
         </div>
         <div className="weakest-fix-bubble">
           <div className="weakest-fix-row">
@@ -335,10 +338,11 @@ FILMING & COMPETITION NOTES
 
       {/* 3. PARTS SUMMARY GRID (2x2 grid) */}
       <section className="result-card parts-section-container" aria-label="Habit breakdown by area">
-        <h2 className="parts-section-title">Four Habit Areas</h2>
+        <h2 className="parts-section-title"><span className="section-emoji" aria-hidden="true">🧩</span> Four Habit Areas</h2>
         <div className="parts-summary-grid">
           {report.partScores.map((part) => (
             <div className="part-stat-card part-result-card" key={part.partIndex}>
+              <span className="part-ghost-num" aria-hidden="true">{String(part.partIndex + 1).padStart(2, '0')}</span>
               <div className="part-header">
                 <span className="part-emoji-mark" aria-hidden="true">{part.emoji}</span>
                 <span className="part-name-label">{part.title}</span>
@@ -366,7 +370,7 @@ FILMING & COMPETITION NOTES
 
       {/* 4. RECOMMENDATIONS SECTION — navy panel with 3 stacked white cards */}
       <section className="recommendations-panel" aria-label="Personal recommendations">
-        <h2 className="rec-section-title">Top Three Practical Actions</h2>
+        <h2 className="rec-section-title"><span className="section-emoji" aria-hidden="true">💡</span> Top Three Practical Actions</h2>
         <p className="rec-section-subtext">
           Targeted habit adjustments based directly on your weakest diagnostic area:
         </p>
@@ -374,7 +378,7 @@ FILMING & COMPETITION NOTES
           {report.recommendations.map((rec, index) => (
             <div className="rec-card action-card" key={rec.id}>
               <div className="rec-card-header">
-                <span className="rec-icon-emoji action-icon" aria-hidden="true">{rec.icon}</span>
+                <span className="rec-icon-emoji" aria-hidden="true">{rec.icon}</span>
                 <span className="rec-title-text">{index + 1}. {rec.title}</span>
               </div>
               <div className="rec-action-row">{rec.action}</div>
@@ -390,7 +394,10 @@ FILMING & COMPETITION NOTES
       {/* 5. THE 7-DAY CHALLENGE PICKER (Filmable challenge for video) */}
       <section className="result-card" aria-label="Pick Your 7-Day Team Challenge">
         <div className="part-header">
-          <span className="part-name-label part-name-label-lg">✅ Pick Your 7-Day Team Challenge</span>
+          <h2 className="part-name-label part-name-label-lg result-section-heading">
+            <span className="section-emoji" aria-hidden="true">✅</span>
+            <span>Pick Your 7-Day Team Challenge</span>
+          </h2>
         </div>
         <p className="challenge-intro">
           Select exactly ONE challenge to test for seven continuous days. This is the real habit trial
@@ -405,7 +412,7 @@ FILMING & COMPETITION NOTES
             role="radio"
             aria-checked={selectedChallenge === 'breaks'}
           >
-            <span className="challenge-toggle-emoji" aria-hidden="true">✅</span>
+            <span className={`challenge-radio ${selectedChallenge === 'breaks' ? 'selected' : ''}`} aria-hidden="true">{selectedChallenge === 'breaks' ? '✓' : ''}</span>
             <span className="challenge-toggle-body">
               <strong className="challenge-toggle-title">
                 Phone-free breaks during the day
@@ -423,7 +430,7 @@ FILMING & COMPETITION NOTES
             role="radio"
             aria-checked={selectedChallenge === 'cutoff'}
           >
-            <span className="challenge-toggle-emoji" aria-hidden="true">✅</span>
+            <span className={`challenge-radio ${selectedChallenge === 'cutoff' ? 'selected' : ''}`} aria-hidden="true">{selectedChallenge === 'cutoff' ? '✓' : ''}</span>
             <span className="challenge-toggle-body">
               <strong className="challenge-toggle-title">
                 A 9pm screen cut-off
@@ -463,10 +470,13 @@ FILMING & COMPETITION NOTES
       </section>
 
       {/* 6. VIDEO-READY SUMMARY BLOCK */}
-      <section className="result-card" aria-label="British Council Your World Summary">
+      <section className="result-card video-summary-section" aria-label="British Council Your World Summary">
         <div className="summary-header-row">
           <div className="part-header part-header-inline">
-            <span className="part-name-label part-name-label-lg">🏆 British Council Your World Summary</span>
+            <h2 className="part-name-label part-name-label-lg result-section-heading">
+              <span className="section-emoji" aria-hidden="true">🏆</span>
+              <span>British Council Your World Summary</span>
+            </h2>
           </div>
           {copied && (
             <span className="copied-pill">
@@ -482,7 +492,8 @@ FILMING & COMPETITION NOTES
         <div className="read-aloud-box">
           <div className="read-aloud-header">
             <span className="read-aloud-label">
-              🗣️ Spoken Video Script (Read Aloud)
+              <span className="section-emoji" aria-hidden="true">🗣️</span>
+              <span>Spoken Video Script (Read Aloud)</span>
             </span>
             <span className="read-aloud-time">
               ~20 seconds

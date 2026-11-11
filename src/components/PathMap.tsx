@@ -4,11 +4,11 @@ import type { AnswersState } from '../types';
 
 /**
  * Path Template — the one path component for the whole site.
- * - Full (winding path): Home preview — 10 nodes along a navy SVG path drawn
+ * - Full (winding path): Home preview — 10 nodes along an ocean SVG path drawn
  *   over a light-blue track as the user scrolls; part labels as two-word
  *   display titles + count bubbles. On phones it becomes a vertical snake.
  * - Strip (horizontal): Quest + Result, progress at a glance.
- * Done = navy filled check. Current = big blue node, pulsing ring.
+ * Done = ocean filled check. Current = big ocean-mid node, pulsing ring.
  * Upcoming = grey, locked, not clickable. Done nodes are clickable to go back.
  * A node is done only when its question is actually answered (skip = not answered).
  */
@@ -52,7 +52,7 @@ export const PathMap: React.FC<PathMapProps> = ({
   const [pathLength, setPathLength] = useState(2400);
   const [drawProgress, setDrawProgress] = useState(0);
 
-  /* Scroll-linked draw of the navy path over the light-blue track. */
+  /* Scroll-linked draw of the ocean path over the light-blue track. */
   useEffect(() => {
     if (variant !== 'full') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -105,7 +105,9 @@ export const PathMap: React.FC<PathMapProps> = ({
               aria-label={`Question ${i + 1}, ${q.partTitle}: ${state}`}
               aria-current={isCurrent ? 'step' : undefined}
             >
-              {done ? '✓' : q.partEmoji}
+              {done ? '✓' : isCurrent ? i + 1 : (
+                <span className="path-strip-emoji" aria-hidden="true">{q.partEmoji}</span>
+              )}
             </button>
           );
         })}
@@ -195,6 +197,7 @@ export const PathMap: React.FC<PathMapProps> = ({
               className="path-part-label"
               style={{ left: `${(p.x / PATH_W) * 100}%`, top: `${(p.y / PATH_H) * 100}%` }}
             >
+              <span className="path-part-chip">Part {part.index + 1}</span>
               <span className="path-part-emoji" aria-hidden="true">{part.emoji}</span>
               <span className="path-part-title">{part.title}</span>
               <span className="path-part-count">{count} questions</span>
@@ -211,6 +214,7 @@ export const PathMap: React.FC<PathMapProps> = ({
           return (
             <div key={part.index} className="path-snake-part">
               <div className="path-snake-label">
+                <span className="path-part-chip">Part {part.index + 1}</span>
                 <span className="path-part-emoji" aria-hidden="true">{part.emoji}</span>
                 <span className="path-part-title">{part.title}</span>
                 <span className="path-part-count">{count} questions</span>

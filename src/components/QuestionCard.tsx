@@ -2,6 +2,9 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { PillButton } from './PillButton';
 import type { Question } from '../types';
 
+/** Q7 1–5 scale faces, values 1–5 (frozen scoring unchanged). */
+const SCALE_FACES = ['😩', '😕', '😐', '🙂', '😄'];
+
 interface QuestionCardProps {
   question: Question;
   value: string | number | string[] | undefined;
@@ -96,7 +99,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     <article className="question-card" key={question.id}>
       <div className="question-header">
         <p className="question-eyebrow">
-          Question {questionNumber} · {question.partEmoji} {question.partTitle}
+          <span className="question-part-emoji" aria-hidden="true">{question.partEmoji}</span>
+          <span>Question {questionNumber} · {question.partTitle}</span>
         </p>
         <h1 className="question-title">{question.title}</h1>
       </div>
@@ -182,7 +186,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 aria-pressed={isSelected}
               >
                 {isSelected && <span className="chip-check-badge" aria-hidden="true">✓</span>}
-                {opt.emoji && <span className="chip-emoji">{opt.emoji}</span>}
+                {opt.emoji && <span className="chip-emoji" aria-hidden="true">{opt.emoji}</span>}
                 <span className="chip-label">{opt.label}</span>
               </button>
             );
@@ -206,7 +210,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                 onClick={() => onChange(opt.id)}
               >
                 {isSelected && <span className="option-check-badge" aria-hidden="true">✓</span>}
-                {opt.emoji && <span className="card-emoji">{opt.emoji}</span>}
+                {opt.emoji && <span className="card-emoji" aria-hidden="true">{opt.emoji}</span>}
                 <span className="card-label">{opt.label}</span>
                 {opt.subtext && <span className="card-subtext">{opt.subtext}</span>}
               </button>
@@ -215,14 +219,26 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
         </div>
       )}
 
-      {/* Answer Type 4: 1 to 5 Scale — face cards, screenshot 1 style */}
+      {/* Answer Type 4: 1 to 5 Scale — face cards.
+          Face + the existing frozen short label; values 1–5 and scoring unchanged. */}
       {question.type === 'scale-1-to-5' && question.options && (
         <div className="scale-container" role="radiogroup" aria-label={question.title}>
+          <div className="scale-track" aria-hidden="true">
+            <span className="scale-track-end">1</span>
+            <span className="scale-track-rail">
+              <span
+                className="scale-track-fill"
+                style={{
+                  width: typeof value === 'number' ? `${((value - 1) / 4) * 100}%` : '0%'
+                }}
+              />
+            </span>
+            <span className="scale-track-end">5</span>
+          </div>
           <div className="scale-buttons-row">
             {question.options.map((opt) => {
               const numVal = parseInt(opt.id, 10);
               const isSelected = value === numVal || value === opt.id;
-              const face = ['😩', '😕', '😐', '🙂', '😄'][numVal - 1] || '😐';
               const shortLabel = opt.label.includes('— ') ? opt.label.split('— ')[1] : opt.label;
 
               return (
@@ -235,8 +251,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
                   onClick={() => onChange(numVal)}
                 >
                   {isSelected && <span className="option-check-badge" aria-hidden="true">✓</span>}
-                  <span className="scale-face" aria-hidden="true">{face}</span>
-                  <span className="scale-face-label">{shortLabel}</span>
+                  <span className="scale-face" aria-hidden="true">{SCALE_FACES[numVal - 1]}</span>
+                  <span className="scale-num-label">{shortLabel}</span>
                 </button>
               );
             })}
