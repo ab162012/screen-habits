@@ -447,7 +447,11 @@ section {
   transform: rotate(2deg);
 }
 
-/* ---------- Navbar: full-width ocean bar, 64px, one height ---------- */
+/* ---------- Navbar: full-width ocean bar, 64px, one height ----------
+   ecomwebs pattern: the bar tightens once the page scrolls (its header
+   drops padding and gains a stronger shadow past 20px). Same here —
+   .scrolled takes the bar from 64px to 56px with a deeper shadow;
+   88px scroll-padding still clears it. */
 .top-navbar {
   position: sticky;
   top: 0;
@@ -455,6 +459,15 @@ section {
   background: var(--ocean);
   border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 2px 12px rgba(11, 79, 108, 0.18);
+  transition: box-shadow var(--dur-hover) var(--ease);
+}
+
+.top-navbar.scrolled {
+  box-shadow: 0 4px 16px rgba(11, 79, 108, 0.28);
+}
+
+.top-navbar.scrolled .nav-bar-inner {
+  min-height: 56px;
 }
 
 .top-navbar a:focus-visible,
@@ -475,6 +488,7 @@ section {
   display: flex;
   align-items: center;
   gap: 32px;
+  transition: min-height var(--dur-hover) var(--ease);
 }
 
 .nav-brand {
@@ -486,6 +500,11 @@ section {
   letter-spacing: -0.01em;
   white-space: nowrap;
   flex: 0 0 auto;
+  transition: opacity var(--dur-hover) var(--ease);
+}
+
+.nav-brand:hover {
+  opacity: 0.92;
 }
 
 .brand-emoji {
@@ -513,17 +532,19 @@ section {
   gap: 8px;
 }
 
+/* Active link: ecomwebs puts a 2px underline bar BELOW the label
+   (absolute, -bottom-1, full label width, rounded) — not a border on
+   the pill, which curves at the pill's corners. Same here: the bar is
+   an ::after under the text, inside the pill's padding. */
 .nav-item a {
+  position: relative;
   display: inline-block;
   color: #fff;
   font-size: 14px;
   font-weight: 700;
   padding: 8px 16px;
   border-radius: var(--radius-full);
-  border-bottom: 2px solid transparent;
-  transition:
-    color var(--dur-hover) var(--ease),
-    border-color var(--dur-hover) var(--ease);
+  transition: color var(--dur-hover) var(--ease);
 }
 
 .nav-item a:hover {
@@ -532,9 +553,23 @@ section {
 
 .nav-item a.active {
   color: var(--ocean-light);
-  border-bottom-color: var(--ocean-light);
 }
 
+.nav-item a.active::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 4px;
+  height: 2px;
+  background: var(--ocean-light);
+  border-radius: var(--radius-full);
+}
+
+/* Hamburger: ecomwebs gives its mobile button a filled ground, a
+   visible border and a tactile press (translate + scale). Same here —
+   a white-tint ground and a stronger border so the button reads on
+   ocean, with a 1px press. */
 .nav-hamburger {
   display: none;
   flex: 0 0 auto;
@@ -542,14 +577,27 @@ section {
   height: 44px;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.55);
   border-radius: var(--radius-md);
   color: #fff;
+  transition:
+    background-color var(--dur-hover) var(--ease),
+    border-color var(--dur-hover) var(--ease),
+    transform var(--dur-hover) var(--ease);
+}
+
+.nav-hamburger:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.nav-hamburger:active {
+  transform: translateY(1px);
 }
 
 .mobile-menu-sheet {
   background: var(--ocean-deep);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
   padding: 16px 24px 24px;
   animation: sheet-drop 200ms var(--ease);
 }
@@ -561,7 +609,10 @@ section {
 }
 
 .mobile-menu-links a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   color: #fff;
   font-size: 18px;
   font-weight: 700;
@@ -578,22 +629,35 @@ section {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* ---------- Footer: ocean block, SLIM ----------
-   No CTA block, no slogan — Menu, Team and Watch in one compact row
-   (links run inline, not stacked), disclaimer, then a small wordmark.
-   Wordmark renders FULLY ("SCREEN HABITS", nothing sliced): it is
-   sized to fit its container at every width (40px cap, 24px floor —
-   "SCREEN HABITS" is ~300px at 40px vs the 1,152px container, ~180px
-   at 24px vs the 328px phone footer) with line-height 1 and no
-   negative margin, and the footer never clips it (overflow removed).
+/* Active dot in the mobile sheet, ecomwebs-style: a 6px dot at the
+   row's right end marks the current page. */
+.mobile-menu-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--ocean-sky);
+  flex: 0 0 auto;
+}
+
+/* ---------- Footer: ocean block, ecomwebs format ----------
+   ecomwebs' footer (read from ab162012/ecom.web.pk, src/components/
+   Footer.tsx) is a 12-column grid — Brand 5 / Navigation 2 / Services
+   3 / Connect 2 — with an extrabold near-black wordmark + blue accent,
+   one-line description, uppercase xs section headings, stacked links,
+   a divider, then a bottom bar (© left, secondary text right) and
+   generous top padding. Same structure here, in our ocean identity:
+   Brand 5 (wordmark + description) / Menu 2 / Team 3 / Watch 2, a
+   divider, then a bottom bar with © left and the disclaimer right.
+   The wordmark moves from the footer's bottom into the brand column
+   (32px cap — still the footer's biggest type, below the 96px hero
+   Display) and the bottom bar carries the © line. Nothing is copied
+   from ecomwebs but the structure: our links, team, channel and
+   disclaimer only.
    88px of bottom padding keeps the fixed floating bar clear of the
-   wordmark at max scroll: the bar is 64px tall and sits 12px off the
-   viewport bottom (76px zone), so 88px leaves a 12px gap (16px on
-   phones, where the bar sits 8px off the bottom — 72px zone). That
-   clearance is tighter than revamp2's 28px — the price of the slim
-   footer — but the wordmark still clears the bar by construction.
-   Columns are content-sized and centred as a group, so their visual
-   mass sits on the page centre. */
+   bottom bar at max scroll: the bar is 64px tall and sits 12px off
+   the viewport bottom (76px zone), so 88px leaves a 12px gap (16px
+   on phones, where the bar sits 8px off the bottom — 72px zone). That
+   floor is not touched. */
 .site-footer {
   background: var(--ocean);
   color: #fff;
@@ -605,25 +669,38 @@ section {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 24px 88px;
-  text-align: center;
+  padding: 48px 24px 88px;
+  text-align: left;
 }
 
-.footer-columns {
+.footer-grid {
   display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: center;
-  gap: 48px;
-  max-width: 860px;
-  margin: 0 auto 16px;
-  text-align: left;
+  grid-template-columns: 5fr 2fr 3fr 2fr;
+  gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  margin-bottom: 24px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.footer-brand-desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 320px;
 }
 
 .footer-column {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-width: 160px;
 }
 
 .footer-column-label {
@@ -636,9 +713,8 @@ section {
 
 .footer-nav-links {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 8px 16px;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .footer-nav-links a {
@@ -673,20 +749,38 @@ section {
   line-height: 1.5;
 }
 
-.footer-disclaimer {
-  color: rgba(255, 255, 255, 0.7);
+/* Bottom bar: © left, disclaimer right — ecomwebs' exact layout.
+   The disclaimer is 13px rgba(255,255,255,0.7) on ocean at 4.77:1,
+   above the 4.5:1 body floor. */
+.footer-bottom {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
   font-size: 13px;
   line-height: 1.6;
-  max-width: 560px;
-  margin: 0 auto 16px;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* Wordmark fits fully at every width: 40px cap (well below the 96px
+.footer-copy {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.footer-disclaimer {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 0;
+  text-align: right;
+}
+
+/* Wordmark fits fully at every width: 32px cap (well below the 96px
    hero Display, so the hero stays the biggest type) and a 24px floor,
    so it fits the 328px phone footer too. Line-height 1, no negative
    margin, no cropping — every letter visible. */
 .footer-wordmark {
-  font-size: clamp(24px, 5vw, 40px);
+  font-size: clamp(24px, 4vw, 32px);
   font-weight: 800;
   text-transform: uppercase;
   line-height: 1;
@@ -823,7 +917,10 @@ section {
 }
 
 /* How scoring works — navy band, KEPT per the owner's word (the map cut
-   it; the owner praised this section). Form is a contained panel. */
+   it; the owner praised this section). Form is a contained panel.
+   Polish: rule cards get the same 24px padding as the How It Works
+   cards above them and a 16px internal gap, so the band's rhythm
+   matches the section it closes. */
 .honest-rules-band {
   background: var(--ocean);
   border-radius: var(--radius-xl);
@@ -854,11 +951,11 @@ section {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 8px;
+  gap: 16px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: var(--radius-lg);
-  padding: 16px;
+  padding: 24px;
 }
 
 .honest-rule-num {
@@ -2545,6 +2642,16 @@ button.path-node:not(:disabled):hover {
   .honest-rules-list {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Footer grid goes 2-column on tablets; the brand column spans the
+     full width on top, Menu/Team/Watch fall below it. */
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2631,15 +2738,30 @@ button.path-node:not(:disabled):hover {
     padding: 32px 16px 84px;
   }
 
-  .footer-columns {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    justify-items: start;
-    text-align: left;
+  /* Footer: single column, brand first; bottom bar stacks, disclaimer
+     left-aligned. Bottom padding stays 88px — the pill floor. */
+  .footer-inner {
+    padding: 32px 16px 88px;
   }
 
-  .footer-column {
-    align-items: flex-start;
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 24px;
+    margin-bottom: 16px;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-disclaimer {
+    text-align: left;
   }
 
   .floating-bar {

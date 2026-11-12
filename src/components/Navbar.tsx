@@ -15,6 +15,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);
+  // ecomwebs pattern: the bar tightens once the page scrolls (its header
+  // drops py-4/5 to py-3 with a stronger shadow). Same idea here — the
+  // 64px bar becomes 56px past 20px of scroll; 88px scroll-padding
+  // still clears it.
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   const headerRef = useRef<HTMLElement>(null);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
@@ -80,7 +91,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
     (itemId === 'articles' && currentRoute.startsWith('article'));
 
   return (
-    <header className="top-navbar" role="banner" ref={headerRef}>
+    <header
+      className={isScrolled ? 'top-navbar scrolled' : 'top-navbar'}
+      role="banner"
+      ref={headerRef}
+    >
       <div className="nav-bar">
         <div className="nav-bar-inner">
           <a
@@ -150,6 +165,12 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                       }}
                     >
                       {item.label}
+                      {active && (
+                        <span
+                          className="mobile-menu-dot"
+                          aria-hidden="true"
+                        />
+                      )}
                     </a>
                   </li>
                 );

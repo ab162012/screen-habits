@@ -5,17 +5,36 @@ interface FooterProps {
   onNavigate: (route: string) => void;
 }
 
-/** Slim footer: no CTA block, no slogan — Menu, Team and Watch in one
-    compact row, disclaimer, then a small wordmark. The YouTube link is
-    a real play-badge SVG (red #FF0000 + white triangle + thin white
+/** ecomwebs-format footer: a 12-column grid — Brand 5 / Menu 2 / Team 3 /
+    Watch 2 — over a divider, then a bottom bar with © left and the
+    disclaimer right. That is the structure of ecomwebs.pk's footer
+    (white ground, top border, brand column with wordmark + description,
+    uppercase section headings, stacked links, divider, bottom bar with
+    copyright + secondary text) — kept here in our ocean identity, with
+    our own links, team and YouTube channel. The YouTube link is the
+    same real play-badge SVG (red #FF0000 + white triangle + thin white
     ring, so the badge edge reads against the ocean footer) next to
-    white "YouTube" text. The link goes to the campaign channel
-    @yourscreenhabits (claimed 11 Nov 2026 — the link now resolves). */
+    white "YouTube" text, to the campaign channel @yourscreenhabits.
+    Team credits now name all four members (Haider was missing and
+    "SJB" is written out as Salaar Javed Butt, matching the campaign
+    documents). Bottom padding stays 88px: the fixed pill occupies
+    76px desktop / 72px phone, so the bottom bar clears it by 12px /
+    16px at max scroll. */
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const year = new Date().getFullYear();
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="footer-inner">
-        <div className="footer-columns">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <div className="footer-wordmark" aria-hidden="true">
+              <span className="footer-wordmark-screen">SCREEN</span>{' '}
+              <span className="footer-wordmark-habits">HABITS</span>
+            </div>
+            <p className="footer-brand-desc">
+              A student campaign about healthier screen habits.
+            </p>
+          </div>
           <div className="footer-column">
             <span className="footer-column-label">Menu</span>
             <nav className="footer-nav-links" aria-label="Footer Navigation">
@@ -51,7 +70,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="footer-column">
             <span className="footer-column-label">Team</span>
             <p className="footer-credits-text">
-              Made by Abdul Basit (Leader), SJB, Ebad Ilyas
+              Made by Abdul Basit (Leader), Haider, Ebadullah Ilyas, Salaar
+              Javed Butt
             </p>
           </div>
           <div className="footer-column">
@@ -85,10 +105,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </nav>
           </div>
         </div>
-        <p className="footer-disclaimer">{DISCLAIMER_TEXT}</p>
-        <div className="footer-wordmark" aria-hidden="true">
-          <span className="footer-wordmark-screen">SCREEN</span>{' '}
-          <span className="footer-wordmark-habits">HABITS</span>
+        <div className="footer-bottom">
+          <p className="footer-copy">© {year} Screen Habits</p>
+          <p className="footer-disclaimer">{DISCLAIMER_TEXT}</p>
         </div>
       </div>
     </footer>
