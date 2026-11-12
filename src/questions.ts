@@ -312,7 +312,7 @@ export function calculateReport(answers: AnswersState): ScoreReport {
     } else if (weakestPart.partIndex === 1) {
       verdictLine = 'Weakest area: Apps & Scrolling. Fix: Put your top distraction app in a folder to break unconscious autopilot unlocks.';
     } else if (weakestPart.partIndex === 3) {
-      verdictLine = 'Weakest area: Body & Focus. Fix: Practice the 20-20-2 eye recovery rule and stretch during unbroken screen stretches.';
+      verdictLine = 'Weakest area: Body & Focus. Fix: Practice the 20-20-20 eye recovery rule and stretch during unbroken screen stretches.';
     } else {
       verdictLine = 'Weakest area: Devices & Time. Fix: Anchor meals and daily commutes as device-free zones to ease continuous hours.';
     }
@@ -362,7 +362,7 @@ function getTopRecommendations(answers: AnswersState, partScores: PartScore[]): 
     },
     rule20202: {
       id: 'rule_20202',
-      title: '20-20-2 Eye Recovery',
+      title: '20-20-20 Eye Recovery',
       action: 'Every 20 minutes, gaze at an object 20 feet away for 20 seconds to relax eye muscles.',
       tinyFirstStep: 'Take one deep breath and look out the nearest window right after this screen.',
       icon: '👁️'

@@ -41,22 +41,23 @@ const HOW_STEPS = [
 ];
 
 /** Campaign facts, not quest numbers — the campaign carries the same
-    weight as the quest. One line each. */
+    weight as the quest. A few honest lines each: who this is, what it
+    is, and who it is for. No specific grade, no grade range. */
 const CAMPAIGN_FACTS = [
   {
     emoji: '🌍',
     title: 'British Council Your World',
-    desc: '2026–27 · Healthy habits in a digital world.'
+    desc: '2026–27 · Healthy habits in a digital world. Our entry for the British Council\u2019s Your World competition — a student campaign about healthier screen habits, built around one honest question: how do our screens shape our days?'
   },
   {
     emoji: '🎓',
     title: 'Student team · Islamabad',
-    desc: 'Four students, one campaign.'
+    desc: 'Four students, one campaign. Built by Abdul Basit (Leader), Haider, Ebadullah Ilyas, and Salaar Javed Butt — a school team testing its own habits first, then sharing what actually worked.'
   },
   {
     emoji: '🏫',
-    title: 'For classes Grade 4 – IG1',
-    desc: 'Awareness + quest, in class groups.'
+    title: 'For school students',
+    desc: 'Awareness + the quest, in class groups. Short guides and a 10-question check students can take in class — no sign-up, no competition, no award. Just an honest look at your own habits.'
   }
 ];
 
@@ -98,13 +99,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
       {/* 2. Campaign — who this is and who it is for, in three capsules. */}
       <Reveal>
         <section className="home-campaign" aria-label="About the campaign">
-          {CAMPAIGN_FACTS.map((fact) => (
-            <div className="home-campaign-card" key={fact.title}>
-              <span className="home-campaign-emoji" aria-hidden="true">{fact.emoji}</span>
-              <span className="home-campaign-title">{fact.title}</span>
-              <span className="home-campaign-desc">{fact.desc}</span>
-            </div>
-          ))}
+          <span className="eyebrow">02 — The Campaign</span>
+          <p className="home-campaign-intro">
+            We are a student team in Islamabad. Our campaign is simple: help
+            students see their screen habits clearly, then pick one small
+            change and try it for seven days.
+          </p>
+          <div className="home-campaign-grid">
+            {CAMPAIGN_FACTS.map((fact) => (
+              <div className="home-campaign-card" key={fact.title}>
+                <span className="home-campaign-emoji" aria-hidden="true">{fact.emoji}</span>
+                <span className="home-campaign-title">{fact.title}</span>
+                <span className="home-campaign-desc">{fact.desc}</span>
+              </div>
+            ))}
+          </div>
         </section>
       </Reveal>
 
@@ -112,7 +121,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           quest, so they come before it. */}
       <Reveal>
         <section className="articles-preview-section" aria-labelledby="articles-preview-title">
-          <span className="eyebrow">02 — Guides</span>
+          <span className="eyebrow">03 — Guides</span>
           <h2 id="articles-preview-title" className="section-headline">
             <span className="section-emoji" aria-hidden="true">📚</span> Articles &amp; Habit Guides
           </h2>
@@ -135,7 +144,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
       {/* 4. How It Works — 3 equal capsule cards in a grid. */}
       <Reveal>
         <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
-          <span className="eyebrow">03 — How It Works</span>
+          <span className="eyebrow">04 — How It Works</span>
           <h2 id="how-it-works-title" className="section-headline">
             <span className="section-emoji" aria-hidden="true">⚙️</span> How It Works
           </h2>
@@ -158,7 +167,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
       <Reveal>
         <section className="honest-rules-band" aria-label="How the score works">
           <div className="honest-rules-inner">
-            <span className="eyebrow honest-rules-eyebrow"><span className="eyebrow-emoji" aria-hidden="true">📊</span> How scoring works</span>
+            <span className="eyebrow honest-rules-eyebrow"><span className="eyebrow-emoji" aria-hidden="true">📊</span> 05 — How scoring works</span>
             <ol className="honest-rules-list">
               {HONEST_RULES.map((rule, i) => (
                 <li key={rule} className="honest-rule-item">

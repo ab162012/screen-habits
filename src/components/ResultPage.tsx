@@ -103,7 +103,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
       case 1:
         return 'Put your top distraction app inside a folder to break unconscious autopilot unlocks.';
       case 3:
-        return 'Practice the 20-20-2 eye recovery rule and stretch during unbroken screen stretches.';
+        return 'Practice the 20-20-20 eye recovery rule and stretch during unbroken screen stretches.';
       default:
         return 'Anchor meals and daily commutes as device-free zones to ease continuous daily screen hours.';
     }
