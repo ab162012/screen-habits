@@ -1609,7 +1609,13 @@ button.path-node:not(:disabled):hover {
 
 /* Hero score band — the page's ONE dark band besides navbar/footer.
    The single permitted 100vw escape on the site; inner content stays
-   860px centred. */
+   860px centred.
+   Bottom padding is 48px base + 52px pill clearance = 100px: the
+   closing scoring-rule disclaimer sits 100px above the hero's bottom
+   edge, so at the stop where the hero bottom meets the viewport bottom
+   it clears the 76px fixed-pill zone by 24px (12px on phones, where the
+   zone is 72px and the mobile bottom padding below is 84px). Without
+   this the disclaimer's wrapped second line slid under the pill. */
 .result-hero-card {
   background: var(--ocean);
   border: none;
@@ -1617,7 +1623,7 @@ button.path-node:not(:disabled):hover {
   width: 100vw;
   max-width: none;
   margin-left: calc(50% - 50vw);
-  padding: 48px 24px;
+  padding: 48px 24px 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1667,17 +1673,35 @@ button.path-node:not(:disabled):hover {
   stroke: var(--ocean-sky);
   stroke-width: 12;
   stroke-linecap: round;
-  transition: stroke-dashoffset var(--dur-count) var(--ease);
+  /* No transition here on purpose: the JS count-up already steps the
+     offset every 20ms, and the old 500ms CSS transition restarted on
+     every step — the ring lagged ~0.5s behind the number and kept
+     moving after the number had stopped. Without it, ring and number
+     stay in sync through the count-up and stop together. */
 }
 
 .score-inside-text {
   position: absolute;
   inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+}
+
+/* The big number is the ONLY in-flow child, so it sits exactly on the
+   ring's centre. The "out of 100" label is absolutely positioned below
+   it — previously the two-line group was centred as a unit, which put
+   the number ~12px above the ring centre (the "kind of off" look). */
+.score-max-label {
+  position: absolute;
+  top: calc(50% + 32px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
 }
 
 .score-number-big {
@@ -1686,12 +1710,6 @@ button.path-node:not(:disabled):hover {
   line-height: 1;
   letter-spacing: -0.02em;
   color: #fff;
-}
-
-.score-max-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
 }
 
 .hero-band-block {
@@ -2610,7 +2628,7 @@ button.path-node:not(:disabled):hover {
   }
 
   .result-hero-card {
-    padding: 32px 16px;
+    padding: 32px 16px 84px;
   }
 
   .footer-columns {
