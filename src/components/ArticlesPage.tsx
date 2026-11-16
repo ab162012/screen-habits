@@ -17,14 +17,14 @@ export const ArticlesPage: React.FC<ArticlesPageProps> = ({ onNavigate }) => {
           <span className="section-emoji" aria-hidden="true">📚</span> Screen Habits Guides
         </h1>
         <p className="articles-intro">
-          Six practical, honest guides for students — breaks, sleep,
-          scrolling, eyes, and teamwork. Each one is a complete guide of
-          about a thousand words, and each ends with a single habit to try
-          for seven days.
+          Seven practical, honest guides for students — breaks, sleep,
+          scrolling, eyes, teamwork, and what the experts say. Each one is
+          a complete guide of about a thousand words, and each ends with a
+          single habit to try for seven days.
         </p>
       </section>
 
-      {/* Six equal article cards in a grid — no featured card, no 2-column span. */}
+      {/* Seven equal article cards in a grid — no featured card, no 2-column span. */}
       <div className="articles-list-grid">
         {ARTICLES.map((article, i) => (
           <Reveal key={article.id} delayMs={(i % 3) * 80}>

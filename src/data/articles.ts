@@ -222,5 +222,42 @@ export const ARTICLES: Article[] = [
       }
     ],
     closingLine: 'Pick one habit and test it as a team for seven days.'
+  },
+  {
+    id: 'what-the-experts-say',
+    slug: 'what-the-experts-say-about-screens',
+    title: 'What the experts say about screens',
+    topicTag: 'Expert Guidance',
+    emoji: '🔬',
+    readTime: '5 min read',
+    summary: 'What the World Health Organization and the American Academy of Pediatrics actually say about screens for school-age children — no fixed limit, but clear rules for sleep, activity, and family time.',
+    intro: "Most screen advice you hear online is either a scary number or a shrug. One post says two hours a day, another says screens are ruining a generation, and neither one says who was studied or how old they were. The real guidance is calmer — and more useful. The World Health Organization and the American Academy of Pediatrics, the two bodies whose advice schools and doctors actually use, say something simple for school-age children: there is no single magic number of hours. What matters is what screens replace. If screens push out sleep, movement, homework, or time with real people, they are doing harm — whatever the clock says. This guide lays out what the experts actually say, where each claim comes from, and how to check the next scary number you see.",
+    steps: [
+      {
+        heading: 'No fixed limit for school-age children — balance is the rule',
+        detail: "The World Health Organization has never set a single screen-time limit for school-age children, and the American Academy of Pediatrics agrees. In February 2026 the Academy moved away from strict hour limits for children aged six and over, replacing them with a family media plan — an agreement made together, at home, about when screens are on and when they are off. The plan prioritises sleep, physical activity, and face-to-face time over counting hours. That is not the experts giving up. It is the experts saying the clock is the wrong tool: two hours of creative work is not the same as two hours of scrolling at midnight, and a fixed number cannot tell the difference. The rule that replaces the number is a question: what did screens push out of the day? If the answer is nothing — sleep, movement, homework, and family time all happened — the day was balanced."
+      },
+      {
+        heading: 'Sleep: screens before bed delay it',
+        detail: "Of everything the experts agree on, sleep is the clearest. Screens before bed delay sleep, because bright light limits melatonin — the hormone that tells your body the day is ending — and because fast, exciting content keeps the brain alert after the screen goes dark. Teenagers need eight to ten hours of sleep a night, and a phone in bed is the most common reason they do not get it. The World Health Organization's guidance is built around exactly this: sleep, physical activity, and limited screen use belong together, and screens should not take sleep's place. That is why this campaign's habit is a 9pm screen cut-off, not a daily minute count. The cut-off protects the last hour of the day — the hour that decides how you sleep — and it works because it is a boundary you can keep, not a number you have to count."
+      },
+      {
+        heading: 'The under-5 numbers do not apply to you',
+        detail: "Here is where most online advice goes wrong. The World Health Organization's 2019 guidelines say children under two should have no sedentary screen time except video calls with family, and children aged two to five should have no more than one hour a day. Those numbers are real — but they are for young children, and they say nothing about a teenager. Quoting the one-hour limit at a school student is a mistake, and it is a common one: the number is memorable, so it travels, and the age it belongs to gets left behind. The same is true of most scary statistics about screens. Before you repeat a number, ask who was studied. If the answer is toddlers, the number is not about you. The honest version of the guidance for school-age children is the one in the first step of this guide: no fixed limit, but screens must not replace sleep, movement, homework, or family time."
+      },
+      {
+        heading: 'Eyes: the 20-20-20 rule',
+        detail: "Your eyes are the one part of the body where the experts give a concrete number — and it is a rhythm, not a limit. The 20-20-20 rule says: every twenty minutes of screen work, look at something at least twenty feet away for twenty seconds. It works because the muscle that focuses your eyes up close cramps when it is held in one position for hours, and twenty seconds of looking far away lets it release. The rule comes from eye health, not from a single study, and it is the same advice our eyes guide gives in full. Tie it to something that already happens — every time you finish a page, a problem, or a paragraph, look away before you start the next one. A sticky note on the edge of your screen that says '20-20-20' is enough of a reminder. After a few days the look-away becomes automatic."
+      },
+      {
+        heading: 'A family media plan beats counting hours',
+        detail: "The American Academy of Pediatrics' February 2026 change has a practical side: instead of a parent or a student watching a clock, the family writes a plan together. The plan names the non-negotiables first — sleep, physical activity, homework, meals together, time with friends in person — and then fits screens around them. Screens stay out of bedrooms overnight. One or two windows a day are set aside for scrolling, so the feed has edges instead of swallowing the whole evening. The plan is written down and pinned up, so nobody has to remember it or argue about it. The reason a plan works where a limit fails is simple: a limit is a rule imposed on you, and a plan is an agreement you helped make. If the plan is not working, change the plan — the point is the sleep and the time together, not the document."
+      },
+      {
+        heading: 'How to check the next scary number you see',
+        detail: "You will keep seeing alarming claims about screens — a percentage, a risk, a study that proves everything. Before you share one, ask three questions. Who said it? A named health body, like the World Health Organization or the American Academy of Pediatrics, is a source; a screenshot with no source is not. Who was studied? A finding about toddlers or adults is not a finding about school students. And does it say what the headline claims? Most headlines exaggerate a careful result. The two sources named in this guide are a good place to start checking: the World Health Organization's Guidelines on Physical Activity, Sedentary Behaviour and Sleep (2019), and the American Academy of Pediatrics' 2026 guidance on children's media use. This campaign's rule is the same as this guide's: no claim without a source, and no number without the age it belongs to."
+      }
+    ],
+    closingLine: 'Check the source before you share the number.'
   }
 ];
