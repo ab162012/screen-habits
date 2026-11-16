@@ -32,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <span className="footer-wordmark-habits">HABITS</span>
             </div>
             <p className="footer-brand-desc">
-              A student campaign about healthier screen habits.
+              An educational platform for healthier screen habits.
             </p>
           </div>
           <div className="footer-column">
@@ -48,22 +48,76 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 Home
               </a>
               <a
-                href="#quest"
+                href="#understand"
                 onClick={(e) => {
                   e.preventDefault();
-                  onNavigate('quest');
+                  onNavigate('understand');
+                }}
+              >
+                Understand
+              </a>
+              <a
+                href="#health"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('health');
+                }}
+              >
+                Health
+              </a>
+              <a
+                href="#habits"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('habits');
+                }}
+              >
+                Habits
+              </a>
+              <a
+                href="#quest-info"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('quest-info');
                 }}
               >
                 Quest
               </a>
               <a
-                href="#articles"
+                href="#guides"
                 onClick={(e) => {
                   e.preventDefault();
-                  onNavigate('articles');
+                  onNavigate('guides');
                 }}
               >
-                Articles
+                Guides
+              </a>
+              <a
+                href="#research"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('research');
+                }}
+              >
+                Research
+              </a>
+              <a
+                href="#about"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('about');
+                }}
+              >
+                About
+              </a>
+              <a
+                href="#newsletter"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('newsletter');
+                }}
+              >
+                Newsletter
               </a>
             </nav>
           </div>

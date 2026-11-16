@@ -2757,6 +2757,18 @@ button.path-node:not(:disabled):hover {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
+  /* Nine destinations in the navbar do not fit below ~1100px, so the
+     hamburger sheet takes over at tablet width — the same switch the
+     768px query already makes. */
+  .nav-main {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
   .articles-list-grid,
   .articles-preview-grid {
     grid-template-columns: repeat(2, 1fr);

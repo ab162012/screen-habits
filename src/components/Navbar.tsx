@@ -9,9 +9,14 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   const navItems = [
     { id: 'home', label: 'Home' },
-    { id: 'quest', label: 'Quest' },
-    { id: 'result', label: 'Result' },
-    { id: 'articles', label: 'Articles' }
+    { id: 'understand', label: 'Understand' },
+    { id: 'health', label: 'Health' },
+    { id: 'habits', label: 'Habits' },
+    { id: 'quest-info', label: 'Quest' },
+    { id: 'guides', label: 'Guides' },
+    { id: 'research', label: 'Research' },
+    { id: 'about', label: 'About' },
+    { id: 'newsletter', label: 'Newsletter' }
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -86,9 +91,26 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
     onNavigate(route);
   };
 
-  const isActive = (itemId: string) =>
-    currentRoute === itemId ||
-    (itemId === 'articles' && currentRoute.startsWith('article'));
+  const isActive = (itemId: string) => {
+    if (itemId === 'quest-info') {
+      return (
+        currentRoute === 'quest-info' ||
+        currentRoute === 'quest' ||
+        currentRoute === 'result'
+      );
+    }
+    if (itemId === 'guides') {
+      return (
+        currentRoute === 'guides' ||
+        currentRoute === 'articles' ||
+        currentRoute.startsWith('article')
+      );
+    }
+    if (itemId === 'health') {
+      return currentRoute === 'health' || currentRoute === 'health-topic';
+    }
+    return currentRoute === itemId;
+  };
 
   return (
     <header

@@ -18,16 +18,16 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
           the quest is reachable, not pushed. */}
       <div className="article-back-nav article-top-nav-bar article-nav-back">
         <PillButton
-          label="← Back to Articles"
+          label="← Back to Guides"
           variant="secondary"
-          onClick={() => onNavigate('articles')}
+          onClick={() => onNavigate('guides')}
         />
         <a
-          href="#quest"
+          href="#quest-info"
           className="article-read-link"
           onClick={(e) => {
             e.preventDefault();
-            onNavigate('quest');
+            onNavigate('quest-info');
           }}
         >
           Take the Quest →

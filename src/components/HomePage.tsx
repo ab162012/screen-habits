@@ -1,5 +1,6 @@
 import React from 'react';
 import { ARTICLES } from '../data/articles';
+import { HEALTH_TOPICS } from '../data/healthTopics';
 import { PillButton } from './PillButton';
 import { Sticker } from './Sticker';
 import { ArticleCard } from './ArticleCard';
@@ -10,17 +11,6 @@ interface HomePageProps {
   onNavigate: (route: string) => void;
   hasExistingAnswers: boolean;
 }
-
-const HONEST_RULES = [
-  '10 XP per answered question',
-  'Skip = 0 XP',
-  'Score over answered only',
-  'Under 5 = Partial result'
-];
-
-/** Emoji system: one fixed emoji per honest rule, used in the
-    "How scoring works" band — same rule, same emoji, everywhere. */
-const HONEST_RULE_EMOJIS = ['⭐', '⏭️', '📊', '🧩'];
 
 /** Three steps, one line each — no paragraphs. */
 const HOW_STEPS = [
@@ -38,27 +28,6 @@ const HOW_STEPS = [
     num: '3',
     title: 'Pick one 7-day challenge',
     desc: 'Phone-free breaks or a 9pm cut-off.'
-  }
-];
-
-/** Campaign facts, not quest numbers — the campaign carries the same
-    weight as the quest. A few honest lines each: who this is, what it
-    is, and who it is for. No specific grade, no grade range. */
-const CAMPAIGN_FACTS = [
-  {
-    emoji: '🌍',
-    title: 'British Council Your World',
-    desc: '2026–27 · Healthy habits in a digital world. Our entry for the British Council\u2019s Your World competition — a student campaign about healthier screen habits, built around one honest question: how do our screens shape our days?'
-  },
-  {
-    emoji: '🎓',
-    title: 'Student team · Islamabad',
-    desc: 'Four students, one campaign. Built by Abdul Basit (Leader), Haider, Ebadullah Ilyas, and Salaar Javed Butt — a school team testing its own habits first, then sharing what actually worked.'
-  },
-  {
-    emoji: '🏫',
-    title: 'For school students',
-    desc: 'Awareness + the quest, in class groups. Short guides and a 10-question check students can take in class — no sign-up, no competition, no award. Just an honest look at your own habits.'
   }
 ];
 
@@ -81,15 +50,34 @@ const TRY_ONE_THING = [
   }
 ];
 
+/** Digital wellbeing in three questions — how, when, why and how much. */
+const WELLBEING_MEANS = [
+  {
+    emoji: '🧭',
+    title: 'How you use them',
+    desc: 'Active or passive, chosen or automatic. What you do on a screen matters more than how long you were on it.'
+  },
+  {
+    emoji: '🕘',
+    title: 'When you reach for them',
+    desc: 'A screen at breakfast is not a screen at midnight. The same hour of use counts differently depending on what it replaces.'
+  },
+  {
+    emoji: '⚖️',
+    title: 'Why, and how much',
+    desc: 'Study, rest, friends, or habit? Digital wellbeing is knowing the answer — and keeping the balance honest.'
+  }
+];
+
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswers }) => {
-  const previewArticles = ARTICLES.slice(0, 3);
+  const previewArticles = ARTICLES.filter((a) => a.id !== 'healthy-habits-student-team').slice(0, 3);
 
   return (
     <div className="home-page">
-      {/* 1. Hero — the campaign message leads, not the quest. The quest
-          is one secondary button, not the pitch. */}
+      {/* 1. Hero — the platform leads: understand your habits, own your
+          time. The campaign is no longer the pitch. */}
       <section className="home-hero" aria-labelledby="hero-title">
-        <span className="eyebrow">01 — Student Campaign · Screen Habits</span>
+        <span className="eyebrow">01 — Digital Wellbeing</span>
         <span className="home-hero-chip">Healthy habits in a digital world</span>
         <h1 id="hero-title" className="home-hero-headline">
           <span className="hero-line">Know your screen.</span>
@@ -97,36 +85,40 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </h1>
         <Sticker text="Honest check · No fake scores" tone="navy" rotate={-3} className="hero-sticker" />
         <p className="home-hero-subline">
-          A student campaign about healthier screen habits.
+          An educational platform for healthier screen habits — understand
+          your habits, learn what screens do, and build routines that
+          actually stick.
         </p>
         <div className="home-hero-buttons">
           <PillButton
-            label="Read the Guides"
+            label={hasExistingAnswers ? 'Continue the Quest' : 'Take the Quest'}
             variant="primary"
             size="lg"
             arrow
-            onClick={() => onNavigate('articles')}
+            onClick={() => onNavigate('quest-info')}
           />
           <PillButton
-            label={hasExistingAnswers ? 'Continue the Quest' : 'Take the Quest'}
+            label="Explore the Guides"
             variant="secondary"
             size="lg"
-            onClick={() => onNavigate('quest')}
+            onClick={() => onNavigate('guides')}
           />
         </div>
       </section>
 
-      {/* 2. Campaign — who this is and who it is for, in three capsules. */}
+      {/* 2. What digital wellbeing means — three questions, not a rule. */}
       <Reveal>
-        <section className="home-campaign" aria-label="About the campaign">
-          <span className="eyebrow">02 — The Campaign</span>
+        <section className="home-campaign" aria-label="What digital wellbeing means">
+          <span className="eyebrow">02 — What digital wellbeing means</span>
           <p className="home-campaign-intro">
-            We are a student team in Islamabad. Our campaign is simple: help
-            students see their screen habits clearly, then pick one small
-            change and try it for seven days.
+            Digital wellbeing is not using screens less. It is knowing how,
+            when, why, and how much you use them — and keeping the balance
+            honest. Screens are part of education, communication,
+            entertainment, and everyday life. What matters is what they
+            replace.
           </p>
           <div className="home-campaign-grid">
-            {CAMPAIGN_FACTS.map((fact) => (
+            {WELLBEING_MEANS.map((fact) => (
               <div className="home-campaign-card" key={fact.title}>
                 <span className="home-campaign-emoji" aria-hidden="true">{fact.emoji}</span>
                 <span className="home-campaign-title">{fact.title}</span>
@@ -137,13 +129,45 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
-      {/* 3. Articles preview — the guides carry equal weight with the
-          quest, so they come before it. */}
+      {/* 3. Why screen habits matter — the six effects, each a door
+          into Health & Effects. */}
+      <Reveal>
+        <section className="home-campaign" aria-label="Why screen habits matter">
+          <span className="eyebrow">03 — Why screen habits matter</span>
+          <p className="home-campaign-intro">
+            Screens touch sleep, eyes, focus, movement, mood, and everyday
+            routines — not all at once, and not the same for everyone.
+            Choose an effect to see the issue, the evidence, and what
+            helps.
+          </p>
+          <div className="home-campaign-grid">
+            {HEALTH_TOPICS.map((topic) => (
+              <a
+                key={topic.id}
+                href={`#health/${topic.slug}`}
+                className="home-campaign-card"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate(`health/${topic.slug}`);
+                }}
+                aria-label={`${topic.title} — read the topic`}
+              >
+                <span className="home-campaign-emoji" aria-hidden="true">{topic.emoji}</span>
+                <span className="home-campaign-title">{topic.title}</span>
+                <span className="home-campaign-desc">{topic.intro}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </Reveal>
+
+      {/* 4. Guides preview — the library carries equal weight with the
+          quest. The student team guide lives with our story instead. */}
       <Reveal>
         <section className="articles-preview-section" aria-labelledby="articles-preview-title">
-          <span className="eyebrow">03 — Guides</span>
+          <span className="eyebrow">04 — Guides</span>
           <h2 id="articles-preview-title" className="section-headline">
-            <span className="section-emoji" aria-hidden="true">📚</span> Articles &amp; Habit Guides
+            <span className="section-emoji" aria-hidden="true">📚</span> Guides &amp; Resources
           </h2>
           <div className="articles-preview-grid">
             {previewArticles.map((art) => (
@@ -152,10 +176,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           </div>
           <div className="articles-preview-footer">
             <PillButton
-              label="View All 7 Articles"
+              label="View All 6 Guides"
               variant="secondary"
               arrow
-              onClick={() => onNavigate('articles')}
+              onClick={() => onNavigate('guides')}
             />
           </div>
         </section>
@@ -166,13 +190,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         <NewsletterSignup />
       </Reveal>
 
-      {/* 4. How It Works — 3 equal capsule cards in a grid. */}
+      {/* 5. Featured quest — what it is, how it works, one button. */}
       <Reveal>
         <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
-          <span className="eyebrow">04 — How It Works</span>
+          <span className="eyebrow">05 — Featured Quest</span>
           <h2 id="how-it-works-title" className="section-headline">
-            <span className="section-emoji" aria-hidden="true">⚙️</span> How It Works
+            <span className="section-emoji" aria-hidden="true">🧭</span> The Screen Habits Quest
           </h2>
+          <p className="home-campaign-intro">
+            A free 10-question check across devices, apps, sleep, and
+            focus. Two minutes, no sign-up — and an honest result: your
+            score, your band, and three practical actions.
+          </p>
           <div className="how-steps-list">
             {HOW_STEPS.map((step) => (
               <div className="how-step-row" key={step.num}>
@@ -184,15 +213,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
               </div>
             ))}
           </div>
+          <div className="articles-preview-footer">
+            <PillButton
+              label={hasExistingAnswers ? 'Continue the Quest' : 'Take the Quest'}
+              variant="primary"
+              arrow
+              onClick={() => onNavigate('quest-info')}
+            />
+          </div>
         </section>
       </Reveal>
 
-      {/* 5. Try one thing this week — the 7-day challenge, three
-          choices. Follows How It Works step 3 ("Pick one 7-day
-          challenge") directly. */}
+      {/* 6. Healthier habits — the 7-day challenge, three choices. */}
       <Reveal>
         <section className="how-it-works-section" aria-labelledby="try-one-thing-title">
-          <span className="eyebrow">05 — Try one thing this week</span>
+          <span className="eyebrow">06 — Healthier habits</span>
           <h2 id="try-one-thing-title" className="section-headline">
             <span className="section-emoji" aria-hidden="true">🎯</span> Try one thing this week
           </h2>
@@ -207,23 +242,58 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
               </div>
             ))}
           </div>
+          <div className="articles-preview-footer">
+            <PillButton
+              label="See all healthy habits"
+              variant="secondary"
+              arrow
+              onClick={() => onNavigate('habits')}
+            />
+          </div>
         </section>
       </Reveal>
 
-      {/* 6. How scoring works — the honesty proof, kept but last: the
-          quest no longer opens the page. */}
+      {/* 7. Research teaser — what the experts actually say. */}
       <Reveal>
-        <section className="honest-rules-band" aria-label="How the score works">
-          <div className="honest-rules-inner">
-            <span className="eyebrow honest-rules-eyebrow"><span className="eyebrow-emoji" aria-hidden="true">📊</span> 06 — How scoring works</span>
-            <ol className="honest-rules-list">
-              {HONEST_RULES.map((rule, i) => (
-                <li key={rule} className="honest-rule-item">
-                  <span className="honest-rule-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="honest-rule-text"><span className="honest-rule-emoji" aria-hidden="true">{HONEST_RULE_EMOJIS[i]}</span> {rule}</span>
-                </li>
-              ))}
-            </ol>
+        <section className="home-campaign" aria-label="Research and expert insights">
+          <span className="eyebrow">07 — Research &amp; expert insights</span>
+          <p className="home-campaign-intro">
+            The World Health Organization sets no single screen-time limit
+            for school-age children. The American Academy of Pediatrics
+            recommends a family media plan instead of counting hours. And
+            screens before bed delay sleep — blue light limits melatonin.
+            Every claim on this site names its source.
+          </p>
+          <div className="articles-preview-footer">
+            <PillButton
+              label="Research & Expert Insights"
+              variant="secondary"
+              arrow
+              onClick={() => onNavigate('research')}
+            />
+          </div>
+        </section>
+      </Reveal>
+
+      {/* 8. Our awareness initiative — the campaign, kept small: the
+          origin and real-world application, not the identity. */}
+      <Reveal>
+        <section className="home-campaign" aria-label="Our awareness initiative">
+          <span className="eyebrow">08 — Our awareness initiative</span>
+          <p className="home-campaign-intro">
+            YourScreenHabits began as a student campaign at Pak Turk Maarif
+            Chak Shahzad Campus in Islamabad, for British Council Your
+            World 2026–27. A team of four students, testing their own
+            habits first and sharing what actually worked — in class
+            groups, on notice boards, and on this website.
+          </p>
+          <div className="articles-preview-footer">
+            <PillButton
+              label="About Us"
+              variant="secondary"
+              arrow
+              onClick={() => onNavigate('about')}
+            />
           </div>
         </section>
       </Reveal>

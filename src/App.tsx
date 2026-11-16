@@ -6,6 +6,14 @@ import { QuestPage } from './components/QuestPage';
 import { ResultPage } from './components/ResultPage';
 import { ArticlesPage } from './components/ArticlesPage';
 import { ArticleDetailPage } from './components/ArticleDetailPage';
+import { UnderstandPage } from './components/UnderstandPage';
+import { HealthPage } from './components/HealthPage';
+import { HealthTopicPage } from './components/HealthTopicPage';
+import { HabitsPage } from './components/HabitsPage';
+import { QuestInfoPage } from './components/QuestInfoPage';
+import { ResearchPage } from './components/ResearchPage';
+import { AboutPage } from './components/AboutPage';
+import { NewsletterPage } from './components/NewsletterPage';
 import { ARTICLES } from './data/articles';
 import { QUESTIONS, isQuestionAnswered } from './questions';
 import type { AnswersState, UserProfile } from './types';
@@ -20,12 +28,23 @@ function parseHash(hash: string): { route: string; param?: string } {
   const clean = hash.replace(/^#\/?/, '').trim();
   if (!clean || clean === 'home') return { route: 'home' };
   if (clean === 'quest') return { route: 'quest' };
+  if (clean === 'quest-info') return { route: 'quest-info' };
   if (clean === 'result') return { route: 'result' };
-  if (clean === 'articles') return { route: 'articles' };
+  if (clean === 'understand') return { route: 'understand' };
+  if (clean === 'health') return { route: 'health' };
+  if (clean.startsWith('health/')) {
+    const topicSlug = clean.replace('health/', '');
+    return { route: 'health-topic', param: topicSlug };
+  }
+  if (clean === 'habits') return { route: 'habits' };
+  if (clean === 'guides' || clean === 'articles') return { route: 'guides' };
   if (clean.startsWith('article/')) {
     const articleId = clean.replace('article/', '');
     return { route: 'article', param: articleId };
   }
+  if (clean === 'research') return { route: 'research' };
+  if (clean === 'about') return { route: 'about' };
+  if (clean === 'newsletter') return { route: 'newsletter' };
   return { route: 'home' };
 }
 
@@ -33,12 +52,14 @@ export const App: React.FC = () => {
   // 1. Routing State
   const [currentRoute, setCurrentRoute] = useState<string>('home');
   const [articleParam, setArticleParam] = useState<string | undefined>(undefined);
+  const [healthTopic, setHealthTopic] = useState<string | undefined>(undefined);
 
   // Synchronize with URL Hash
   const handleHashChange = useCallback(() => {
     const { route, param } = parseHash(window.location.hash);
     setCurrentRoute(route);
-    setArticleParam(param);
+    setArticleParam(route === 'article' ? param : undefined);
+    setHealthTopic(route === 'health-topic' ? param : undefined);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
@@ -233,6 +254,13 @@ export const App: React.FC = () => {
           />
         )}
 
+        {currentRoute === 'quest-info' && (
+          <QuestInfoPage
+            onNavigate={navigateTo}
+            hasExistingAnswers={hasExistingAnswers}
+          />
+        )}
+
         {currentRoute === 'result' && (
           <ResultPage
             answers={answers}
@@ -243,8 +271,39 @@ export const App: React.FC = () => {
           />
         )}
 
-        {currentRoute === 'articles' && (
+        {currentRoute === 'understand' && (
+          <UnderstandPage onNavigate={navigateTo} />
+        )}
+
+        {currentRoute === 'health' && (
+          <HealthPage onNavigate={navigateTo} />
+        )}
+
+        {currentRoute === 'health-topic' && (
+          <HealthTopicPage
+            topicSlug={healthTopic}
+            onNavigate={navigateTo}
+          />
+        )}
+
+        {currentRoute === 'habits' && (
+          <HabitsPage onNavigate={navigateTo} />
+        )}
+
+        {(currentRoute === 'guides' || currentRoute === 'articles') && (
           <ArticlesPage onNavigate={navigateTo} />
+        )}
+
+        {currentRoute === 'research' && (
+          <ResearchPage onNavigate={navigateTo} />
+        )}
+
+        {currentRoute === 'about' && (
+          <AboutPage onNavigate={navigateTo} />
+        )}
+
+        {currentRoute === 'newsletter' && (
+          <NewsletterPage onNavigate={navigateTo} />
         )}
 
         {currentRoute === 'article' && (
