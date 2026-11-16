@@ -1,0 +1,22 @@
+# YourScreenHabits
+
+> A student campaign from Islamabad, Pakistan, for British Council Your World 2026-27 (theme: Healthy habits in a digital world). The site offers a free 10-question screen-habits check with an honest result and one 7-day challenge, plus seven short habit guides. Built by a school team: Abdul Basit (Leader), Haider, Ebadullah Ilyas, Salaar Javed Butt. No sign-up, no competition, no award.
+
+## The quest
+
+- [Take the quest](https://yourscreenhabits.com/#/quest): 10 questions in 4 parts — devices and time, apps and scrolling, night and sleep, body and focus. 10 XP per answered question; skipped questions score 0; under 5 answered = partial result. The result gives a score out of 100, a band, and three practical actions.
+
+## Guides
+
+- [Phone-free breaks that actually stick](https://yourscreenhabits.com/#/article/phone-free-breaks)
+- [The 9pm screen cut-off](https://yourscreenhabits.com/#/article/9pm-screen-cutoff)
+- [Sleep and the last hour before bed](https://yourscreenhabits.com/#/article/sleep-last-hour)
+- [Scrolling less without deleting everything](https://yourscreenhabits.com/#/article/scrolling-less)
+- [Eyes, focus, and breaks](https://yourscreenhabits.com/#/article/eyes-focus-breaks)
+- [What healthy habits in a digital world means for a student team](https://yourscreenhabits.com/#/article/healthy-habits-student-team)
+- [What the experts say about screens](https://yourscreenhabits.com/#/article/what-the-experts-say)
+
+## The campaign
+
+- [Home](https://yourscreenhabits.com/): the campaign, the guides, and how the quest works.
+- [YouTube channel](https://www.youtube.com/@yourscreenhabits): the campaign videos.

@@ -4,6 +4,7 @@ import { PillButton } from './PillButton';
 import { Sticker } from './Sticker';
 import { ArticleCard } from './ArticleCard';
 import { Reveal } from './Reveal';
+import { NewsletterSignup } from './NewsletterSignup';
 
 interface HomePageProps {
   onNavigate: (route: string) => void;
@@ -77,66 +78,6 @@ const TRY_ONE_THING = [
     num: '3',
     title: 'The 20-20-20 rule',
     desc: 'Every 20 minutes, look 20 feet away for 20 seconds.'
-  }
-];
-
-/** What the campaign has actually done, dated — and what is next.
-    Plans are stated as plans; nothing here claims a result. */
-const WHAT_WE_DID = [
-  {
-    emoji: '🗣️',
-    title: 'School assembly',
-    desc: 'Mon 2 Nov 2026 — the campaign launched at the school assembly.'
-  },
-  {
-    emoji: '📢',
-    title: 'Awareness day',
-    desc: 'Thu 12 Nov 2026 — posters on the notice boards, the quest in class groups.'
-  },
-  {
-    emoji: '🌐',
-    title: 'Website live',
-    desc: 'yourscreenhabits.com — the quest and the guides, live since 11 Nov 2026.'
-  },
-  {
-    emoji: '📚',
-    title: '7 habit guides',
-    desc: 'Breaks, sleep, scrolling, eyes, the 9pm cut-off, teamwork — and what the experts say.'
-  },
-  {
-    emoji: '🎬',
-    title: 'YouTube channel',
-    desc: '@yourscreenhabits — the campaign channel, live and ready for video 1.'
-  },
-  {
-    emoji: '📰',
-    title: 'Newsletter',
-    desc: 'Campaign updates by email. Issue 1 is planned for Tue 1 Dec 2026.'
-  }
-];
-
-/** How impact is measured — the method, not results. Nothing is
-    measured yet, so no numbers appear anywhere here. */
-const MEASURE_METHODS = [
-  {
-    emoji: '❓',
-    title: 'The quest, before and after',
-    desc: 'The same 10-question check, taken before the campaign and again after — so the two results can be compared.'
-  },
-  {
-    emoji: '✋',
-    title: 'Anonymous show of hands',
-    desc: 'In class, no names: hands up before the awareness day, hands up after.'
-  },
-  {
-    emoji: '👥',
-    title: 'Our team’s before and after',
-    desc: 'Each of the four of us takes the quest before and after — our own results, shown honestly.'
-  },
-  {
-    emoji: '✉️',
-    title: 'Newsletter replies',
-    desc: 'What readers write back after each issue — the words, not just the count.'
   }
 ];
 
@@ -220,6 +161,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
+      {/* Newsletter — utility band, no eyebrow number. */}
+      <Reveal>
+        <NewsletterSignup />
+      </Reveal>
+
       {/* 4. How It Works — 3 equal capsule cards in a grid. */}
       <Reveal>
         <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
@@ -264,56 +210,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
-      {/* 6. What we did — dated campaign activity, done and next. */}
-      <Reveal>
-        <section className="home-campaign" aria-label="What we did">
-          <span className="eyebrow">06 — What we did</span>
-          <p className="home-campaign-intro">
-            The campaign so far — what actually happened, and what is next.
-          </p>
-          <div className="home-campaign-grid">
-            {WHAT_WE_DID.map((item) => (
-              <div className="home-campaign-card" key={item.title}>
-                <span className="home-campaign-emoji" aria-hidden="true">{item.emoji}</span>
-                <span className="home-campaign-title">{item.title}</span>
-                <span className="home-campaign-desc">{item.desc}</span>
-              </div>
-            ))}
-          </div>
-          <p className="home-campaign-intro">
-            What’s next: YouTube video 1 on Fri 20 Nov · seminar 20–24 Nov, if a speaker confirms · video 2 on Sun 20 Dec · results on Thu 31 Dec.
-          </p>
-        </section>
-      </Reveal>
-
-      {/* 7. How we measure impact — the method, not results. */}
-      <Reveal>
-        <section className="home-campaign" aria-label="How we measure impact">
-          <span className="eyebrow">07 — How we measure impact</span>
-          <p className="home-campaign-intro">
-            A campaign that claims change should show it — honestly. Here is how we measure ours.
-          </p>
-          <div className="home-campaign-grid">
-            {MEASURE_METHODS.map((item) => (
-              <div className="home-campaign-card" key={item.title}>
-                <span className="home-campaign-emoji" aria-hidden="true">{item.emoji}</span>
-                <span className="home-campaign-title">{item.title}</span>
-                <span className="home-campaign-desc">{item.desc}</span>
-              </div>
-            ))}
-          </div>
-          <p className="home-campaign-intro">
-            Results: coming 31 Dec. The quest-after runs on Tue 17 Nov — nothing is measured yet, and no numbers are shown until they are real.
-          </p>
-        </section>
-      </Reveal>
-
-      {/* 8. How scoring works — the honesty proof, kept but last: the
+      {/* 6. How scoring works — the honesty proof, kept but last: the
           quest no longer opens the page. */}
       <Reveal>
         <section className="honest-rules-band" aria-label="How the score works">
           <div className="honest-rules-inner">
-            <span className="eyebrow honest-rules-eyebrow"><span className="eyebrow-emoji" aria-hidden="true">📊</span> 08 — How scoring works</span>
+            <span className="eyebrow honest-rules-eyebrow"><span className="eyebrow-emoji" aria-hidden="true">📊</span> 06 — How scoring works</span>
             <ol className="honest-rules-list">
               {HONEST_RULES.map((rule, i) => (
                 <li key={rule} className="honest-rule-item">

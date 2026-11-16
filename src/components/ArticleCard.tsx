@@ -14,11 +14,16 @@ interface ArticleCardProps {
     after revamp2, and the owner wants the guides to read as real
     content, not stubs. */
 export const ArticleCard: React.FC<ArticleCardProps> = ({ article, onNavigate, variant = 'full' }) => {
+  /* Heading level follows the page: on the Articles list the card sits
+     directly under the page h1, so its title is an h2; on the Home
+     preview it sits under the "Articles & Habit Guides" h2, so its
+     title is an h3. Same class, same look either way. */
+  const TitleTag = variant === 'full' ? 'h2' : 'h3';
   return (
     <article className="article-card">
       <span className="article-card-emoji" aria-hidden="true">{article.emoji}</span>
       <span className="article-card-topic">{article.topicTag}</span>
-      <h3 className="article-card-title">{article.title}</h3>
+      <TitleTag className="article-card-title">{article.title}</TitleTag>
       <p className="article-card-summary">{article.summary}</p>
       <span className="article-card-readtime">{article.readTime}</span>
       {variant === 'preview' ? (

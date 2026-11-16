@@ -14,7 +14,8 @@
    never edited) or a fixed system mark listed here. No emoji is invented per
    page; the same meaning always gets the same emoji.
    Rules:
-   - Size per context: nav brand mark 20px (.brand-emoji); section headers
+   - Size per context: nav brand mark 20px (.brand-mark, inline SVG —
+     the same phone mark as the favicon, not an emoji); section headers
      20px (.section-emoji); article card mark 28px glyph in the 56px
      light-blue circle (.article-card-emoji); article detail mark 48px
      (.article-emoji-mark); option emoji 18px on multi-chips (.chip-emoji),
@@ -29,7 +30,9 @@
    - The one exception: the challenge-toggle radio stays a real radio
      indicator (ocean-mid fill + white ✓ when selected, hollow ring when not).
    - Typographic glyphs (✓ → • · — ✕) are not emoji and are untouched.
-   - The favicon 📱 in index.html is frozen and stays.
+   - The favicon is a proper SVG (public/favicon.svg) since the design
+     pass — ocean tile + white phone + light-blue screen — and the nav
+     brand uses the same phone mark as inline SVG.
    ========================================================================== */
 
 :root {
@@ -92,6 +95,12 @@
 
 html {
   scroll-behavior: smooth;
+  /* No horizontal scroll: the Result hero is the site's one 100vw
+     escape, and 100vw includes the scrollbar width on desktop, so
+     without this the Result page gains a ~15px horizontal scrollbar.
+     `clip` (not `hidden`) so the sticky navbar keeps working — clip
+     creates no scroll container. */
+  overflow-x: clip;
   /* Anchor/focus jumps land clear of the 64px sticky header. */
   scroll-padding-top: 88px;
   /* Vertical proximity snapping: when a scroll stop lands near a section
@@ -110,6 +119,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 a {
@@ -507,9 +517,13 @@ section {
   opacity: 0.92;
 }
 
-.brand-emoji {
-  font-size: 20px;
-  line-height: 1;
+/* Nav brand mark: the same phone mark as the favicon, as inline SVG
+   (20px) — the 📱 emoji it replaces is not used here any more, so the
+   brand and the browser tab carry one mark. */
+.brand-mark {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
 }
 
 .nav-brand-screen {
@@ -1073,6 +1087,88 @@ section {
   margin-top: 32px;
 }
 
+/* Newsletter signup — one white capsule card, same language as the
+   How It Works cards (white, 1px line border, radius-xl, 24px padding).
+   Email only: input + one primary button. Status lines carry their
+   meaning in the glyph (✓ / ✕) — the palette has no red, so no new
+   colour is introduced for errors. */
+.newsletter-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.newsletter-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 32px 24px;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.newsletter-line {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--slate);
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  max-width: 560px;
+}
+
+.newsletter-input {
+  flex: 1;
+  min-width: 0;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ocean);
+  background: var(--white);
+  border: 2px solid var(--grey-line);
+  border-radius: var(--radius-full);
+  padding: 14px 24px;
+  outline: none;
+  transition: border-color var(--dur-hover) var(--ease);
+}
+
+.newsletter-input::placeholder {
+  color: var(--slate);
+  opacity: 0.7;
+}
+
+.newsletter-input:focus {
+  border-color: var(--ocean-mid);
+}
+
+.newsletter-input:disabled {
+  background: var(--disabled-bg);
+  color: var(--slate);
+}
+
+.newsletter-note {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+}
+
+.newsletter-status {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--ocean);
+}
+
 /* ---------- PathMap (quest progress strip only) ---------- */
 .path-strip {
   display: flex;
@@ -1297,6 +1393,9 @@ button.path-node:not(:disabled):hover {
   line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--ocean);
+  /* Centred like the eyebrow above it — the header reads as one unit.
+     The card body (chips, options, scale) stays left-aligned. */
+  text-align: center;
 }
 
 /* Q1 hours drum — value capped at 40px, below the question title. */
@@ -2460,6 +2559,10 @@ button.path-node:not(:disabled):hover {
   color: var(--slate);
   max-width: 680px;
   margin: 0 auto;
+  /* Centred like the title block above it and the articles-list intro —
+     the lead paragraph reads as part of the centred header, not as the
+     start of the left-aligned steps below. */
+  text-align: center;
 }
 
 .article-steps-list {
@@ -2716,6 +2819,14 @@ button.path-node:not(:disabled):hover {
   .home-campaign {
     padding: 24px 16px;
     gap: 16px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-card {
+    padding: 24px 16px;
   }
 
   .home-campaign-grid {

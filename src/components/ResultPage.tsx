@@ -118,9 +118,9 @@ export const ResultPage: React.FC<ResultPageProps> = ({
       <div className="result-composed-page">
         <section className="result-card result-empty-state">
           <span className="result-empty-mark" aria-hidden="true">📱</span>
-          <h2 className="result-empty-title">
+          <h1 className="result-empty-title">
             No Active Result Yet
-          </h2>
+          </h1>
           <p className="result-empty-body">
             Complete the ten-question Screen Habits Quest to calculate your personal balance score and see your result.
           </p>
@@ -206,15 +206,15 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           {/* Hero Band Block */}
           <div className="hero-band-block">
             {report.isPartial ? (
-              <span className="band-pill band-pill-incomplete result-band-title">
+              <h1 className="band-pill band-pill-incomplete result-band-title">
                 <span className="band-pill-emoji" aria-hidden="true">⏳</span>
                 Not enough answers for a full score
-              </span>
+              </h1>
             ) : (
-              <span className="band-pill result-band-title">
+              <h1 className="band-pill result-band-title">
                 <span className="band-pill-emoji" aria-hidden="true">{report.bandEmoji}</span>
                 {report.band} Band
-              </span>
+              </h1>
             )}
 
             {/* Slogan line under score */}

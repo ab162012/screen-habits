@@ -106,7 +106,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
               handleNavigate('home');
             }}
           >
-            <span className="brand-emoji" aria-hidden="true">📱</span>
+            <svg className="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="21" y="10" width="22" height="44" rx="6" fill="#FFFFFF" />
+              <rect x="25" y="15" width="14" height="28" rx="2" fill="#7DD3FC" />
+              <circle cx="32" cy="48" r="2.5" fill="#0B4F6C" />
+            </svg>
             <span className="nav-brand-screen">Screen</span>{' '}
             <span className="nav-brand-habits">Habits</span>
           </a>
