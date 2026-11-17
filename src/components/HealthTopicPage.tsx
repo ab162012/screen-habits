@@ -23,16 +23,6 @@ export const HealthTopicPage: React.FC<HealthTopicPageProps> = ({ topicSlug, onN
           variant="secondary"
           onClick={() => onNavigate('health')}
         />
-        <a
-          href="#quest-info"
-          className="article-read-link"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('quest-info');
-          }}
-        >
-          Take the Quest →
-        </a>
       </div>
 
       <div className="article-title-block">

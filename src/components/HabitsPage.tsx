@@ -129,15 +129,9 @@ export const HabitsPage: React.FC<HabitsPageProps> = ({ onNavigate }) => {
       <div className="articles-preview-footer">
         <PillButton
           label="Understand your habits first"
-          variant="secondary"
-          arrow
-          onClick={() => onNavigate('understand')}
-        />
-        <PillButton
-          label="Take the Quest"
           variant="primary"
           arrow
-          onClick={() => onNavigate('quest-info')}
+          onClick={() => onNavigate('understand')}
         />
       </div>
     </div>

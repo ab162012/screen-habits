@@ -12,7 +12,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
     { id: 'understand', label: 'Understand' },
     { id: 'health', label: 'Health' },
     { id: 'habits', label: 'Habits' },
-    { id: 'quest-info', label: 'Quest' },
     { id: 'guides', label: 'Guides' },
     { id: 'research', label: 'Research' },
     { id: 'about', label: 'About' },
@@ -92,13 +91,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   };
 
   const isActive = (itemId: string) => {
-    if (itemId === 'quest-info') {
-      return (
-        currentRoute === 'quest-info' ||
-        currentRoute === 'quest' ||
-        currentRoute === 'result'
-      );
-    }
     if (itemId === 'guides') {
       return (
         currentRoute === 'guides' ||

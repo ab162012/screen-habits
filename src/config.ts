@@ -7,7 +7,7 @@ export interface OwnerConfig {
 }
 
 // The owner config can be set here or retrieved from a hidden storage key.
-// It is completely invisible to the questionnaire user.
+// It is completely invisible to the site visitor.
 export const DEFAULT_OWNER_CONFIG: OwnerConfig = {
   sheetsUrl: '', // Google Apps Script Web App URL
   whatsappNumber: '', // WhatsApp recipient phone e.g. '15551234567'

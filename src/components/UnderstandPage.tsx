@@ -50,7 +50,7 @@ const UNDERSTAND_SECTIONS = [
     num: '07',
     heading: 'Understanding your own digital behaviour',
     detail:
-      'Nobody else can tell you how your habits work — the only honest way to find out is to look at your own week. The Screen Habits Quest is built for exactly that: ten questions across devices, apps, sleep, and focus, answered honestly, with a score that is scaled only over what you answered. It is a mirror, not a judgement. Take it, read your weakest area, and pick one small change to try for seven days. Your own evidence — what actually happened when you tried — is worth more than any advice, including this page.'
+      'Nobody else can tell you how your habits work — the only honest way to find out is to look at your own week. Keep a simple note for seven days: when you picked up the phone, why, and what it replaced. Read it back at the end of the week and your weakest area will show itself. Your own evidence — what actually happened when you tried a change — is worth more than any advice, including this page.'
   }
 ];
 
@@ -85,14 +85,8 @@ export const UnderstandPage: React.FC<UnderstandPageProps> = ({ onNavigate }) =>
 
       <div className="articles-preview-footer">
         <PillButton
-          label="Take the Quest — see your own habits"
-          variant="primary"
-          arrow
-          onClick={() => onNavigate('quest-info')}
-        />
-        <PillButton
           label="How screens affect health"
-          variant="secondary"
+          variant="primary"
           arrow
           onClick={() => onNavigate('health')}
         />

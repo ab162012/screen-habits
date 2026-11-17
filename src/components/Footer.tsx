@@ -1,5 +1,4 @@
 import React from 'react';
-import { DISCLAIMER_TEXT } from '../questions';
 
 interface FooterProps {
   onNavigate: (route: string) => void;
@@ -73,15 +72,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 }}
               >
                 Habits
-              </a>
-              <a
-                href="#quest-info"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onNavigate('quest-info');
-                }}
-              >
-                Quest
               </a>
               <a
                 href="#guides"
@@ -161,7 +151,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
         <div className="footer-bottom">
           <p className="footer-copy">© {year} Screen Habits</p>
-          <p className="footer-disclaimer">{DISCLAIMER_TEXT}</p>
+          <p className="footer-disclaimer">This is a habits guide, not medical advice. For ongoing eye pain, headaches, or sleep problems, see a professional.</p>
         </div>
       </div>
     </footer>

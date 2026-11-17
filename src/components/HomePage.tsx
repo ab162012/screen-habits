@@ -9,27 +9,7 @@ import { NewsletterSignup } from './NewsletterSignup';
 
 interface HomePageProps {
   onNavigate: (route: string) => void;
-  hasExistingAnswers: boolean;
 }
-
-/** Three steps, one line each — no paragraphs. */
-const HOW_STEPS = [
-  {
-    num: '1',
-    title: 'Answer 10 questions',
-    desc: '10 questions in 4 parts.'
-  },
-  {
-    num: '2',
-    title: 'Get your result',
-    desc: 'Your score, your band, and 3 actions.'
-  },
-  {
-    num: '3',
-    title: 'Pick one 7-day challenge',
-    desc: 'Phone-free breaks or a 9pm cut-off.'
-  }
-];
 
 /** The 7-day challenge — pick one. Reuses the How It Works row pattern. */
 const TRY_ONE_THING = [
@@ -69,7 +49,7 @@ const WELLBEING_MEANS = [
   }
 ];
 
-export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswers }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const previewArticles = ARTICLES.filter((a) => a.id !== 'healthy-habits-student-team').slice(0, 3);
 
   return (
@@ -83,7 +63,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           <span className="hero-line">Know your screen.</span>
           <span className="hero-line hero-accent">Own your time.</span>
         </h1>
-        <Sticker text="Honest check · No fake scores" tone="navy" rotate={-3} className="hero-sticker" />
+        <Sticker text="Awareness, not fear" tone="navy" rotate={-3} className="hero-sticker" />
         <p className="home-hero-subline">
           An educational platform for healthier screen habits — understand
           your habits, learn what screens do, and build routines that
@@ -91,17 +71,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </p>
         <div className="home-hero-buttons">
           <PillButton
-            label={hasExistingAnswers ? 'Continue the Quest' : 'Take the Quest'}
+            label="Explore the Guides"
             variant="primary"
             size="lg"
             arrow
-            onClick={() => onNavigate('quest-info')}
+            onClick={() => onNavigate('guides')}
           />
           <PillButton
-            label="Explore the Guides"
+            label="Understand Screen Habits"
             variant="secondary"
             size="lg"
-            onClick={() => onNavigate('guides')}
+            onClick={() => onNavigate('understand')}
           />
         </div>
       </section>
@@ -161,8 +141,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         </section>
       </Reveal>
 
-      {/* 4. Guides preview — the library carries equal weight with the
-          quest. The student team guide lives with our story instead. */}
+      {/* 4. Guides preview — the library, six guides. The student team
+          guide lives with our story instead. */}
       <Reveal>
         <section className="articles-preview-section" aria-labelledby="articles-preview-title">
           <span className="eyebrow">04 — Guides</span>
@@ -190,44 +170,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
         <NewsletterSignup />
       </Reveal>
 
-      {/* 5. Featured quest — what it is, how it works, one button. */}
-      <Reveal>
-        <section id="how-it-works" className="how-it-works-section" aria-labelledby="how-it-works-title">
-          <span className="eyebrow">05 — Featured Quest</span>
-          <h2 id="how-it-works-title" className="section-headline">
-            <span className="section-emoji" aria-hidden="true">🧭</span> The Screen Habits Quest
-          </h2>
-          <p className="home-campaign-intro">
-            A free 10-question check across devices, apps, sleep, and
-            focus. Two minutes, no sign-up — and an honest result: your
-            score, your band, and three practical actions.
-          </p>
-          <div className="how-steps-list">
-            {HOW_STEPS.map((step) => (
-              <div className="how-step-row" key={step.num}>
-                <span className="how-step-num" aria-hidden="true">{step.num.padStart(2, '0')}</span>
-                <div className="how-step-body">
-                  <h3 className="step-card-title">{step.title}</h3>
-                  <p className="step-card-desc">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="articles-preview-footer">
-            <PillButton
-              label={hasExistingAnswers ? 'Continue the Quest' : 'Take the Quest'}
-              variant="primary"
-              arrow
-              onClick={() => onNavigate('quest-info')}
-            />
-          </div>
-        </section>
-      </Reveal>
-
-      {/* 6. Healthier habits — the 7-day challenge, three choices. */}
+      {/* 5. Healthier habits — the 7-day challenge, three choices. */}
       <Reveal>
         <section className="how-it-works-section" aria-labelledby="try-one-thing-title">
-          <span className="eyebrow">06 — Healthier habits</span>
+          <span className="eyebrow">05 — Healthier habits</span>
           <h2 id="try-one-thing-title" className="section-headline">
             <span className="section-emoji" aria-hidden="true">🎯</span> Try one thing this week
           </h2>
@@ -256,7 +202,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
       {/* 7. Research teaser — what the experts actually say. */}
       <Reveal>
         <section className="home-campaign" aria-label="Research and expert insights">
-          <span className="eyebrow">07 — Research &amp; expert insights</span>
+          <span className="eyebrow">06 — Research &amp; expert insights</span>
           <p className="home-campaign-intro">
             The World Health Organization sets no single screen-time limit
             for school-age children. The American Academy of Pediatrics
@@ -279,7 +225,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, hasExistingAnswe
           origin and real-world application, not the identity. */}
       <Reveal>
         <section className="home-campaign" aria-label="Our awareness initiative">
-          <span className="eyebrow">08 — Our awareness initiative</span>
+          <span className="eyebrow">07 — Our awareness initiative</span>
           <p className="home-campaign-intro">
             YourScreenHabits began as a student campaign at Pak Turk Maarif
             Chak Shahzad Campus in Islamabad, for British Council Your

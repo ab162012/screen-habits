@@ -14,24 +14,13 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
 }) => {
   return (
     <article className="article-detail-container article-reading-view article-detail" aria-labelledby="article-heading">
-      {/* Back links: one to the articles list, one plain link to the Quest —
-          the quest is reachable, not pushed. */}
+      {/* Back link to the articles list. */}
       <div className="article-back-nav article-top-nav-bar article-nav-back">
         <PillButton
           label="← Back to Guides"
           variant="secondary"
           onClick={() => onNavigate('guides')}
         />
-        <a
-          href="#quest-info"
-          className="article-read-link"
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate('quest-info');
-          }}
-        >
-          Take the Quest →
-        </a>
       </div>
 
       {/* Title, then topic tag */}
@@ -70,7 +59,7 @@ export const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({
         ))}
       </div>
 
-      {/* Closing line pointing back to the Quest or 7-day challenge */}
+      {/* Closing line: the 7-day challenge */}
       <div className="article-closing-banner article-closing-callout article-closing-box">
         <span className="article-closing-emoji" aria-hidden="true">✅</span>{' '}
         <strong className="article-closing-label">Habit Action:</strong> {article.closingLine}

@@ -1,14 +1,13 @@
 # YourScreenHabits
 
-> An educational digital wellbeing platform about healthy screen habits — what they are, how they affect sleep, eyes, focus, movement, mood and everyday routines, and how to build healthier ones. Created by students at Pak Turk Maarif Chak Shahzad Campus, Islamabad, Pakistan. Central belief: we don't ban the phone, we make the phone the scoreboard. The student campaign and British Council Your World 2026-27 competition are the origin and real-world application of the platform, not its whole identity. No sign-up, no competition, no award.
+> An educational digital wellbeing platform about healthy screen habits — what they are, how they affect sleep, eyes, focus, movement, mood and everyday routines, and how to build healthier ones. Created by students at Pak Turk Maarif Chak Shahzad Campus, Islamabad, Pakistan. Central belief: we don't ban the phone, we make the phone the scoreboard. The student campaign and British Council Your World 2026-27 competition are the origin and real-world application of the platform, not its whole identity. Free to read, no account needed, no competition, no award.
 
 ## Destinations
 
-- [Home](https://yourscreenhabits.com/): what digital wellbeing means, why habits matter, the six health effects, featured guides, the quest, healthier habits, research, and the awareness initiative.
+- [Home](https://yourscreenhabits.com/): what digital wellbeing means, why habits matter, the six health effects, featured guides, healthier habits, research, and the awareness initiative.
 - [Understand Screen Habits](https://yourscreenhabits.com/#/understand): what screen habits are, purposes of use, active vs passive use, intentional vs automatic scrolling, why screen time alone does not tell the whole story, recognising unhealthy patterns.
 - [Health & Effects](https://yourscreenhabits.com/#/health): sleep and night-time screen use, eyes and digital eye strain, focus and distractions, physical health and movement, mental wellbeing, everyday routines and dependency.
 - [Healthy Habits](https://yourscreenhabits.com/#/habits): phone-free breaks, the 9pm screen cut-off, sleep and the last hour, reducing scrolling, managing notifications, eye breaks and posture, balancing screens with activity, offline time, intentional habits.
-- [Screen Habits Quest](https://yourscreenhabits.com/#/quest-info): what the 10-question quest measures, the four categories, scoring and XP, the four result bands, what results mean, retaking. [Take the quest](https://yourscreenhabits.com/#/quest): 10 questions in 4 parts — devices and time, apps and scrolling, night and sleep, body and focus. 10 XP per answered question; skipped questions score 0; under 5 answered = partial result. The result gives a score out of 100, a band, and three practical actions. An educational self-awareness tool, not a medical diagnosis.
 - [Guides & Resources](https://yourscreenhabits.com/#/guides): six practical guides, each about 1,000 words, each ending with one habit to try for seven days.
 - [Research & Expert Insights](https://yourscreenhabits.com/#/research): WHO guidance, American Academy of Pediatrics guidance, research on sleep, eye strain and physical activity, and references. No interviews have been conducted yet.
 - [About Us](https://yourscreenhabits.com/#/about): the story, mission, team, school, awareness activities, British Council Your World 2026-27, and how impact is measured.
@@ -26,5 +25,5 @@
 
 ## The campaign
 
-- [About Us](https://yourscreenhabits.com/#/about): the student campaign behind the platform — assembly 2 Nov 2026, awareness day 12 Nov 2026, quest before and after, results 31 Dec 2026.
+- [About Us](https://yourscreenhabits.com/#/about): the student campaign behind the platform — assembly 2 Nov 2026, awareness day 12 Nov 2026, results 31 Dec 2026.
 - [YouTube channel](https://www.youtube.com/@yourscreenhabits): the campaign videos.
