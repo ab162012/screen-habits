@@ -74,20 +74,47 @@ export interface UserProfile {
   classSection: string;
 }
 
+export type ArticleCategory = 'Sleep' | 'Eyes' | 'Focus' | 'Body' | 'Mind' | 'Routines' | 'Expert' | 'Team';
+
+/**
+ * ONE article shape for the whole site (merged 2026-11-21): the 7
+ * guides (kind 'guide') and the 6 health topics (kind 'topic') live
+ * in the same store, src/data/articles.ts. Words moved, not rewritten.
+ * - minutes: words in the body (intro + step headings + step details
+ *   + Try-one-thing label and text) divided by 200, rounded up.
+ * - summary: guides keep their summary; topics carry their intro as
+ *   their summary (they never had one).
+ * - tryOneThing: guides carry their old closing line (label "Try one
+ *   thing"); topics carry their old "Practical steps" section, heading
+ *   kept as the label, detail as the text.
+ * - sources: only the titles each piece names in its own text; an
+ *   empty list means the detail page shows no sources footer.
+ * - related: the pieces' own cross-references (e.g. a topic's "Read
+ *   the full guide" line), as links to the paired piece.
+ */
 export interface Article {
   id: string;
   slug: string;
   title: string;
-  topicTag: string;
-  readTime: string;
+  kind: 'guide' | 'topic';
+  category: ArticleCategory;
   emoji: string;
+  minutes: number;
   summary: string;
   intro: string;
   steps: {
     heading: string;
     detail: string;
   }[];
-  closingLine: string;
+  tryOneThing: {
+    label: string;
+    text: string;
+  };
+  sources: string[];
+  related: {
+    slug: string;
+    label: string;
+  }[];
 }
 
 export type ChallengeType = 'breaks' | 'cutoff';

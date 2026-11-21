@@ -8,20 +8,29 @@
 - [Understand Screen Habits](https://yourscreenhabits.com/#/understand): what screen habits are, purposes of use, active vs passive use, intentional vs automatic scrolling, why screen time alone does not tell the whole story, recognising unhealthy patterns.
 - [Health & Effects](https://yourscreenhabits.com/#/health): sleep and night-time screen use, eyes and digital eye strain, focus and distractions, physical health and movement, mental wellbeing, everyday routines and dependency.
 - [Healthy Habits](https://yourscreenhabits.com/#/habits): phone-free breaks, the 9pm screen cut-off, sleep and the last hour, reducing scrolling, managing notifications, eye breaks and posture, balancing screens with activity, offline time, intentional habits.
-- [Guides & Resources](https://yourscreenhabits.com/#/guides): six practical guides, each about 1,000 words, each ending with one habit to try for seven days.
+- [Guides & Resources](https://yourscreenhabits.com/#/guides): thirteen articles and topics — seven guides and six health topics — each ending with one habit to try for seven days.
 - [Research & Expert Insights](https://yourscreenhabits.com/#/research): WHO guidance, American Academy of Pediatrics guidance, research on sleep, eye strain and physical activity, and references. No interviews have been conducted yet.
 - [About Us](https://yourscreenhabits.com/#/about): the story, mission, team, school, awareness activities, British Council Your World 2026-27, and how impact is measured.
 - [Newsletter](https://yourscreenhabits.com/#/newsletter): digital wellbeing updates, new guides, campaign updates. Issue 1 lands 1 December 2026.
 
 ## Guides
 
-- [Phone-free breaks that actually stick](https://yourscreenhabits.com/#/article/phone-free-breaks)
-- [The 9pm screen cut-off](https://yourscreenhabits.com/#/article/9pm-screen-cutoff)
-- [Sleep and the last hour before bed](https://yourscreenhabits.com/#/article/sleep-last-hour)
-- [Scrolling less without deleting everything](https://yourscreenhabits.com/#/article/scrolling-less)
-- [Eyes, focus, and breaks](https://yourscreenhabits.com/#/article/eyes-focus-breaks)
-- [What the experts say about screens](https://yourscreenhabits.com/#/article/what-the-experts-say)
-- [What healthy habits in a digital world means for a student team](https://yourscreenhabits.com/#/article/healthy-habits-student-team) — under About Us, not in the general library.
+- [Phone-free breaks that actually stick](https://yourscreenhabits.com/#/article/phone-free-breaks-that-actually-stick)
+- [The 9pm screen cut-off](https://yourscreenhabits.com/#/article/the-9pm-screen-cut-off)
+- [Sleep and the last hour before bed](https://yourscreenhabits.com/#/article/sleep-and-the-last-hour-before-bed)
+- [Scrolling less without deleting everything](https://yourscreenhabits.com/#/article/scrolling-less-without-deleting-everything)
+- [Eyes, focus, and breaks](https://yourscreenhabits.com/#/article/eyes-focus-and-breaks)
+- [What the experts say about screens](https://yourscreenhabits.com/#/article/what-the-experts-say-about-screens)
+- [What healthy habits in a digital world means for a student team](https://yourscreenhabits.com/#/article/what-healthy-habits-in-a-digital-world-means-for-a-student-team)
+
+## Health topics
+
+- [Sleep and night-time screen use](https://yourscreenhabits.com/#/article/sleep)
+- [Eyes and digital eye strain](https://yourscreenhabits.com/#/article/eyes)
+- [Focus, attention and distractions](https://yourscreenhabits.com/#/article/focus)
+- [Physical health, posture and movement](https://yourscreenhabits.com/#/article/physical)
+- [Mental wellbeing and online experiences](https://yourscreenhabits.com/#/article/mental)
+- [Everyday routines and screen dependency](https://yourscreenhabits.com/#/article/routines)
 
 ## The campaign
 

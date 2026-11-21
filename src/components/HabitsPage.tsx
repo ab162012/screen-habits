@@ -133,6 +133,12 @@ export const HabitsPage: React.FC<HabitsPageProps> = ({ onNavigate }) => {
           arrow
           onClick={() => onNavigate('understand')}
         />
+        <PillButton
+          label="Browse all 13 articles"
+          variant="secondary"
+          arrow
+          onClick={() => onNavigate('guides')}
+        />
       </div>
     </div>
   );

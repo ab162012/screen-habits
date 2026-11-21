@@ -106,6 +106,12 @@ export const ResearchPage: React.FC<ResearchPageProps> = ({ onNavigate }) => {
           arrow
           onClick={() => onNavigate('health')}
         />
+        <PillButton
+          label="Browse all 13 articles"
+          variant="secondary"
+          arrow
+          onClick={() => onNavigate('guides')}
+        />
       </div>
     </div>
   );

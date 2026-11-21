@@ -2,107 +2,137 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yourscreenhabits.com/</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/understand</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/health</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/health/sleep</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/health/eyes</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/health/focus</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/health/physical</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/health/mental</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/health/routines</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/habits</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/guides</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourscreenhabits.com/#/article/phone-free-breaks</loc>
-    <lastmod>2026-11-17</lastmod>
+    <loc>https://yourscreenhabits.com/#/article/phone-free-breaks-that-actually-stick</loc>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yourscreenhabits.com/#/article/9pm-screen-cutoff</loc>
-    <lastmod>2026-11-17</lastmod>
+    <loc>https://yourscreenhabits.com/#/article/the-9pm-screen-cut-off</loc>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yourscreenhabits.com/#/article/sleep-last-hour</loc>
-    <lastmod>2026-11-17</lastmod>
+    <loc>https://yourscreenhabits.com/#/article/sleep-and-the-last-hour-before-bed</loc>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yourscreenhabits.com/#/article/scrolling-less</loc>
-    <lastmod>2026-11-17</lastmod>
+    <loc>https://yourscreenhabits.com/#/article/scrolling-less-without-deleting-everything</loc>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yourscreenhabits.com/#/article/eyes-focus-breaks</loc>
-    <lastmod>2026-11-17</lastmod>
+    <loc>https://yourscreenhabits.com/#/article/eyes-focus-and-breaks</loc>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yourscreenhabits.com/#/article/healthy-habits-student-team</loc>
-    <lastmod>2026-11-17</lastmod>
+    <loc>https://yourscreenhabits.com/#/article/what-healthy-habits-in-a-digital-world-means-for-a-student-team</loc>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yourscreenhabits.com/#/article/what-the-experts-say</loc>
-    <lastmod>2026-11-17</lastmod>
+    <loc>https://yourscreenhabits.com/#/article/what-the-experts-say-about-screens</loc>
+    <lastmod>2026-11-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourscreenhabits.com/#/article/sleep</loc>
+    <lastmod>2026-11-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourscreenhabits.com/#/article/eyes</loc>
+    <lastmod>2026-11-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourscreenhabits.com/#/article/focus</loc>
+    <lastmod>2026-11-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourscreenhabits.com/#/article/physical</loc>
+    <lastmod>2026-11-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourscreenhabits.com/#/article/mental</loc>
+    <lastmod>2026-11-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourscreenhabits.com/#/article/routines</loc>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/research</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/about</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://yourscreenhabits.com/#/newsletter</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-21</lastmod>
     <priority>0.7</priority>
   </url>
 </urlset>

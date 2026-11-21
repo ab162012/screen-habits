@@ -1,6 +1,5 @@
 import React from 'react';
 import { ARTICLES } from '../data/articles';
-import { HEALTH_TOPICS } from '../data/healthTopics';
 import { PillButton } from './PillButton';
 import { Sticker } from './Sticker';
 import { ArticleCard } from './ArticleCard';
@@ -121,7 +120,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             helps.
           </p>
           <div className="home-campaign-grid">
-            {HEALTH_TOPICS.map((topic) => (
+            {ARTICLES.filter((a) => a.kind === 'topic').map((topic) => (
               <a
                 key={topic.id}
                 href={`#health/${topic.slug}`}
@@ -134,15 +133,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               >
                 <span className="home-campaign-emoji" aria-hidden="true">{topic.emoji}</span>
                 <span className="home-campaign-title">{topic.title}</span>
-                <span className="home-campaign-desc">{topic.intro}</span>
+                <span className="home-campaign-desc">{topic.summary}</span>
               </a>
             ))}
           </div>
         </section>
       </Reveal>
 
-      {/* 4. Guides preview — the library, six guides. The student team
-          guide lives with our story instead. */}
+      {/* 4. Guides preview — the hub, thirteen pieces. The first three
+          non-team pieces show here; the rest live on the hub. */}
       <Reveal>
         <section className="articles-preview-section" aria-labelledby="articles-preview-title">
           <span className="eyebrow">04 — Guides</span>
@@ -156,7 +155,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
           <div className="articles-preview-footer">
             <PillButton
-              label="View All 6 Guides"
+              label="View All 13 Articles"
               variant="secondary"
               arrow
               onClick={() => onNavigate('guides')}
