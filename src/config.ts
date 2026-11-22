@@ -9,7 +9,7 @@ export interface OwnerConfig {
 // The owner config can be set here or retrieved from a hidden storage key.
 // It is completely invisible to the site visitor.
 export const DEFAULT_OWNER_CONFIG: OwnerConfig = {
-  sheetsUrl: '', // Google Apps Script Web App URL
+  sheetsUrl: 'https://script.google.com/macros/s/AKfycby_zlK-adAstSiM9kWSiNPrZgkKxzlURxcickvcRS-udW5brC2K2MN1K8esXMloY9TaAw/exec', // Google Apps Script Web App URL
   whatsappNumber: '', // WhatsApp recipient phone e.g. '15551234567'
   apkDownloadUrl: '/screen-habits-companion.apk' // Real built companion APK
 };
