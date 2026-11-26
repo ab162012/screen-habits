@@ -1646,6 +1646,395 @@ section {
   margin-left: auto;
 }
 
+/* ---------- Dots grid — one square per day of the year ----------
+   The campaign's dots grid as a component: 365 squares in reading
+   order (19 per row, last row 4); the first `filled` squares are
+   filled. The maths is hours x 365 / 24 — the same maths as the
+   posters, so the grid on the site always agrees with the grid on
+   the notice boards. */
+.dots-grid {
+  display: grid;
+  grid-template-columns: repeat(19, 1fr);
+  gap: 3px;
+  width: 100%;
+}
+
+.dots-grid-sm {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.dots-grid-lg {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.dots-square {
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+}
+
+.dots-square-filled {
+  background: var(--ocean-mid);
+  border-color: var(--ocean-mid);
+}
+
+/* Hero proof — the campaign's own number, as a picture, not a
+   slogan. Sits below the hero buttons. */
+.hero-proof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.hero-proof-line {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--ocean);
+  text-align: center;
+}
+
+.hero-proof-caption {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+  text-align: center;
+}
+
+/* Section 02 — plain treatment: white ground, wash cards. The calm,
+   explanatory section, unlike the wash panels around it. */
+.home-campaign-plain {
+  background: transparent;
+  padding: 32px 0;
+}
+
+.home-campaign-plain .home-campaign-card {
+  background: var(--ocean-wash);
+}
+
+/* Section 03 — list treatment: two columns of horizontal rows on
+   white ground, not another card grid. */
+.home-effects {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.home-effects-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 32px;
+  text-align: left;
+}
+
+.home-effect-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.home-effect-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.home-effect-arrow {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ocean-mid);
+  flex: 0 0 auto;
+}
+
+.home-effect-row:hover .home-effect-arrow {
+  color: var(--ocean-mid-hover);
+}
+
+/* Calculator — one interactive piece. */
+.calculator-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.calculator-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--ocean-wash);
+  border-radius: var(--radius-xl);
+  padding: 32px 24px;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.calculator-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.calculator-label {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--ocean);
+}
+
+.calculator-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.calculator-slider {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--ocean-mid);
+  height: 32px;
+}
+
+.calculator-hours {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ocean);
+  flex: 0 0 auto;
+  min-width: 56px;
+  text-align: right;
+}
+
+.calculator-presets {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.calculator-preset {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--ocean-mid);
+  background: #fff;
+  border: 2px solid var(--ocean-mid);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-hover) var(--ease),
+    color var(--dur-hover) var(--ease);
+}
+
+.calculator-preset:hover {
+  background: var(--ocean-wash);
+}
+
+.calculator-preset-active,
+.calculator-preset-active:hover {
+  background: var(--ocean-mid);
+  color: #fff;
+}
+
+.calculator-result {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.calculator-days {
+  font-size: clamp(56px, 8vw, 80px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ocean);
+}
+
+.calculator-result-text {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+  text-align: left;
+  max-width: 320px;
+}
+
+.calculator-grid-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.calculator-legend {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+}
+
+/* Section 06 — the one dark band on the home page (besides nav +
+   footer), so this section reads as the evidence anchor. */
+.home-research-band {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: var(--ocean);
+  border-radius: var(--radius-xl);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.home-research-band .eyebrow {
+  color: var(--ocean-pale);
+  margin-bottom: 0;
+}
+
+.home-research-band .home-campaign-intro {
+  color: #fff;
+}
+
+/* Section 07 — split treatment: words left, poster right. */
+.home-initiative {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.home-initiative-text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.home-initiative-text .eyebrow {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.home-initiative-text .home-campaign-intro {
+  margin: 0;
+  text-align: left;
+}
+
+.home-initiative-cta {
+  justify-content: flex-start;
+  margin-top: 0;
+}
+
+.home-initiative-media {
+  display: flex;
+  justify-content: center;
+}
+
+.home-initiative-media img {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+}
+
+/* 404 — centred, same language as the hero. */
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 48px 0;
+}
+
+.not-found-heading {
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ocean);
+}
+
+.not-found-text {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+  max-width: 560px;
+}
+
+.not-found-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* Route loading — plain text, no overlay. */
+.route-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ocean-mid);
+}
+
+@media (max-width: 768px) {
+  .home-initiative {
+    grid-template-columns: 1fr;
+  }
+
+  .home-initiative-text .eyebrow,
+  .home-initiative-text .home-campaign-intro {
+    text-align: center;
+  }
+
+  .home-initiative-cta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-effects-list {
+    grid-template-columns: 1fr;
+  }
+
+  .home-campaign-plain {
+    padding: 24px 0;
+  }
+
+  .calculator-card {
+    padding: 24px 16px;
+  }
+
+  .calculator-result-text {
+    text-align: center;
+    max-width: none;
+  }
+
+  .hero-proof {
+    margin-top: 32px;
+  }
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   /* Nine destinations in the navbar do not fit below ~1100px, so the

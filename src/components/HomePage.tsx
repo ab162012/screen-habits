@@ -5,6 +5,8 @@ import { Sticker } from './Sticker';
 import { ArticleCard } from './ArticleCard';
 import { Reveal } from './Reveal';
 import { NewsletterSignup } from './NewsletterSignup';
+import { DotsGrid } from './DotsGrid';
+import { ScreenTimeCalculator } from './ScreenTimeCalculator';
 
 interface HomePageProps {
   onNavigate: (route: string) => void;
@@ -83,11 +85,28 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             onClick={() => onNavigate('understand')}
           />
         </div>
+
+        {/* Hero proof — the campaign's own number, as a picture, not a
+            slogan. 4 hours a day is 61 days a year; every square is
+            one day. */}
+        <div className="hero-proof">
+          <p className="hero-proof-line">
+            <strong>4 hours a day = 61 days a year.</strong>
+          </p>
+          <DotsGrid
+            filled={61}
+            size="sm"
+            label="61 of 365 squares filled — 61 days of the year on a screen"
+          />
+          <p className="hero-proof-caption">Each square = 1 day of your year.</p>
+        </div>
       </section>
 
-      {/* 2. What digital wellbeing means — three questions, not a rule. */}
+      {/* 2. What digital wellbeing means — three questions, not a rule.
+          Plain treatment: white ground, wash cards — the calm,
+          explanatory section, unlike the wash panels around it. */}
       <Reveal>
-        <section className="home-campaign" aria-label="What digital wellbeing means">
+        <section className="home-campaign home-campaign-plain" aria-label="What digital wellbeing means">
           <span className="eyebrow">02 — What digital wellbeing means</span>
           <p className="home-campaign-intro">
             Digital wellbeing is not using screens less. It is knowing how,
@@ -109,9 +128,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </Reveal>
 
       {/* 3. Why screen habits matter — the six effects, each a door
-          into Health & Effects. */}
+          into Health & Effects. List treatment: two columns of
+          horizontal rows on white ground, not another card grid. */}
       <Reveal>
-        <section className="home-campaign" aria-label="Why screen habits matter">
+        <section className="home-effects" aria-label="Why screen habits matter">
           <span className="eyebrow">03 — Why screen habits matter</span>
           <p className="home-campaign-intro">
             Screens touch sleep, eyes, focus, movement, mood, and everyday
@@ -119,12 +139,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             Choose an effect to see the issue, the evidence, and what
             helps.
           </p>
-          <div className="home-campaign-grid">
+          <div className="home-effects-list">
             {ARTICLES.filter((a) => a.kind === 'topic').map((topic) => (
               <a
                 key={topic.id}
                 href={`#health/${topic.slug}`}
-                className="home-campaign-card"
+                className="home-effect-row"
                 onClick={(e) => {
                   e.preventDefault();
                   onNavigate(`health/${topic.slug}`);
@@ -132,11 +152,30 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 aria-label={`${topic.title} — read the topic`}
               >
                 <span className="home-campaign-emoji" aria-hidden="true">{topic.emoji}</span>
-                <span className="home-campaign-title">{topic.title}</span>
-                <span className="home-campaign-desc">{topic.summary}</span>
+                <span className="home-effect-body">
+                  <span className="home-campaign-title">{topic.title}</span>
+                  <span className="home-campaign-desc">{topic.summary}</span>
+                </span>
+                <span className="home-effect-arrow" aria-hidden="true">→</span>
               </a>
             ))}
           </div>
+        </section>
+      </Reveal>
+
+      {/* The maths — one interactive piece: how many days is your
+          screen time? The dots grid answers as the slider moves. */}
+      <Reveal>
+        <section className="calculator-section" aria-labelledby="calculator-title">
+          <span className="eyebrow">The maths — check your own screen time</span>
+          <h2 id="calculator-title" className="section-headline">
+            How many days is your screen time?
+          </h2>
+          <p className="home-campaign-intro calculator-intro">
+            Move the slider to your usual day. The grid fills in — one
+            square for every full day of the year your screens take.
+          </p>
+          <ScreenTimeCalculator />
         </section>
       </Reveal>
 
@@ -198,9 +237,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </section>
       </Reveal>
 
-      {/* 7. Research teaser — what the experts actually say. */}
+      {/* 7. Research teaser — what the experts actually say. The one
+          dark band on the home page (besides nav + footer), so this
+          section reads as the evidence anchor, not another wash panel. */}
       <Reveal>
-        <section className="home-campaign" aria-label="Research and expert insights">
+        <section className="home-research-band" aria-label="Research and expert insights">
           <span className="eyebrow">06 — Research &amp; expert insights</span>
           <p className="home-campaign-intro">
             The World Health Organization sets no single screen-time limit
@@ -221,23 +262,36 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </Reveal>
 
       {/* 8. Our awareness initiative — the campaign, kept small: the
-          origin and real-world application, not the identity. */}
+          origin and real-world application, not the identity. Split
+          treatment: words on the left, the campaign poster on the
+          right. */}
       <Reveal>
-        <section className="home-campaign" aria-label="Our awareness initiative">
-          <span className="eyebrow">07 — Our awareness initiative</span>
-          <p className="home-campaign-intro">
-            YourScreenHabits began as a student campaign at Pak Turk Maarif
-            Chak Shahzad Campus in Islamabad, for British Council Your
-            World 2026–27. A team of four students, testing their own
-            habits first and sharing what actually worked — in class
-            groups, on notice boards, and on this website.
-          </p>
-          <div className="articles-preview-footer">
-            <PillButton
-              label="About Us"
-              variant="secondary"
-              arrow
-              onClick={() => onNavigate('about')}
+        <section className="home-initiative" aria-label="Our awareness initiative">
+          <div className="home-initiative-text">
+            <span className="eyebrow">07 — Our awareness initiative</span>
+            <p className="home-campaign-intro">
+              YourScreenHabits began as a student campaign at Pak Turk Maarif
+              Chak Shahzad Campus in Islamabad, for British Council Your
+              World 2026–27. A team of four students, testing their own
+              habits first and sharing what actually worked — in class
+              groups, on notice boards, and on this website.
+            </p>
+            <div className="articles-preview-footer home-initiative-cta">
+              <PillButton
+                label="About Us"
+                variant="secondary"
+                arrow
+                onClick={() => onNavigate('about')}
+              />
+            </div>
+          </div>
+          <div className="home-initiative-media">
+            <img
+              src="/unzip-poster.jpg"
+              alt="Unzip your screen — the campaign poster: a phone unzipped to reveal friends, football and the moon"
+              width={800}
+              height={1147}
+              loading="lazy"
             />
           </div>
         </section>
