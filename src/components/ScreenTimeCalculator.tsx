@@ -22,56 +22,62 @@ export const ScreenTimeCalculator: React.FC = () => {
 
   return (
     <div className="calculator-card">
-      <div className="calculator-controls">
-        <label className="calculator-label" htmlFor="screen-hours">
-          Hours of screens a day
-        </label>
-        <div className="calculator-slider-row">
-          <input
-            id="screen-hours"
-            type="range"
-            min={MIN_HOURS}
-            max={MAX_HOURS}
-            step={STEP}
-            value={hours}
-            onChange={(e) => setHours(Number(e.target.value))}
-            className="calculator-slider"
-            aria-describedby="calculator-result"
-          />
-          <span className="calculator-hours" aria-hidden="true">
-            {formatHours(hours)}h
-          </span>
-        </div>
-        <div className="calculator-presets" role="group" aria-label="Common amounts">
-          {PRESETS.map((preset) => (
-            <button
-              key={preset}
-              type="button"
-              className={`calculator-preset${hours === preset ? ' calculator-preset-active' : ''}`}
-              onClick={() => setHours(preset)}
-              aria-pressed={hours === preset}
-            >
-              {preset}h a day
-            </button>
-          ))}
-        </div>
-      </div>
+      <div className="calculator-split">
+        <div className="calculator-col-controls">
+          <div className="calculator-controls">
+            <label className="calculator-label" htmlFor="screen-hours">
+              Hours of screens a day
+            </label>
+            <div className="calculator-slider-row">
+              <input
+                id="screen-hours"
+                type="range"
+                min={MIN_HOURS}
+                max={MAX_HOURS}
+                step={STEP}
+                value={hours}
+                onChange={(e) => setHours(Number(e.target.value))}
+                className="calculator-slider"
+                aria-describedby="calculator-result"
+              />
+              <span className="calculator-hours" aria-hidden="true">
+                {formatHours(hours)}h
+              </span>
+            </div>
+            <div className="calculator-presets" role="group" aria-label="Common amounts">
+              {PRESETS.map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  className={`calculator-preset${hours === preset ? ' calculator-preset-active' : ''}`}
+                  onClick={() => setHours(preset)}
+                  aria-pressed={hours === preset}
+                >
+                  {preset}h a day
+                </button>
+              ))}
+            </div>
+          </div>
 
-      <p className="calculator-result" id="calculator-result" aria-live="polite">
-        <span className="calculator-days">{daysPerYear}</span>
-        <span className="calculator-result-text">
-          {daysPerYear === 1 ? 'day' : 'days'} of your year — on a screen.
-          That is {hoursPerYear.toLocaleString('en-GB')} hours a year.
-        </span>
-      </p>
+          <p className="calculator-result" id="calculator-result" aria-live="polite">
+            <span className="calculator-days">{daysPerYear}</span>
+            <span className="calculator-result-text">
+              {daysPerYear === 1 ? 'day' : 'days'} of your year — on a screen.
+              That is {hoursPerYear.toLocaleString('en-GB')} hours a year.
+            </span>
+          </p>
+        </div>
 
-      <div className="calculator-grid-wrap">
-        <DotsGrid
-          filled={daysPerYear}
-          size="lg"
-          label={`${daysPerYear} of 365 squares filled — ${daysPerYear} days of the year on a screen`}
-        />
-        <p className="calculator-legend">Each square = 1 day of your year.</p>
+        <div className="calculator-col-grid">
+          <div className="calculator-grid-wrap">
+            <DotsGrid
+              filled={daysPerYear}
+              size="lg"
+              label={`${daysPerYear} of 365 squares filled — ${daysPerYear} days of the year on a screen`}
+            />
+            <p className="calculator-legend">Each square = 1 day of your year.</p>
+          </div>
+        </div>
       </div>
     </div>
   );

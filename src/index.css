@@ -260,6 +260,40 @@ section {
   gap: 8px;
 }
 
+/* Left-aligned headline / eyebrow — the homepage's section headers.
+   Most sections read left-aligned now; only the dark band and the
+   newsletter stay centred. */
+.section-headline-left {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.eyebrow-left {
+  text-align: left;
+}
+
+/* Homepage section header: eyebrow + headline + intro, then the
+   section's content. One rhythm for every section. */
+.home2-head {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.home2-intro {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+  max-width: 680px;
+  margin: 0;
+}
+
+.home2-section {
+  display: flex;
+  flex-direction: column;
+}
+
 /* ---------- Scroll reveal (one-shot, 250ms, 12px rise) ---------- */
 .reveal {
   opacity: 0;
@@ -813,13 +847,25 @@ section {
   gap: 96px;
 }
 
-/* Hero — the whole pitch. Display type, centred. */
+/* Hero — a real banner: a wash band, split in two. Left, the pitch
+   (chip, headline, slogan, subline, actions, belief). Right, the
+   proof card with the dots grid. Left-aligned, not a centred stack. */
 .home-hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: center;
+  background: var(--ocean-wash);
+  border-radius: var(--radius-xl);
+  padding: 48px 40px;
+  animation: hero-rise var(--dur-enter) var(--ease);
+}
+
+.home-hero-copy {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  animation: hero-rise var(--dur-enter) var(--ease);
+  align-items: flex-start;
+  min-width: 0;
 }
 
 .home-hero-chip {
@@ -827,7 +873,7 @@ section {
   font-size: 14px;
   font-weight: 700;
   color: var(--ocean-mid);
-  background: var(--ocean-wash);
+  background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius-full);
   padding: 8px 16px;
@@ -835,17 +881,19 @@ section {
 }
 
 .home-hero-headline {
-  /* Display, 96px cap (was 112px): measured with the real Manrope 800,
-     "KNOW YOUR SCREEN." is 1,156px at 112px vs the 1,152px container, so
-     line 1 wrapped; at 96px it is 991px and fits on one line at every
-     desktop width. Floor 48px per the map. */
-  font-size: clamp(48px, 9vw, 96px);
+  /* In the split hero the headline lives in a ~540px column, so the
+     display size is capped at 48px: measured with the real Manrope
+     800, "KNOW YOUR SCREEN." is ~495px at 48px and fits on one line.
+     The bigger headline returns when the hero stacks (see the
+     1024px query). */
+  font-size: clamp(40px, 4.2vw, 48px);
   font-weight: 800;
   text-transform: uppercase;
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--ocean);
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+  text-align: left;
 }
 
 .hero-line {
@@ -856,13 +904,13 @@ section {
   color: var(--ocean-mid);
 }
 
-/* The sticker sits in normal flow BELOW the headline — it overlaps
-   nothing (it used to be pulled up 24px over the H1 and hid the period
-   of "OWN YOUR TIME."). */
-.hero-sticker {
-  align-self: center;
-  margin: 16px 0 0;
-  z-index: 1;
+/* Third line of the slogan, kept with the headline it completes. */
+.home-hero-slogan3 {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--ocean-mid);
+  margin-bottom: 24px;
 }
 
 .home-hero-subline {
@@ -870,15 +918,54 @@ section {
   font-weight: 600;
   line-height: 1.5;
   color: var(--slate);
-  max-width: 620px;
-  margin: 24px auto 32px;
+  max-width: 520px;
+  margin: 0 0 32px;
 }
 
 .home-hero-buttons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* The belief, as the hero's footer — separated by a hairline rule. */
+.home-hero-belief {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.5;
+  color: var(--ocean);
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+/* Hero proof — the campaign's own number as a card, not a footnote. */
+.home-hero-proof {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-pop);
+  padding: 32px 24px;
+}
+
+.home-hero-proof-line {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--ocean);
+  text-align: center;
+}
+
+.home-hero-proof-caption {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+  text-align: center;
 }
 
 /* Campaign — contained wash panel, NOT full-bleed. Same white-capsule
@@ -1010,69 +1097,45 @@ section {
   flex: 0 0 auto;
 }
 
-/* Your Path + How It Works share the section rhythm (96px gap from
-   .home-page; intro margin handled by .section-intro). */
-.path-home-section,
-.how-it-works-section,
-.articles-preview-section {
-  display: flex;
-  flex-direction: column;
-}
-
-/* How It Works — 3 equal capsule cards in a grid, no stagger,
-   no ghost numerals, no arrow discs, no buried CTA. */
-.how-steps-list {
+/* Try one thing — 3 wash cards with a number and an ocean top rule.
+   Left-aligned, not centred: the number carries the order. */
+.home2-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
-.how-step-row {
+.home2-step {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
   gap: 8px;
-  background: #fff;
+  background: var(--ocean-wash);
   border: 1px solid var(--line);
+  border-top: 4px solid var(--ocean-mid);
   border-radius: var(--radius-lg);
   padding: 24px;
 }
 
-.how-step-num {
+.home2-step-num {
   font-size: 20px;
   font-weight: 800;
   line-height: 1.25;
-  color: var(--ocean);
-  flex: 0 0 auto;
+  color: var(--ocean-mid);
 }
 
-.how-step-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.step-card-title {
+.home2-step-title {
   font-size: 20px;
   font-weight: 800;
   line-height: 1.25;
   color: var(--ocean);
 }
 
-.step-card-desc {
+.home2-step-desc {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--slate);
-}
-
-/* Articles preview — 3 EQUAL cards. */
-.articles-preview-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
 }
 
 .articles-preview-footer {
@@ -1681,75 +1744,22 @@ section {
   border-color: var(--ocean-mid);
 }
 
-/* Hero proof — the campaign's own number, as a picture, not a
-   slogan. Sits below the hero buttons. */
-.hero-proof {
+/* What digital wellbeing means — numbered editorial rows on white
+   ground. No cards, no wash: the numbers and the rule carry it. */
+.home2-qa-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin-top: 48px;
 }
 
-.hero-proof-line {
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 1.3;
-  color: var(--ocean);
-  text-align: center;
-}
-
-.hero-proof-caption {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--slate);
-  text-align: center;
-}
-
-/* Section 02 — plain treatment: white ground, wash cards. The calm,
-   explanatory section, unlike the wash panels around it. */
-.home-campaign-plain {
-  background: transparent;
-  padding: 32px 0;
-}
-
-.home-campaign-plain .home-campaign-card {
-  background: var(--ocean-wash);
-}
-
-/* Section 03 — list treatment: two columns of horizontal rows on
-   white ground, not another card grid. */
-.home-effects {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  text-align: center;
-}
-
-.home-effects-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0 32px;
-  text-align: left;
-}
-
-.home-effect-row {
+.home2-qa-row {
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  padding: 16px 0;
+  padding: 24px 0;
   border-top: 1px solid var(--line);
 }
 
-.home-effect-body {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
-}
-
-.home-effect-arrow {
+.home2-qa-num {
   font-size: 20px;
   font-weight: 800;
   line-height: 1.25;
@@ -1757,28 +1767,189 @@ section {
   flex: 0 0 auto;
 }
 
-.home-effect-row:hover .home-effect-arrow {
+.home2-qa-emoji {
+  font-size: 28px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.home2-qa-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.home2-qa-title {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ocean);
+}
+
+.home2-qa-desc {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--slate);
+  max-width: 680px;
+}
+
+/* Why screen habits matter — a 3 × 2 tile grid. White tiles with a
+   border and an arrow; the hover lifts the tile. */
+.home2-topics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.home2-topic {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition:
+    transform var(--dur-hover) var(--ease),
+    box-shadow var(--dur-hover) var(--ease),
+    border-color var(--dur-hover) var(--ease);
+}
+
+.home2-topic:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--ocean-mid);
+}
+
+.home2-topic-emoji {
+  font-size: 28px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.home2-topic-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.home2-topic-title {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--ocean);
+}
+
+.home2-topic-desc {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+}
+
+.home2-topic-arrow {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ocean-mid);
+  flex: 0 0 auto;
+}
+
+.home2-topic:hover .home2-topic-arrow {
   color: var(--ocean-mid-hover);
 }
 
-/* Calculator — one interactive piece. */
+/* Guides showcase — browse chips, the featured guide full-width,
+   then all twelve remaining pieces in the grid. */
+.home2-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.home2-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--ocean-mid);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  transition:
+    background-color var(--dur-hover) var(--ease),
+    border-color var(--dur-hover) var(--ease);
+}
+
+.home2-cat:hover {
+  background: var(--ocean-wash);
+  border-color: var(--ocean-mid);
+}
+
+.home2-cat-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  background: var(--ocean-mid);
+  border-radius: var(--radius-full);
+}
+
+.home2-featured {
+  margin-bottom: 24px;
+}
+
+.home2-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+
+/* Calculator — one interactive piece. The card is a split now:
+   controls and result on the left, the dots grid on the right. */
 .calculator-section {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  text-align: center;
 }
 
 .calculator-card {
+  background: var(--ocean-wash);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  width: 100%;
+}
+
+.calculator-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.calculator-col-controls {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  background: var(--ocean-wash);
-  border-radius: var(--radius-xl);
-  padding: 32px 24px;
-  max-width: 860px;
-  width: 100%;
-  margin: 0 auto;
+  min-width: 0;
+}
+
+.calculator-col-grid {
+  min-width: 0;
 }
 
 .calculator-controls {
@@ -1819,7 +1990,6 @@ section {
 
 .calculator-presets {
   display: flex;
-  justify-content: center;
   gap: 8px;
   flex-wrap: wrap;
 }
@@ -1853,7 +2023,6 @@ section {
 .calculator-result {
   display: flex;
   align-items: baseline;
-  justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -1897,7 +2066,7 @@ section {
   gap: 24px;
   background: var(--ocean);
   border-radius: var(--radius-xl);
-  padding: 32px 24px;
+  padding: 40px 32px;
   text-align: center;
 }
 
@@ -1910,46 +2079,67 @@ section {
   color: #fff;
 }
 
-/* Section 07 — split treatment: words left, poster right. */
-.home-initiative {
+/* Our awareness initiative — split: words left, the campaign poster
+   as type on the right. The poster's own headline and subline, no
+   image file. */
+.home2-initiative {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
   align-items: center;
 }
 
-.home-initiative-text {
+.home2-initiative-text {
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
-.home-initiative-text .eyebrow {
-  text-align: left;
-  margin-bottom: 0;
+.home2-initiative-text .home2-intro {
+  margin-bottom: 32px;
 }
 
-.home-initiative-text .home-campaign-intro {
-  margin: 0;
-  text-align: left;
-}
-
-.home-initiative-cta {
-  justify-content: flex-start;
-  margin-top: 0;
-}
-
-.home-initiative-media {
+.home2-cta-row {
   display: flex;
-  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.home-initiative-media img {
-  width: 100%;
-  max-width: 380px;
-  height: auto;
-  border-radius: var(--radius-xl);
+.home2-campaign-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  background: var(--ocean-wash);
   border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  padding: 48px 32px;
+}
+
+.home2-campaign-headline {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ocean);
+}
+
+.home2-campaign-sub {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+}
+
+.home2-campaign-foot {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--slate);
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  width: 100%;
 }
 
 /* 404 — centred, same language as the hero. */
@@ -1998,27 +2188,41 @@ section {
 }
 
 @media (max-width: 768px) {
-  .home-initiative {
+  .home2-initiative {
     grid-template-columns: 1fr;
   }
 
-  .home-initiative-text .eyebrow,
-  .home-initiative-text .home-campaign-intro {
+  .home2-initiative-text .eyebrow,
+  .home2-initiative-text .home2-intro {
     text-align: center;
   }
 
-  .home-initiative-cta {
+  .home2-cta-row {
+    justify-content: center;
+  }
+
+  /* The calculator split stacks — controls on top, grid below. */
+  .calculator-split {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .calculator-result {
+    justify-content: center;
+  }
+
+  .calculator-result-text {
+    text-align: center;
+  }
+
+  .calculator-presets {
     justify-content: center;
   }
 }
 
 @media (max-width: 640px) {
-  .home-effects-list {
+  .home2-topics {
     grid-template-columns: 1fr;
-  }
-
-  .home-campaign-plain {
-    padding: 24px 0;
   }
 
   .calculator-card {
@@ -2030,8 +2234,17 @@ section {
     max-width: none;
   }
 
-  .hero-proof {
-    margin-top: 32px;
+  .home-hero {
+    padding: 32px 20px;
+    gap: 24px;
+  }
+
+  .home-hero-proof {
+    padding: 24px 16px;
+  }
+
+  .home2-campaign-card {
+    padding: 32px 20px;
   }
 }
 
@@ -2050,7 +2263,29 @@ section {
   }
 
   .articles-list-grid,
-  .articles-preview-grid {
+  .home2-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* The split hero stacks at tablet width — the headline column
+     would be too narrow for "KNOW YOUR SCREEN." on one line. */
+  .home-hero {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 32px;
+  }
+
+  .home-hero-headline {
+    font-size: clamp(48px, 8vw, 64px);
+  }
+
+  .home-hero-proof {
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .home2-topics {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -2089,7 +2324,7 @@ section {
   }
 
   .home-page {
-    gap: 48px;
+    gap: 64px;
   }
 
   /* Mobile menu: brand + hamburger only; the CTA lives inside the sheet. */
@@ -2129,7 +2364,7 @@ section {
     grid-template-columns: 1fr;
   }
 
-  .how-steps-list {
+  .home2-steps {
     grid-template-columns: 1fr;
   }
 
@@ -2143,7 +2378,7 @@ section {
   }
 
   .articles-list-grid,
-  .articles-preview-grid {
+  .home2-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2188,8 +2423,7 @@ section {
   .site-footer,
   .sticker,
   .pill-btn,
-  .skip-link,
-  .hero-sticker {
+  .skip-link {
     display: none !important;
   }
 
